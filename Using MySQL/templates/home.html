@@ -33,18 +33,37 @@
     <body>		
 		<div id="top-bar" class="container">
 			<div class="row">
-				<div class="span4">
+				<div class="span3">
 					<a href="/" class="logo pull-left">
 						<img src="static/images/Fahasalogo.png" class="site_logo" alt="Fahasa Logo">
 					</a>
 				</div>
-				<div class="span8">
-					<div class="account pull-right">
-						<div class="dropdown">
-							<button class="dropbtn">Tài Khoản <i class="fas fa-caret-down"></i></button>
-							<div class="dropdown-content">
-								<a href="./register">Đăng Kí</a>
-								<a href="./login">Đăng Nhập</a>
+				<div class="span5">
+					<div class="search-bar">
+						<form class="search-form" action="/search" method="GET">
+							<input type="text" placeholder="Tìm kiếm sản phẩm mong muốn...">
+							<button type="submit"><i class="fas fa-search"></i></button>
+						</form>
+					</div>
+				</div>
+				<div class="span4">
+					<div class="top-menu">
+						<div class="cart">
+							<a href="/cart">
+								<i class="fas fa-shopping-cart"></i>
+								<span>Giỏ hàng</span>
+							</a>
+						</div>
+						<div class="account">
+							<div class="dropdown">
+								<button class="dropbtn">
+									<i class="fas fa-user"></i>
+									<span>Tài Khoản</span>
+								</button>
+								<div class="dropdown-content">
+									<a href="./register">Đăng Kí</a>
+									<a href="./login">Đăng Nhập</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -57,19 +76,46 @@
 				<div class="flexslider">
 					<ul class="slides">
 						<li>
-							<img src="static/images/carousel/carousel1.jpg" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner1.webp" alt="" class="carousel-image"/>
 						</li>
 						<li>
-							<img src="static/images/carousel/carousel2.jpg" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner2.webp" alt="" class="carousel-image"/>
 						</li>
 						<li>
-							<img src="static/images/carousel/Carousel3.jpg" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner3.webp" alt="" class="carousel-image"/>
 						</li>
 						<li>
-							<img src="static/images/carousel/Carousel4.jpg" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner4.webp" alt="" class="carousel-image"/>
 						</li>
 					</ul>
 				</div>			
+			</section>
+
+			<!-- Thêm phần banner phụ -->
+			<section class="sub-banners">
+				<div class="row">
+					<div class="span4">
+						<div class="banner-item">
+							<a href="#">
+								<img src="static/images/banners/sub1.webp" alt="Khuyến mãi 1">
+							</a>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="banner-item">
+							<a href="#">
+								<img src="static/images/banners/sub2.webp" alt="Khuyến mãi 2">
+							</a>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="banner-item">
+							<a href="#">
+								<img src="static/images/banners/sub3.webp" alt="Khuyến mãi 3">
+							</a>
+						</div>
+					</div>
+				</div>
 			</section>
 
 		<!-- GENRE-->
