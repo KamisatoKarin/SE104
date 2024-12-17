@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Daily Dose of Reading</title>
+		<title>Quản lý sách</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -30,8 +30,9 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<a href="./adminindex" class="logo pull-left"><img src="static/images/websitelogo.png" class="site_logo" alt=""></a>
+					<a href="./adminindex" class="logo pull-left"><img src="static/images/Fahasalogo.png" class="site_logo" alt=""></a>
 				</div>
+				
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">				
@@ -46,24 +47,23 @@
 				<div class="navbar-inner main-menu">				
 					<nav id="menu" class="pull-right">
 						<ul>
-							<li><a href="./adminindex">Home</a></li>
-							<li><a href="./search">Search Books</a></li>
-							<li><a href="./books" method="POST">Books</a>					
+							<li><a href="./adminindex">Trang chủ</a></li>
+							<li><a href="./books" method="POST">Sách</a>					
 								<ul>
-									<li><a href="./books">Add</a></li>									
-									<li><a href="./books">Update</a></li>
-									<li><a href="./books">Delete</a></li>			
+									<li><a href="./books">Thêm</a></li>									
+									<li><a href="./books">Cập nhật</a></li>
+									<li><a href="./books">Xóa</a></li>			
 								</ul>
 							</li>
-							<li><a href="./inventory">Inventory</a></li>	
-							<li><a href="./users">Users</a>					
+							<li><a href="./inventory">Tồn kho</a></li>	
+							<li><a href="./users">Người dùng</a>					
 								<ul>
 									<li><a href="./users">Admins</a></li>									
-									<li><a href="./users">Customers</a></li>					
+									<li><a href="./users">Khách hàng</a></li>					
 								</ul>
 							</li>
-							<li><a href="./myorders">Orders</a></li>
-							<li><a href="./myaccount">My Account</a></li>		
+							<li><a href="./myorders">Đơn hàng</a></li>
+							<li><a href="./myaccount">Tài khoản của tôi</a></li>		
 						</ul>
 					</nav>
 				</div>
@@ -77,7 +77,7 @@
 						<div class="row">
 							<div class="span12">
 								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>ADD </strong>BOOK</span></span></span>
+									<span class="pull-left"><span class="text"><span class="line"><strong>Thêm </strong>sách</span></span></span>
 								</h4>
 								<div id="myCarousel-2" class="myCarousel carousel slide">
 									<div class="carousel-inner">
@@ -86,62 +86,62 @@
 											<input type="hidden" name="next" value="/">
 											<fieldset>
 												<div class="control-group">
-													<label class="control-label">Book ISBN</label>
+													<label class="control-label">Mã sách</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter book ISBN" id="username" class="input-xlarge" name="bookID" required>
+														<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Book Title</label>
+													<label class="control-label">Tên sách</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter book title" id="username" class="input-xlarge" name="title" required>
+														<input type="text" placeholder="Nhập tên sách" id="username" class="input-xlarge" name="title" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Genre</label>
+													<label class="control-label">Thể loại</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter book genre" id="username" class="input-xlarge" name="genre" required>
+														<input type="text" placeholder="Nhập thể loại" id="username" class="input-xlarge" name="genre" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Price</label>
+													<label class="control-label">Giá</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter book price" id="username" class="input-xlarge" name="price" required>
+														<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Author First Name</label>
+													<label class="control-label">Tên tác giả</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter first name" id="username" class="input-xlarge" name="fname" required>
+														<input type="text" placeholder="Nhập tên tác giả" id="username" class="input-xlarge" name="fname" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Author Last Name</label>
+													<label class="control-label">Họ tác giả</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter last name" id="username" class="input-xlarge" name="lname" required>
+														<input type="text" placeholder="Nhập họ tác giả" id="username" class="input-xlarge" name="lname" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Publication year</label>
+													<label class="control-label">Năm xuất bản</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter the year" id="username" class="input-xlarge" name="year" required>
+														<input type="number" placeholder="Nhập năm xuất bản" id="username" class="input-xlarge" name="year" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Publication country</label>
+													<label class="control-label">Quốc gia xuất bản</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter the country" id="username" class="input-xlarge" name="country" required>
+														<input type="text" placeholder="Nhập quốc gia xuất bản" id="username" class="input-xlarge" name="country" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Stock</label>
+													<label class="control-label">Tồn kho</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter the stock of book" id="username" class="input-xlarge" name="stock" required>
+														<input type="number" placeholder="Nhập tồn kho" id="username" class="input-xlarge" name="stock" required>
 													</div>
 												</div>
 				
 												<div class="control-group">
-													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Add Book">
+													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Thêm sách">
 												</div>
 											</fieldset>
 										</form>	
@@ -156,7 +156,7 @@
 						<div class="row">
 							<div class="span12">
 								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>UPDATE </strong>BOOK Price</span></span></span>
+									<span class="pull-left"><span class="text"><span class="line"><strong>Cập nhật </strong>giá sách</span></span></span>
 								</h4>
 								<div id="myCarousel-2" class="myCarousel carousel slide">
 									<div class="carousel-inner">
@@ -165,43 +165,43 @@
 											<input type="hidden" name="next" value="/">
 											<fieldset>
 												<div class="control-group">
-													<label class="control-label">Book ISBN</label>
+													<label class="control-label">Mã sách</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter book ISBN" id="username" class="input-xlarge" name="bookID" required>
+														<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Author First Name</label>
+													<label class="control-label">Tên tác giả</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter first name" id="username" class="input-xlarge" name="fname" required>
+														<input type="text" placeholder="Nhập tên tác giả" id="username" class="input-xlarge" name="fname" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Author Last Name</label>
+													<label class="control-label">Họ tác giả</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter last name" id="username" class="input-xlarge" name="lname" required>
+														<input type="text" placeholder="Nhập họ tác giả" id="username" class="input-xlarge" name="lname" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Publication country</label>
+													<label class="control-label">Quốc gia</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter country" id="username" class="input-xlarge" name="country" required>
+														<input type="text" placeholder="Nhập quốc gia" id="username" class="input-xlarge" name="country" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Original Price</label>
+													<label class="control-label">Giá cũ</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter book price" id="username" class="input-xlarge" name="price1" required>
+														<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price1" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">New Price</label>
+													<label class="control-label">Giá mớimới</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter book price" id="username" class="input-xlarge" name="price2" required>
+														<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price2" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Update Book Price">
+													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Cập nhật giá sách">
 												</div>
 											</fieldset>
 										</form>
@@ -216,7 +216,7 @@
 						<div class="row">
 							<div class="span12">
 								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>DELETE </strong>Books</span></span></span>
+									<span class="pull-left"><span class="text"><span class="line"><strong>Xóa </strong>sách</span></span></span>
 									<!-- <span class="pull-right">
 										<a class="left button" href="#myCarousel-2" data-slide="prev"></a><a class="right button" href="#myCarousel-2" data-slide="next"></a>
 									</span> -->
@@ -228,32 +228,32 @@
 											<input type="hidden" name="next" value="/">
 											<fieldset>
 												<div class="control-group">
-													<label class="control-label">Book ISBN</label>
+													<label class="control-label">Mã sách</label>
 													<div class="controls">
-														<input type="number" placeholder="Enter book ISBN" id="username" class="input-xlarge" name="bookID" required>
+														<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
 													</div>
 												</div>												
 												<div class="control-group">
-													<label class="control-label">Author First Name</label>
+													<label class="control-label">Tên tác giả</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter first name" id="username" class="input-xlarge" name="fname" required>
+														<input type="text" placeholder="Nhập tên tác giả" id="username" class="input-xlarge" name="fname" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Author Last Name</label>
+													<label class="control-label">Họ tác giả</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter last name" id="username" class="input-xlarge" name="lname" required>
+														<input type="text" placeholder="Nhập họ tác giả" id="username" class="input-xlarge" name="lname" required>
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Publication country</label>
+													<label class="control-label">Quốc gia</label>
 													<div class="controls">
-														<input type="text" placeholder="Enter the country" id="username" class="input-xlarge" name="country" required>
+														<input type="text" placeholder="Nhập quốc gia" id="username" class="input-xlarge" name="country" required>
 													</div>
 												</div>
 				
 												<div class="control-group">
-													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Delete Book">								
+													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Xóa sách">								
 												</div>
 											</fieldset>
 										</form>	
