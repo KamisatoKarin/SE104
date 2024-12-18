@@ -41,10 +41,11 @@ Tạo database MySQL mới
 Import file onlinebookstore db.sql vào MySQL
 Tạo file .env với nội dung:
 
-DB_HOST=localhost
-DB_USER=your_username
-DB_PASSWORD=your_password
-DB_NAME=your_database_name
+MYSQL_HOST=localhost
+MYSQL_USER=tên user đã tạo           
+MYSQL_PASSWORD=mk    
+MYSQL_DB=onlinebookstore     
+SECRET_KEY= Tìm trong app  
 ```
 
 ##5. Chạy
