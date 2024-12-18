@@ -18,24 +18,24 @@ Hệ thống quản lý và bán sách trực tuyến được xây dựng bằn
 
 ## 🛠 Hướng dẫn cài đặt
 
-###1. Clone repository
+##1. Clone repository
 
 ```bash
 git clone <https://github.com/KamisatoKarin/SE104.git>
 cd "Using MySQL" or cd "Using NoSQL - MongoDB"
 ```
-###2. Cài môi trường 
+##2. Cài môi trường 
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-###3. Cài các requirements
+##3. Cài các requirements
 ```bash
 pip install -r requirements.txt
 ```
 
-###4.(SQL)Thiết lập cơ sở dữ liệu:
+##4.(SQL)Thiết lập cơ sở dữ liệu:
 ```bash
 Tạo database MySQL mới
 Import file onlinebookstore db.sql vào MySQL
@@ -47,7 +47,7 @@ DB_PASSWORD=your_password
 DB_NAME=your_database_name
 ```
 
-5. Chạy
+##5. Chạy
 ```bash 
 python app.py
 ```
