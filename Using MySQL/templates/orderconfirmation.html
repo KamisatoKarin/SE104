@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Daily Dose of Reading</title>
+		<title>Fahasa.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -29,12 +29,12 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<a href="./customerindex" class="logo pull-left"><img src="static/images/websitelogo.png" class="site_logo" alt=""></a>
+					<a href="./customerindex" class="logo pull-left"><img src="static/images/fahasalogo.png" class="site_logo" alt=""></a>
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">	
-							<li><a href="./customerindex">Go Back</a></li>					
+							<li><a href="./customerindex">Quay lại</a></li>					
 						</ul>
 					</div>
 				</div>
@@ -48,16 +48,16 @@
 						<section class="main-content">				
 							<div class="row">
 									<div class="span12">	
-									<h4 class="title"><span class="text"><strong>Order</strong> Confirmation</span></h4>
+									<h4 class="title"><span class="text"><strong>Xác nhận</strong> đơn hàng</span></h4>
 									{% if response == "1" %}
 										<p>
-											Your order has been placed <strong>successfully</strong>
+											Đơn hàng của bạn đã đặt <strong>thành công</strong>
 										</p>
 									{% endif %}
 			
 									{% if response == "0" %}
 										<p>
-											Your order has been <strong>failed</strong>! Please try again
+											Đơn hàng <strong> không thành công</strong>! Thử lại
 										</p>
 									{% endif %}
 							</div>
