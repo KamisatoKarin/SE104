@@ -120,6 +120,7 @@
                                             <th>Số lượng</th>
                                             <th>Tổng</th>
                                             <th>Thời gian</th>
+                                            <th>Hành động</th>
                                         </tr>
                                         {% for order in Data %}
                                             <tr>
@@ -130,6 +131,13 @@
                                                 <td>{{ order[3] }}</td>
                                                 <td>{{ order[4] }}</td>
                                                 <td>{{ order[5] }}</td>
+                                                <td>
+                                                    <form action="/cancelOrder/{{order[0]}}" method="POST">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">
+                                                            Hủy đơn hàng
+                                                        </button>
+                                                    </form>
+                                                </td>
                                             </tr> 
                                         {% endfor %}
                                       </table>
@@ -164,7 +172,7 @@
                                             <td>{{ order[3] }}</td>
                                             <td>
                                                 <form action="/cancelOrder/{{order[5]}}" method="POST">
-                                                    <button type="submit" class="btn btn-danger">Hủy đơn</button>
+                                                    <button type="submit" class="btn btn-danger">Hủy đơn hàng</button>
                                                 </form>
                                             </td>
                                         </tr> 
