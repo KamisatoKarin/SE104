@@ -44,6 +44,7 @@ CREATE TABLE Books(
     Purchase_Price DECIMAL(10,2),
     Selling_Price DECIMAL(10,2),
     Current_Stock INT
+    FOREIGN KEY (publisherID) REFERENCES Publishers(publisherID)
 );
 
 CREATE TABLE Authors(
