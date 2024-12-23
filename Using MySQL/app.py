@@ -346,6 +346,14 @@ def logoutRoute():
     genreData = allGenre(mysql)
     return render_template("home.html",booksData=booksData,genreData=genreData)
 
+# Thêm route mới cho hủy đơn hàng
+@app.route("/cancelOrder/<orderID>", methods=["POST"])
+def cancelOrderRoute(orderID):
+    if "userID" not in session:
+        return redirect(url_for("loginRoute"))
+        
+    response = cancelOrder(mysql, orderID)
+    return render_template("cancelconfirmation.html", response=response)
 
 if __name__ == "__main__":
     app.run(debug=True)
