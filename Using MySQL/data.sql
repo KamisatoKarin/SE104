@@ -28,6 +28,7 @@ CREATE TABLE Admins(
 	phone VARCHAR(10)
 );
 
+
 -- Thêm cột cho Books theo yêu cầu đoạn trên:
 -- ID_Book sẽ tương ứng bookID
 -- Thêm Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock
@@ -62,6 +63,8 @@ CREATE TABLE Inventory(
    bookID INT PRIMARY KEY,
    totalStock INT,
    soldStock INT,
+   
+
    FOREIGN KEY (bookID) REFERENCES Books(bookID)
 );
 
@@ -149,6 +152,19 @@ VALUES
 (128, 'Nam', 'Cao'),
 (129, 'Vu', 'Trong Phung'),
 (130, 'Nguyen', 'Huy Thiep');
+INSERT INTO Authors (authorID, firstName, lastName)
+VALUES
+(131, 'Masashi', 'Kishimoto'),
+(132, 'Eiichiro', 'Oda'),
+(133, 'Gosho', 'Aoyama'),
+(134, 'Hergé', NULL),
+(135, 'René', 'Goscinny'),
+(136, 'Rudyard', 'Kipling'),
+(137, 'Wu', 'Cheng’en'),
+(138, 'Rick', 'Riordan'),
+(139, 'James', 'Dashner'),
+(140, 'Robert', 'Louis Stevenson');
+
 
 -- Thêm dữ liệu vào bảng Books
 INSERT INTO Books (bookID, authorID, publisherID, title, genre, publicationYear, price, Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock)
@@ -163,7 +179,6 @@ VALUES
 (8, 110, 201, 'Mat Biec', 'Romance', 1990, 105000, 'Vietnamese Literature', 'Nguyen Nhat Anh', 60, 75000, 105000, 60),
 (9, 102, 204, 'Les Miserables', 'Novel', 1862, 150000, 'Classic', 'Victor Hugo', 50, 120000, 150000, 50),
 (10, 103, 203, 'Hamlet', 'Drama', 1600, 120000, 'Classic', 'William Shakespeare', 70, 90000, 120000, 70),
-(11, 104, 202, '1984', 'Dystopian', 1949, 130000, 'Fiction', 'George Orwell', 80, 100000, 130000, 80),
 (12, 105, 205, 'One Hundred Years of Solitude', 'Magical Realism', 1967, 140000, 'Fiction', 'Gabriel Garcia Marquez', 60, 110000, 140000, 60),
 (13, 106, 206, 'War and Peace', 'Historical', 1869, 160000, 'Classic', 'Lev Tolstoy', 40, 130000, 160000, 40),
 (14, 107, 205, 'Norwegian Wood', 'Fiction', 1987, 125000, 'Fiction', 'Haruki Murakami', 90, 100000, 125000, 90),
@@ -181,15 +196,78 @@ VALUES
 (26, 120, 205, 'Middlemarch', 'Novel', 1871, 130000, 'Classic', 'George Eliot', 60, 100000, 130000, 60),
 (27, 121, 204, 'The Metamorphosis', 'Fiction', 1915, 100000, 'Classic', 'Franz Kafka', 90, 80000, 100000, 90),
 (28, 122, 205, 'White Fang', 'Adventure', 1906, 125000, 'Classic', 'Jack London', 80, 100000, 125000, 80),
-(29, 123, 206, 'Crime and Punishment', 'Psychological', 1866, 150000, 'Classic', 'Fyodor Dostoevsky', 70, 120000, 150000, 70),
 (30, 124, 203, 'Wuthering Heights', 'Romance', 1847, 130000, 'Classic', 'Emily Bronte', 60, 100000, 130000, 60),
 (31, 125, 204, 'Mrs. Dalloway', 'Novel', 1925, 110000, 'Classic', 'Virginia Woolf', 100, 90000, 110000, 100),
 (32, 127, 201, 'Nhung dua con cua lang', 'Novel', 1957, 100000, 'Classic', 'Bao Ninh', 70, 80000, 100000, 70),
 (33, 128, 201, 'Lang', 'Short Stories', 1942, 110000, 'Vietnamese Literature', 'Nam Cao', 60, 90000, 110000, 60),
-(34, 126, 201, 'Cuoc doi cua ong Nam', 'Biography', 1955, 85000, 'Biography', 'To Hoai', 50, 60000, 85000, 50),
+(34, 126, 201, 'Cuoc doi cua ong Nam', 'Novel', 1955, 85000, 'Biography', 'To Hoai', 50, 60000, 85000, 50),
 (35, 129, 201, 'Hoang Le Nhat Thong Chi', 'Historical', 1800, 95000, 'Historical', 'Vu Trong Phung', 40, 70000, 95000, 40),
 (36, 127, 201, 'Dat Rung Phuong Nam', 'Novel', 1957, 90000, 'Vietnamese Literature', 'Doan Gioi', 60, 70000, 90000, 60),
-(37, 128, 201, 'Nguoi me cam sung', 'Short Stories', 1945, 100000, 'Vietnamese Literature', 'Nguyen Thi', 70, 75000, 100000, 70);
+(37, 128, 201, 'Nguoi me cam sung', 'Novel', 1945, 100000, 'Vietnamese Literature', 'Nguyen Thi', 70, 75000, 100000, 70);
+-- Thêm sách vào bảng Books
+INSERT INTO Books (bookID, authorID, publisherID, title, genre, publicationYear, price, Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock)
+VALUES 
+(38, 131, 202, 'Naruto', 'Manga', 1999, 120000, 'Comics', 'Masashi Kishimoto', 150, 100000, 120000, 150),
+(39, 132, 203, 'One Piece', 'Manga', 1997, 130000, 'Comics', 'Eiichiro Oda', 200, 110000, 130000, 180),
+(40, 133, 204, 'Detective Conan', 'Manga', 1994, 110000, 'Comics', 'Gosho Aoyama', 170, 95000, 110000, 160),
+(41, 134, 201, 'The Adventures of Tintin', 'Adventure', 1929, 140000, 'Comics', 'Hergé', 100, 120000, 140000, 90),
+(42, 135, 202, 'Asterix', 'Adventure', 1959, 130000, 'Comics', 'René Goscinny', 120, 110000, 130000, 110),
+(43, 136, 203, 'The Jungle Book', 'Adventure', 1894, 100000, 'Classic', 'Rudyard Kipling', 150, 85000, 100000, 140),
+(44, 137, 204, 'Journey to the West', 'Adventure', 1592, 150000, 'Classic', 'Wu Cheng’en', 80, 120000, 150000, 70),
+(45, 138, 205, 'Percy Jackson & the Olympians', 'Fantasy', 2005, 180000, 'Fantasy', 'Rick Riordan', 130, 150000, 180000, 120),
+(47, 140, 201, 'Treasure Island', 'Adventure', 1883, 110000, 'Classic', 'Robert Louis Stevenson', 120, 90000, 110000, 100);
+
+-- Thêm 20 sách của tác giả Việt Nam
+INSERT INTO Books (bookID, authorID, publisherID, title, genre, publicationYear, price, Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock)
+VALUES
+(50, 110, 201, 'Những Người Bạn Của Tôi', 'Truyện Ngắn', 2022, 180000, 'Short Stories', 'Nguyễn Nhật Ánh', 150, 80000, 120000, 60),
+(51, 126, 202, 'Mảnh Ghép Tình Yêu', 'Ngôn Tình', 2021, 220000, 'Novel', 'Tô Hoài', 120, 100000, 150000, 50),
+(52, 110, 203, 'Áo Lụa Hà Đông', 'Truyện Ngắn', 2020, 200000, 'Short Stories', 'Nguyễn Nhật Ánh', 130, 90000, 140000, 70),
+(53, 127, 204, 'Nỗi Buồn Hoa Phượng', 'Ngôn Tình', 2022, 250000, 'Novel', 'Bảo Ninh', 140, 120000, 180000, 80),
+(54, 128, 205, 'Dòng Sông Cũ', 'Tâm Lý', 2021, 270000, 'Self-help', 'Nam Cao', 110, 130000, 190000, 90),
+(55, 130, 206, 'Chiều Cuối Tuần', 'Truyện Ngắn', 2023, 220000, 'Short Stories', 'Nguyễn Huy Thiệp', 140, 100000, 150000, 60),
+(56, 126, 201, 'Đoạn Đường Màu Hồng', 'Ngôn Tình', 2020, 230000, 'Novel', 'Tô Hoài', 150, 110000, 160000, 85),
+(57, 125, 202, 'Gió Lòng', 'Tâm Lý', 2023, 240000, 'Self-help', 'Virginia Woolf', 130, 120000, 170000, 50),
+(58, 124, 203, 'Tháng Sáu Trở Lại', 'Truyện Ngắn', 2021, 210000, 'Short Stories', 'Emily Brontë', 100, 95000, 140000, 75),
+(59, 130, 204, 'Lời Nói Dối', 'Truyện Ngắn', 2020, 240000, 'Short Stories', 'Nguyễn Huy Thiệp', 110, 100000, 150000, 90),
+(60, 119, 205, 'Biển Sáng', 'Ngôn Tình', 2022, 250000, 'Novel', 'Mary Shelley', 120, 130000, 180000, 80),
+(61, 127, 206, 'Những Con Số', 'Tâm Lý', 2021, 200000, 'Self-help', 'Bảo Ninh', 90, 110000, 150000, 65),
+(62, 130, 201, 'Vòng Xoay Thời Gian', 'Truyện Ngắn', 2020, 230000, 'Short Stories', 'Nguyễn Huy Thiệp', 100, 95000, 140000, 70),
+(63, 110, 202, 'Tình Yêu Và Mưa', 'Ngôn Tình', 2023, 270000, 'Novel', 'Nguyễn Nhật Ánh', 150, 130000, 200000, 60),
+(64, 126, 203, 'Cuộc Sống Không Lời', 'Tâm Lý', 2022, 220000, 'Self-help', 'Tô Hoài', 110, 100000, 150000, 75),
+(65, 125, 204, 'Thành Phố Của Những Người Đi Vắng', 'Tâm Lý', 2020, 230000, 'Self-help', 'Virginia Woolf', 100, 120000, 160000, 90),
+(66, 124, 205, 'Hơi Ấm Thân Quen', 'Ngôn Tình', 2021, 260000, 'Novel', 'Emily Brontë', 120, 130000, 200000, 70),
+(67, 128, 206, 'Ký Ức Đêm', 'Tâm Lý', 2023, 210000, 'Self-help', 'Nam Cao', 130, 110000, 150000, 80),
+(68, 130, 201, 'Chuyến Đi Cuối Cùng', 'Truyện Ngắn', 2022, 240000, 'Short Stories', 'Nguyễn Huy Thiệp', 140, 120000, 170000, 95),
+(69, 110, 202, 'Tình Yêu Mãi Mãi', 'Ngôn Tình', 2022, 300000, 'Novel', 'Nguyễn Nhật Ánh', 150, 160000, 240000, 80),
+(70, 127, 203, 'Hương Vị Của Thời Gian', 'Ngôn Tình', 2021, 280000, 'Novel', 'Bảo Ninh', 130, 150000, 220000, 70),
+(71, 124, 204, 'Những Mảnh Ghép Đời Tôi', 'Tâm Lý', 2020, 200000, 'Self-help', 'Emily Brontë', 110, 95000, 140000, 75),
+(72, 126, 205, 'Ánh Sáng Trong Đêm', 'Ngôn Tình', 2023, 290000, 'Novel', 'Tô Hoài', 140, 160000, 230000, 85);
+
+
+-- Thêm 20 sách thể loại manga và truyện tranh
+INSERT INTO Books (bookID, authorID, publisherID, title, genre, publicationYear, price, Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock)
+VALUES
+(73, 131, 205, 'Naruto', 'Manga', 1999, 350000, 'Manga', 'Masashi Kishimoto', 200, 150000, 250000, 100),
+(74, 132, 206, 'One Piece', 'Manga', 1997, 400000, 'Manga', 'Eiichiro Oda', 250, 170000, 300000, 150),
+(75, 133, 201, 'Detective Conan', 'Manga', 1994, 300000, 'Manga', 'Gosho Aoyama', 180, 120000, 250000, 120),
+(76, 134, 202, 'Tintin', 'Truyện Tranh', 1929, 200000, 'Comic', 'Hergé', 160, 100000, 150000, 110),
+(77, 135, 203, 'Asterix', 'Truyện Tranh', 1959, 220000, 'Comic', 'René Goscinny', 170, 110000, 170000, 130),
+(78, 136, 204, 'The Jungle Book', 'Truyện Tranh', 1894, 210000, 'Comic', 'Rudyard Kipling', 140, 100000, 160000, 95),
+(79, 137, 205, 'Journey to the West', 'Truyện Tranh', 1592, 250000, 'Comic', 'Wu Cheng’en', 190, 130000, 210000, 140),
+(80, 138, 206, 'Percy Jackson', 'Truyện Tranh', 2005, 270000, 'Comic', 'Rick Riordan', 220, 140000, 230000, 150),
+(81, 139, 201, 'Maze Runner', 'Truyện Tranh', 2009, 280000, 'Comic', 'James Dashner', 200, 150000, 240000, 140),
+(82, 140, 202, 'Treasure Island', 'Truyện Tranh', 1883, 230000, 'Comic', 'Robert Louis Stevenson', 160, 120000, 180000, 110),
+(83, 131, 203, 'Boruto', 'Manga', 2016, 360000, 'Manga', 'Masashi Kishimoto', 210, 160000, 280000, 90),
+(84, 132, 204, 'Dragon Ball', 'Manga', 1984, 380000, 'Manga', 'Eiichiro Oda', 220, 170000, 290000, 120),
+(85, 133, 205, 'Magic Kaito', 'Manga', 2010, 320000, 'Manga', 'Gosho Aoyama', 180, 130000, 240000, 100),
+(86, 134, 206, 'The Adventures of Tintin', 'Truyện Tranh', 1930, 210000, 'Comic', 'Hergé', 140, 105000, 160000, 90),
+(87, 135, 201, 'Iznogoud', 'Truyện Tranh', 1962, 200000, 'Comic', 'René Goscinny', 150, 110000, 170000, 80),
+(88, 136, 202, 'Kimba the White Lion', 'Manga', 1950, 300000, 'Manga', 'Osamu Tezuka', 230, 140000, 250000, 110),
+(89, 137, 203, 'The Monkey King', 'Truyện Tranh', 1961, 250000, 'Comic', 'Wu Cheng’en', 200, 130000, 210000, 95),
+(90, 138, 204, 'Heroes of Olympus', 'Truyện Tranh', 2010, 280000, 'Comic', 'Rick Riordan', 210, 150000, 220000, 130),
+(91, 139, 205, 'The Scorch Trials', 'Truyện Tranh', 2010, 260000, 'Comic', 'James Dashner', 190, 140000, 230000, 110),
+(92, 140, 206, 'Kidnapped', 'Truyện Tranh', 1886, 220000, 'Comic', 'Robert Louis Stevenson', 160, 120000, 200000, 100);
 
 
 
