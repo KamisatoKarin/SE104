@@ -2,15 +2,15 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Quản lý sách</title>
+		<title>Book.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
 		<!-- bootstrap -->
 		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
 		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		
 		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 		
 		<!-- global styles -->
 		<link href="static/css/flexslider.css" rel="stylesheet"/>
@@ -21,128 +21,229 @@
 		<script src="static/bootstrap/js/bootstrap.min.js"></script>				
 		<script src="static/js/superfish.js"></script>	
 		<script src="static/js/jquery.scrolltotop.js"></script>
-		<!--[if lt IE 9]>			
+		<!--[if lt IE 9]>            
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
+		<style>			
+			.account ul li a {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #0E2535;
+			}
+
+			.content {
+				margin-left: 90px;
+			}
+
+			::placeholder {
+				font-family: 'Montserrat', sans-serif;
+			}			
+
+			body, h1, h2, h3, h4, h5, h6, p, label, button {
+    			color: #0E2535;
+			}
+
+			input::placeholder {
+				font-size: 12px !important;
+			} 			
+			
+			body, label, select, input[type="text"], button, #top-bar nav ul li a, .account ul li a {
+				font-family: 'Montserrat', sans-serif;
+			} 				
+			
+			.main-content {
+				background-color: #fff;
+				padding: 5px;
+				border: 1px solid #ddd;
+				border-radius: 6px;
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+				margin-top: 5px;
+				margin-bottom: 5px;
+			} 				
+			h4.title .text .line strong, h4.title .text {
+    			color: #998B5F;
+			}
+
+			h4.title .text {
+				margin-left: 40px;
+			}
+			
+			#top-bar {
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 5px 5px;
+				border-bottom: 1px solid #ccc;
+				margin-bottom: auto;
+			}
+
+			#top-bar .logo img {
+				max-height: 70px;
+				width: auto;
+			}
+
+			#top-bar nav ul {
+				border-radius: 4px;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				gap: 20px;
+			}
+
+			#top-bar nav ul li {
+				border-radius: 4px;
+				position: relative;
+			}
+			#top-bar nav ul li a:hover {
+				border-radius: 5px;
+			}
+			
+			#top-bar nav ul li ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: none;
+				position: absolute;
+				top: 100%;
+				left: 0;
+				background: #fff;
+				border-radius: 4px;
+				border: 1px solid #ccc;
+				z-index: 1000;
+				width: 200px;
+				max-height: 300px;
+				overflow-y: auto;
+			}
+			#top-bar nav ul li a:hover {
+				background-color: #998B5F;
+				color: white;
+			}
+			#top-bar nav ul li ul li a:hover {
+				background-color: #998B5F;
+				color: white;
+			}
+		</style>
 	</head>
     <body>		
 		<div id="top-bar" class="container">
-			<div class="row">
-				<div class="span4">
-					<a href="./adminindex" class="logo pull-left"><img src="static/images/Fahasalogo.png" class="site_logo" alt=""></a>
-				</div>
-				
-				<div class="span8">
-					<div class="account pull-right">
-						<ul class="user-menu">				
-							<li><a href="./logout">Đăng xuất</a></li>
+			<!-- Logo -->
+			<a href="/adminindex" class="logo" style="max-width: 200px; height: auto;">
+				<img src="static/images/Liber_logo.png" class="site_logo" alt="">
+			</a>
+
+			<!-- Menu -->
+			<nav id="menu">
+				<ul>
+					<li><a href="./adminindex">Trang chủ</a></li>
+					<li><a href="./search">Tìm kiếm</a></li>
+					<li>
+						<a href="./books" method="POST">Sản phẩm</a>
+						<ul>
+							<li><a href="./books">Thêm sản phẩm</a></li>
+							<li><a href="./books">Cập nhật sản phẩm</a></li>
+							<li><a href="./books">Xóa sản phẩm</a></li>
 						</ul>
-					</div>
-				</div>
+					</li>									
+					<li><a href="./inventory">Tồn kho</a></li>	
+					<li>
+						<a href="./users">Người dùng</a>					
+						<ul>
+							<li><a href="./users">Admins</a></li>									
+							<li><a href="./users">Khách hàng</a></li>					
+						</ul>
+					</li>
+					<li><a href="./myorders">Đơn hàng</a></li>
+					<li><a href="./myaccount">Tài khoản</a></li>
+				</ul>
+			</nav>
+
+			<!-- Đăng nhập -->
+			<div class="account">
+				<ul class="user-menu">
+					<li><a href="./logout">ĐĂNG NHẬP</a></li>
+				</ul>
 			</div>
 		</div>
-		<div id="wrapper" class="container">
-			<section class="navbar main-menu">
-				<div class="navbar-inner main-menu">				
-					<nav id="menu" class="pull-right">
-						<ul>
-							<li><a href="./adminindex">Trang chủ</a></li>
-							<li><a href="./books" method="POST">Sản phẩm</a>					
-								<ul>
-									<li><a href="./books">Thêm sản phẩm</a></li>									
-									<li><a href="./books">Cập nhật sản phẩm </a></li>
-									<li><a href="./books">Xóa sản phẩm</a></li>			
-								</ul>
-							</li>
-							<li><a href="./inventory">Tồn kho</a></li>	
-							<li><a href="./users">Người dùng</a>					
-								<ul>
-									<li><a href="./users">Admins</a></li>									
-									<li><a href="./users">Khách hàng</a></li>					
-								</ul>
-							</li>
-							<li><a href="./myorders">Đơn hàng</a></li>
-							<li><a href="./myaccount">Tài khoản</a></li>		
-						</ul>
-					</nav>
-				</div>
-			</section>
 
-			<section class="main-content">
+			</section>
+			<section class="main-content container">
 				<div class="row">
 					<div class="span12">
 
-						<!-- Add Books -->
-						<div class="row">
-							<div class="span12">
-								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>Thêm </strong>sách</span></span></span>
-								</h4>
-								<div id="myCarousel-2" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<div class = "content">
-										<form action="{{url_for('addBookRoute')}}" class="form-stacked" method="POST">
-											<input type="hidden" name="next" value="/">
-											<fieldset>
-												<div class="control-group">
-													<label class="control-label">Mã sách</label>
-													<div class="controls">
-														<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Tên sách</label>
-													<div class="controls">
-														<input type="text" placeholder="Nhập tên sách" id="username" class="input-xlarge" name="title" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Thể loại</label>
-													<div class="controls">
-														<input type="text" placeholder="Nhập thể loại" id="username" class="input-xlarge" name="genre" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Giá</label>
-													<div class="controls">
-														<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Tên tác giả</label>
-													<div class="controls">
-														<input type="text" placeholder="Nhập tên tác giả" id="username" class="input-xlarge" name="fname" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Họ tác giả</label>
-													<div class="controls">
-														<input type="text" placeholder="Nhập họ tác giả" id="username" class="input-xlarge" name="lname" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Năm xuất bản</label>
-													<div class="controls">
-														<input type="number" placeholder="Nhập năm xuất bản" id="username" class="input-xlarge" name="year" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Quốc gia xuất bản</label>
-													<div class="controls">
-														<input type="text" placeholder="Nhập quốc gia xuất bản" id="username" class="input-xlarge" name="country" required>
-													</div>
-												</div>
-												<div class="control-group">
-													<label class="control-label">Tồn kho</label>
-													<div class="controls">
-														<input type="number" placeholder="Nhập tồn kho" id="username" class="input-xlarge" name="stock" required>
-													</div>
-												</div>
-				
-												<div class="control-group">
-													<input tabindex="3" class="btn btn-inverse large" type="submit" value="Thêm sách">
-												</div>
+<!-- Add Books -->
+<div class="row">
+	<div class="span12">
+		<h4 class="title">
+			<span class="pull-left"><span class="text"><span class="line"><strong>Thêm </strong>sách</span></span></span>
+		</h4>
+		<div id="myCarousel-2" class="myCarousel carousel slide">
+			<div class="carousel-inner">
+				<div class="content">
+				<form action="{{url_for('addBookRoute')}}" class="form-stacked" method="POST">
+					<input type="hidden" name="next" value="/">
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label">Mã sách</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Tên sách</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập tên sách" id="username" class="input-xlarge" name="title" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Thể loại</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập thể loại" id="username" class="input-xlarge" name="genre" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Giá</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Tên tác giả</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập tên tác giả" id="username" class="input-xlarge" name="fname" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Họ tác giả</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập họ tác giả" id="username" class="input-xlarge" name="lname" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Năm xuất bản</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập năm xuất bản" id="username" class="input-xlarge" name="year" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Quốc gia xuất bản</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập quốc gia xuất bản" id="username" class="input-xlarge" name="country" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Tồn kho</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập tồn kho" id="username" class="input-xlarge" name="stock" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<input tabindex="3" class="btn btn-inverse large" type="submit" value="Thêm sách">
+						</div>
 											</fieldset>
 										</form>	
 									</div>		
