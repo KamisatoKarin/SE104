@@ -91,7 +91,13 @@ def deleteBook(mysql,bookID,fname,lname,country):
 # book stock function
 def inventory(mysql):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT b.bookID,b.title,i.totalStock,i.soldStock FROM Books as b,Inventory as i WHERE b.bookID=i.bookID")
+    cur.execute("""
+        SELECT b.bookID, b.title, b.genre, a.firstName, a.lastName, i.totalStock, i.soldStock 
+        FROM Books b
+        JOIN Authors a ON b.authorID = a.authorID
+        JOIN Inventory i ON b.bookID = i.bookID
+        ORDER BY b.bookID
+    """)
     bookData = list(cur.fetchall())
     mysql.connection.commit()
     cur.close()
