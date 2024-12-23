@@ -102,6 +102,8 @@
                                     <tr>
                                       <th>Mã sách</th>
                                       <th>Tên sách</th>
+                                      <th>Thể loại</th>
+                                      <th>Tác giả</th>
                                       <th>Tồn kho</th>
                                       <th>Đã bán</th>
                                     </tr>
@@ -110,7 +112,9 @@
                                         <td>{{ book[0] }}</td>
                                         <td>{{ book[1] }}</td>
                                         <td>{{ book[2] }}</td>
-                                        <td>{{ book[3] }}</td>
+                                        <td>{{ book[3] }} {{ book[4] }}</td>
+                                        <td>{{ book[5] }}</td>
+                                        <td>{{ book[6] }}</td>
                                         </tr> 
                                     {% endfor %}
                                   </table>
