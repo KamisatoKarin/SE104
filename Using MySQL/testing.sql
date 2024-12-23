@@ -38,7 +38,6 @@ CREATE TABLE Books(
 	title VARCHAR(50),
 	genre VARCHAR(15),
 	publicationYear INT,
-	price INT,
     Category VARCHAR(50),
     Author VARCHAR(100),
     Quantity INT,
@@ -121,10 +120,10 @@ INSERT INTO Publishers(country) VALUES('USA');
 INSERT INTO Publishers(country) VALUES('Australia');
 
 -- Chèn sách (thêm cột nên tạm cho Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock giá trị mặc định)
-INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,price,Category,Author,Quantity,Purchase_Price,Selling_Price,Current_Stock) 
-VALUES(1,500,7000,'Treasure Island','Adventure',1964,345,'Adventure','Robert Stevenson',100,310.00,325.00,100);
-INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,price,Category,Author,Quantity,Purchase_Price,Selling_Price,Current_Stock) 
-VALUES(2,500,7000,'Life of Pi','Adventure',2001,295,'Adventure','Robert Stevenson',100,265.50,278.78,100);
+INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,Category,Author,Quantity,Purchase_Price,Selling_Price,Current_Stock) 
+VALUES(1,500,7000,'Treasure Island','Adventure',1964,'Adventure','Robert Stevenson',100,310.00,325.00,100);
+INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,Category,Author,Quantity,Purchase_Price,Selling_Price,Current_Stock) 
+VALUES(2,500,7000,'Life of Pi','Adventure',2001,'Adventure','Robert Stevenson',100,265.50,278.78,100);
 
 
 

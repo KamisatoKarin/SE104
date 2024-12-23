@@ -157,30 +157,75 @@ def booksRoute():
         return render_template("books.html",booksData=booksData,genreData=genreData)
 
 # Add Book Route
-@app.route("/addBook",methods=["POST","GET"])
+@app.route("/addBook", methods=["POST", "GET"])
 def addBookRoute():
     if request.method == "POST":
-        bookID = str(request.form.get("bookID"))
+        bookID = int(request.form.get("bookID"))
         title = str(request.form.get("title"))
         genre = str(request.form.get("genre"))
         fname = str(request.form.get("fname"))
         lname = str(request.form.get("lname"))
-        year = str(request.form.get("year"))
-        price = str(request.form.get("price"))
+        year = int(request.form.get("year"))
+        purchase_price = float(request.form.get("purchase_price"))
+        selling_price = float(request.form.get("selling_price"))
         country = str(request.form.get("country"))
-        stock = str(request.form.get("stock"))
+        stock = int(request.form.get("stock"))
 
-        response = addBook(mysql,bookID,title,genre,fname,lname,year,price,country,stock)
-        if response == 1: # Book Added Successfully
-            booksData = allBooks(mysql)
-            genreData = allGenre(mysql)
-            return render_template("books.html",booksData=booksData,genreData=genreData,response=response)
-        else: # book failed to add
-            booksData = allBooks(mysql)
-            genreData = allGenre(mysql)
-            return render_template("books.html",booksData=booksData,genreData=genreData,response=response)
+        # Database transaction
+        cur = mysql.connection.cursor()
+        try:
+            # Add author if not exists
+            cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
+            author = cur.fetchone()
+            if not author:
+                cur.execute("INSERT INTO Authors(firstName, lastName) VALUES (%s, %s)", (fname, lname))
+                cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
+                author = cur.fetchone()
+            authorID = author[0]
+
+            # Add publisher if not exists
+            cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
+            publisher = cur.fetchone()
+            if not publisher:
+                cur.execute("INSERT INTO Publishers(country) VALUES (%s)", (country,))
+                cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
+                publisher = cur.fetchone()
+            publisherID = publisher[0]
+
+            # Add book to Books table
+            cur.execute(
+                """
+                INSERT INTO Books(
+                    bookID, authorID, publisherID, title, genre, publicationYear,
+                    Purchase_Price, Selling_Price, Current_Stock, Quantity, Author, Category
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """,
+                (bookID, authorID, publisherID, title, genre, year, purchase_price, selling_price, stock, stock, f"{fname} {lname}", genre)
+            )
+
+            # Add book to Inventory table
+            cur.execute(
+                "INSERT INTO Inventory(bookID, totalStock, soldStock) VALUES (%s, %s, %s)",
+                (bookID, stock, 0)
+            )
+
+            mysql.connection.commit()
+            response = 1  # Success
+        except Exception as e:
+            print("Error adding book or updating inventory:", e)
+            mysql.connection.rollback()
+            response = 0  # Failure
+        finally:
+            cur.close()
+
+        # Return updated data to the template
+        booksData = allBooks(mysql)
+        genreData = allGenre(mysql)
+        return render_template("books.html", booksData=booksData, genreData=genreData, response=response)
 
     return redirect(url_for("booksRoute"))
+
+
 
 # Update Book Route
 @app.route("/updateBook",methods=["POST","GET"])
