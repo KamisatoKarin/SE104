@@ -166,10 +166,16 @@
 															<div class="product-box">
 																<span class="sale_tag"></span>
 																<p><a href="./register"><img src="static/images/books/book.png" alt="" /></a></p>
-																<a href="/register" class="title">{{book[3]}} ({{book[0]}})</a><br/>
+																<a href="/register" classs="title">{{book[3]}} ({{book[0]}})</a><br/>
 																<a href="/register" class="title">- {{book[7]}} {{book[8]}}</a><br/>
 																<a href="/register" class="category">{{book[4]}}</a>
-																<p class="price">{{"{:,.0f}".format(book[6])}} VNĐ</p>
+																<p class="price">
+																	{% if book[10] is not none %}
+																		{{ "{:,.0f}".format(book[10]) }} VNĐ
+																	{% else %}
+																		Không xác định
+																	{% endif %}
+																</p>
 															</div>
 														</li>	
 													{% endif %}									

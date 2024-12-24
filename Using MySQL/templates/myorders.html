@@ -153,6 +153,7 @@
                                         <th>Số lượng</th>
                                         <th>Tổng</th>
                                         <th>Thời gian</th>
+                                        <th>Hành động</th>
                                     </tr>
                                     {% for order in Data %}
                                         <tr>
@@ -161,6 +162,11 @@
                                             <td>{{ order[1] }}</td>
                                             <td>{{ order[2] }}</td>
                                             <td>{{ order[3] }}</td>
+                                            <td>
+                                                <form action="/cancelOrder/{{order[5]}}" method="POST">
+                                                    <button type="submit" class="btn btn-danger">Hủy đơn</button>
+                                                </form>
+                                            </td>
                                         </tr> 
                                     {% endfor %}
                                   </table>

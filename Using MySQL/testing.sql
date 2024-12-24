@@ -1,5 +1,5 @@
 
-
+drop database onlinebookstore;
 CREATE DATABASE onlinebookstore;
 USE onlinebookstore;
 SHOW TABLES;
@@ -38,7 +38,6 @@ CREATE TABLE Books(
 	title VARCHAR(50),
 	genre VARCHAR(15),
 	publicationYear INT,
-	price INT,
     Category VARCHAR(50),
     Author VARCHAR(100),
     Quantity INT,
@@ -94,8 +93,8 @@ CREATE TABLE ContactUs(
 );
 
 -- -----------------------------------------------------AUTO_INCREMENT ---------------------------------------------------------------------------
-ALTER TABLE Authors AUTO_INCREMENT=101;
-ALTER TABLE Publishers AUTO_INCREMENT=201;
+ALTER TABLE Authors AUTO_INCREMENT=500;
+ALTER TABLE Publishers AUTO_INCREMENT=7000;
 
 -- -----------------------------------------------------FOREIGN KEYS-----------------------------------------------------------------------------
 ALTER TABLE Books ADD FOREIGN KEY (authorID) REFERENCES Authors(authorID);
@@ -106,94 +105,25 @@ INSERT INTO Admins(adminID,firstName,lastName,emailID,password,phone) VALUES('ad
 INSERT INTO Admins(adminID,firstName,lastName,emailID,password,phone) VALUES('admin2','Anu','Sharma','anu@gmail.com','abc1','3454567892');
 INSERT INTO Admins(adminID,firstName,lastName,emailID,password,phone) VALUES('euphoria','Huỳnh','Đạt','22520211@gm.uit.edu.vn','26092004','3454567892');
 
--- Thêm dữ liệu vào bảng Publishers
-INSERT INTO Publishers (publisherID, country)
-VALUES
-(201, 'Vietnam'),
-(202, 'USA'),
-(203, 'UK'),
-(204, 'France'),
-(205, 'Japan'),
-(206, 'Germany');
-
--- Thêm dữ liệu vào bảng Authors
-INSERT INTO Authors (authorID, firstName, lastName)
-VALUES
-(101, 'Nguyen', 'Du'),
-(102, 'Victor', 'Hugo'),
-(103, 'William', 'Shakespeare'),
-(104, 'George', 'Orwell'),
-(105, 'Gabriel', 'Garcia Marquez'),
-(106, 'Lev', 'Tolstoy'),
-(107, 'Haruki', 'Murakami'),
-(108, 'J.K.', 'Rowling'),
-(109, 'J.R.R.', 'Tolkien'),
-(110, 'Nguyen', 'Nhat Anh'),
-(111, 'Jane', 'Austen'),
-(112, 'F. Scott', 'Fitzgerald'),
-(113, 'Charles', 'Dickens'),
-(114, 'Mark', 'Twain'),
-(115, 'Leo', 'Tolstoy'),
-(116, 'J.D.', 'Salinger'),
-(117, 'Ernest', 'Hemingway'),
-(118, 'Herman', 'Melville'),
-(119, 'Mary', 'Shelley'),
-(120, 'George', 'Eliot'),
-(121, 'Franz', 'Kafka'),
-(122, 'Jack', 'London'),
-(123, 'Fyodor', 'Dostoevsky'),
-(124, 'Emily', 'Bronte'),
-(125, 'Virginia', 'Woolf'),
-(126, 'To', 'Hoai'),
-(127, 'Bao', 'Ninh'),
-(128, 'Nam', 'Cao'),
-(129, 'Vu', 'Trong Phung'),
-(130, 'Nguyen', 'Huy Thiep');
-
--- Thêm dữ liệu vào bảng Books
-INSERT INTO Books (bookID, authorID, publisherID, title, genre, publicationYear, price, Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock)
-VALUES
-(1, 101, 201, 'Truyen Kieu', 'Poetry', 1820, 100000, 'Classic', 'Nguyen Du', 100, 70000, 100000, 100),
-(2, 126, 201, 'De Men Phieu Luu Ky', 'Children', 1941, 90000, 'Classic', 'To Hoai', 80, 60000, 90000, 80),
-(3, 127, 201, 'The Sorrow of War', 'Novel', 1991, 110000, 'Vietnamese Literature', 'Bao Ninh', 70, 80000, 110000, 70),
-(4, 128, 201, 'Chi Pheo', 'Novel', 1941, 95000, 'Classic', 'Nam Cao', 100, 70000, 95000, 100),
-(5, 129, 201, 'So Do', 'Satire', 1936, 100000, 'Classic', 'Vu Trong Phung', 60, 75000, 100000, 60),
-(6, 130, 201, 'Tuong Ve Huu', 'Short Stories', 1987, 85000, 'Vietnamese Literature', 'Nguyen Huy Thiep', 50, 60000, 85000, 50),
-(7, 110, 201, 'Kinh Van Hoa', 'Children', 1988, 95000, 'Children', 'Nguyen Nhat Anh', 120, 70000, 95000, 120),
-(8, 110, 201, 'Mat Biec', 'Romance', 1990, 105000, 'Vietnamese Literature', 'Nguyen Nhat Anh', 60, 75000, 105000, 60),
-(9, 102, 204, 'Les Miserables', 'Novel', 1862, 150000, 'Classic', 'Victor Hugo', 50, 120000, 150000, 50),
-(10, 103, 203, 'Hamlet', 'Drama', 1600, 120000, 'Classic', 'William Shakespeare', 70, 90000, 120000, 70),
-(11, 104, 202, '1984', 'Dystopian', 1949, 130000, 'Fiction', 'George Orwell', 80, 100000, 130000, 80),
-(12, 105, 205, 'One Hundred Years of Solitude', 'Magical Realism', 1967, 140000, 'Fiction', 'Gabriel Garcia Marquez', 60, 110000, 140000, 60),
-(13, 106, 206, 'War and Peace', 'Historical', 1869, 160000, 'Classic', 'Lev Tolstoy', 40, 130000, 160000, 40),
-(14, 107, 205, 'Norwegian Wood', 'Fiction', 1987, 125000, 'Fiction', 'Haruki Murakami', 90, 100000, 125000, 90),
-(15, 108, 202, 'Harry Potter and the Sorcerer''s Stone', 'Fantasy', 1997, 200000, 'Fantasy', 'J.K. Rowling', 100, 150000, 200000, 100),
-(16, 109, 203, 'The Hobbit', 'Fantasy', 1937, 180000, 'Fantasy', 'J.R.R. Tolkien', 75, 140000, 180000, 75),
-(17, 111, 202, 'Pride and Prejudice', 'Romance', 1813, 140000, 'Classic', 'Jane Austen', 50, 100000, 140000, 50),
-(18, 112, 202, 'The Great Gatsby', 'Novel', 1925, 130000, 'Classic', 'F. Scott Fitzgerald', 60, 90000, 130000, 60),
-(19, 113, 203, 'A Tale of Two Cities', 'Historical', 1859, 150000, 'Classic', 'Charles Dickens', 40, 110000, 150000, 40),
-(20, 114, 202, 'The Adventures of Huckleberry Finn', 'Adventure', 1884, 125000, 'Classic', 'Mark Twain', 80, 100000, 125000, 80),
-(21, 115, 206, 'Anna Karenina', 'Romance', 1877, 160000, 'Classic', 'Leo Tolstoy', 70, 130000, 160000, 70),
-(22, 116, 203, 'The Catcher in the Rye', 'Novel', 1951, 120000, 'Fiction', 'J.D. Salinger', 90, 100000, 120000, 90),
-(23, 117, 204, 'The Old Man and the Sea', 'Fiction', 1952, 110000, 'Classic', 'Ernest Hemingway', 100, 80000, 110000, 100),
-(24, 118, 202, 'Moby Dick', 'Adventure', 1851, 140000, 'Classic', 'Herman Melville', 50, 100000, 140000, 50),
-(25, 119, 203, 'Frankenstein', 'Horror', 1818, 120000, 'Classic', 'Mary Shelley', 70, 90000, 120000, 70),
-(26, 120, 205, 'Middlemarch', 'Novel', 1871, 130000, 'Classic', 'George Eliot', 60, 100000, 130000, 60),
-(27, 121, 204, 'The Metamorphosis', 'Fiction', 1915, 100000, 'Classic', 'Franz Kafka', 90, 80000, 100000, 90),
-(28, 122, 205, 'White Fang', 'Adventure', 1906, 125000, 'Classic', 'Jack London', 80, 100000, 125000, 80),
-(29, 123, 206, 'Crime and Punishment', 'Psychological', 1866, 150000, 'Classic', 'Fyodor Dostoevsky', 70, 120000, 150000, 70),
-(30, 124, 203, 'Wuthering Heights', 'Romance', 1847, 130000, 'Classic', 'Emily Bronte', 60, 100000, 130000, 60),
-(31, 125, 204, 'Mrs. Dalloway', 'Novel', 1925, 110000, 'Classic', 'Virginia Woolf', 100, 90000, 110000, 100),
-(32, 127, 201, 'Nhung dua con cua lang', 'Novel', 1957, 100000, 'Classic', 'Bao Ninh', 70, 80000, 100000, 70),
-(33, 128, 201, 'Lang', 'Short Stories', 1942, 110000, 'Vietnamese Literature', 'Nam Cao', 60, 90000, 110000, 60),
-(34, 126, 201, 'Cuoc doi cua ong Nam', 'Biography', 1955, 85000, 'Biography', 'To Hoai', 50, 60000, 85000, 50),
-(35, 129, 201, 'Hoang Le Nhat Thong Chi', 'Historical', 1800, 95000, 'Historical', 'Vu Trong Phung', 40, 70000, 95000, 40),
-(36, 127, 201, 'Dat Rung Phuong Nam', 'Novel', 1957, 90000, 'Vietnamese Literature', 'Doan Gioi', 60, 70000, 90000, 60),
-(37, 128, 201, 'Nguoi me cam sung', 'Short Stories', 1945, 100000, 'Vietnamese Literature', 'Nguyen Thi', 70, 75000, 100000, 70);
 
 
+INSERT INTO Authors(firstName,lastName) VALUES('Robert','Stevenson');
+INSERT INTO Authors(firstName,lastName) VALUES('Jon','Krakauer');
+INSERT INTO Authors(firstName,lastName) VALUES('John','Green');
+INSERT INTO Authors(firstName,lastName) VALUES('Colleen','Hover');
+INSERT INTO Authors(firstName,lastName) VALUES('Jane','Austen');
+INSERT INTO Authors(firstName,lastName) VALUES('Gillian','Flynn');
+INSERT INTO Authors(firstName,lastName) VALUES('Peter','Straub');
 
+INSERT INTO Publishers(country) VALUES('UK');
+INSERT INTO Publishers(country) VALUES('USA');
+INSERT INTO Publishers(country) VALUES('Australia');
 
+-- Chèn sách (thêm cột nên tạm cho Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock giá trị mặc định)
+INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,Category,Author,Quantity,Purchase_Price,Selling_Price,Current_Stock) 
+VALUES(1,500,7000,'Treasure Island','Adventure',1964,'Adventure','Robert Stevenson',100,310.00,325.00,100);
+INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,Category,Author,Quantity,Purchase_Price,Selling_Price,Current_Stock) 
+VALUES(2,500,7000,'Life of Pi','Adventure',2001,'Adventure','Robert Stevenson',100,265.50,278.78,100);
 
 
 

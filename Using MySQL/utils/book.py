@@ -1,53 +1,66 @@
 # add book function
-def addBook(mysql,bookID,title,genre,fname,lname,year,price,country,stock):
+def addBook(mysql, bookID, title, genre, fname, lname, year, category, purchase_price, selling_price, country, stock):
     cur = mysql.connection.cursor()
     try:
         # if publisher country is not present in Publishers table then add record
-        cur.execute("SELECT publisherID from Publishers WHERE country = %s",(country,))
-        publisherID = list(cur.fetchall())
+        cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
+        publisherID = cur.fetchone()
         if not publisherID:
-            cur.execute("INSERT INTO Publishers(country) VALUES (%s)",(country,))
-            cur.execute("SELECT publisherID from Publishers WHERE country = %s",(country,))
-            publisherID = list(cur.fetchall())
+            cur.execute("INSERT INTO Publishers(country) VALUES (%s)", (country,))
+            cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
+            publisherID = cur.fetchone()
 
         # if author name is not present in Authors table then add record
-        cur.execute("SELECT authorID from Authors WHERE firstName = %s AND lastName = %s",(fname,lname,))
-        authorID = list(cur.fetchall())
+        cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
+        authorID = cur.fetchone()
         if not authorID:
-            cur.execute("INSERT INTO Authors(firstName,lastName) VALUES (%s,%s)",(fname,lname,))
-            cur.execute("SELECT authorID from Authors WHERE firstName = %s AND lastName = %s",(fname,lname,))
-            authorID = list(cur.fetchall())
+            cur.execute("INSERT INTO Authors(firstName, lastName) VALUES (%s, %s)", (fname, lname))
+            cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
+            authorID = cur.fetchone()
 
         # add book in Books table
-        cur.execute("INSERT INTO Books(bookID,authorID,publisherID,title,genre,publicationYear,price) VALUES (%s,%s,%s,%s,%s,%s,%s)",(bookID,authorID,publisherID,title,genre,year,price))
-        
-        # add book stock in Inventory
-        cur.execute("INSERT INTO Inventory (bookID,totalStock,soldStock) VALUES(%s,%s,%s)",(bookID,stock,0))
+        cur.execute(
+            """
+            INSERT INTO Books(
+                bookID, authorID, publisherID, title, genre, publicationYear, 
+                Category, Author, Quantity, Purchase_Price, Selling_Price, Current_Stock
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """,
+            (bookID, authorID[0], publisherID[0], title, genre, year, category, f"{fname} {lname}", stock, purchase_price, selling_price, stock)
+        )
 
-        result = 1 # book added successfully
-    
-    except:
-        result = 0 # book failed to add
-    
+        # add book stock in Inventory
+        cur.execute("INSERT INTO Inventory (bookID, totalStock, soldStock) VALUES (%s, %s, %s)", (bookID, stock, 0))
+
+        result = 1  # book added successfully
+
+    except Exception as e:
+        print("Error adding book:", e)
+        result = 0  # book failed to add
+
     mysql.connection.commit()
     cur.close()
 
     return result
 
 # update book function
-def updateBook(mysql,bookID,price1,price2,fname,lname,country):
+def updateBook(mysql, bookID, purchase_price, selling_price, fname, lname, country):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute("SELECT authorID from Authors WHERE firstName = %s AND lastName = %s",(fname,lname,))
-        authorID = list(cur.fetchall())
-        cur.execute("SELECT publisherID from Publishers WHERE country = %s",(country,))
-        publisherID = list(cur.fetchall())
-        cur.execute("UPDATE Books SET price = %s WHERE bookID = %s AND authorID = %s AND publisherID  = %s AND price = %s",(price2,bookID,authorID[0],publisherID[0],price1))
-        result = 1 # book updated successfully
-     
-    except:
-        result = 0 # book failed to update
+        cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
+        authorID = cur.fetchone()
+        cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
+        publisherID = cur.fetchone()
+        cur.execute(
+            "UPDATE Books SET Purchase_Price = %s, Selling_Price = %s WHERE bookID = %s AND authorID = %s AND publisherID = %s",
+            (purchase_price, selling_price, bookID, authorID[0], publisherID[0])
+        )
+        result = 1  # book updated successfully
+
+    except Exception as e:
+        print("Error updating book:", e)
+        result = 0  # book failed to update
 
     mysql.connection.commit()
     cur.close()
@@ -55,33 +68,34 @@ def updateBook(mysql,bookID,price1,price2,fname,lname,country):
     return result
 
 # delete book function
-def deleteBook(mysql,bookID,fname,lname,country):
+def deleteBook(mysql, bookID, fname, lname, country):
     cur = mysql.connection.cursor()
     try:
-        cur.execute("SELECT authorID from Authors WHERE firstName = %s AND lastName = %s",(fname,lname))
-        authorID = list(cur.fetchone())
-        cur.execute("SELECT count(authorID) from Books WHERE authorID = %s",(authorID))
-        authorbooks = list(cur.fetchone())
-        cur.execute("SELECT publisherID FROM Publishers WHERE country = %s",(country,))
-        publisherID = list(cur.fetchone())
-        cur.execute("SELECT count(authorID) FROM Books WHERE publisherID = %s",(publisherID,))
-        publisherbooks = list(cur.fetchone())
+        cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
+        authorID = cur.fetchone()
+        cur.execute("SELECT COUNT(authorID) FROM Books WHERE authorID = %s", (authorID,))
+        authorbooks = cur.fetchone()
+        cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
+        publisherID = cur.fetchone()
+        cur.execute("SELECT COUNT(publisherID) FROM Books WHERE publisherID = %s", (publisherID,))
+        publisherbooks = cur.fetchone()
         # delete from Inventory first and then from Books because of foreign key constraint
-        cur.execute("DELETE FROM Inventory WHERE bookID = %s",(bookID,))
-        cur.execute("DELETE FROM Books WHERE bookID = %s",(bookID,))
+        cur.execute("DELETE FROM Inventory WHERE bookID = %s", (bookID,))
+        cur.execute("DELETE FROM Books WHERE bookID = %s", (bookID,))
 
-        # delete from authors table if books'author has not more than one book
+        # delete from authors table if books' author has not more than one book
         if authorbooks[0] == 1:
-            cur.execute("DELETE FROM Authors WHERE authorID = %s",(authorID[0],))
-        
-         # delete from publishers table if books'publishers has not more than one book published
+            cur.execute("DELETE FROM Authors WHERE authorID = %s", (authorID[0],))
+
+        # delete from publishers table if books' publishers have not more than one book published
         if publisherbooks[0] == 1:
-            cur.execute("DELETE FROM Publishers WHERE publisherID = %s",(publisherID[0],))
-        
-        result = 1 # book deleted successfully 
-    
-    except:
-        result = 0 # book failed to delete
+            cur.execute("DELETE FROM Publishers WHERE publisherID = %s", (publisherID[0],))
+
+        result = 1  # book deleted successfully
+
+    except Exception as e:
+        print("Error deleting book:", e)
+        result = 0  # book failed to delete
 
     mysql.connection.commit()
     cur.close()
@@ -91,31 +105,40 @@ def deleteBook(mysql,bookID,fname,lname,country):
 # book stock function
 def inventory(mysql):
     cur = mysql.connection.cursor()
-    cur.execute("""
-        SELECT b.bookID, b.title, b.genre, a.firstName, a.lastName, i.totalStock, i.soldStock 
+    cur.execute(
+        """
+        SELECT b.bookID, b.title, b.genre, b.Author, b.Category, i.totalStock, i.soldStock 
         FROM Books b
-        JOIN Authors a ON b.authorID = a.authorID
         JOIN Inventory i ON b.bookID = i.bookID
         ORDER BY b.bookID
-    """)
+        """
+    )
     bookData = list(cur.fetchall())
     mysql.connection.commit()
     cur.close()
     return bookData
 
 # book details function
-def bookDetail(mysql,subject):
+def bookDetail(mysql, subject):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT b.bookID,b.title,b.genre,b.price,b.publicationYear,a.firstName,a.lastName,p.country FROM Books as b JOIN Authors as a ON b.authorID = a.authorID JOIN Publishers as p on b.publisherID = p.publisherID WHERE b.bookID = %s",(subject,))
+    cur.execute(
+        """
+        SELECT b.bookID, b.title, b.genre, b.Purchase_Price, b.Selling_Price, b.publicationYear, b.Author, p.country 
+        FROM Books b 
+        JOIN Publishers p ON b.publisherID = p.publisherID 
+        WHERE b.bookID = %s
+        """,
+        (subject,)
+    )
     bookData = list(cur.fetchone())
     mysql.connection.commit()
     cur.close()
     return bookData
 
-# calcuate total cost of books
-def totalBookPrice(mysql,bookID,quantity):
+# calculate total cost of books
+def totalBookPrice(mysql, bookID, quantity):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT bookID,price,title from Books where bookID = %s",(bookID,))
+    cur.execute("SELECT bookID, Selling_Price, title FROM Books WHERE bookID = %s", (bookID,))
     bookData = list(cur.fetchone())
     mysql.connection.commit()
     cur.close()
