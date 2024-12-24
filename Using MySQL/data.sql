@@ -278,6 +278,107 @@ VALUES
 insert into Inventory (bookID,totalStock,soldStock) values (1,100,0);
 insert into Inventory (bookID,totalStock,soldStock) values (2,100,0);
 
+INSERT INTO Inventory (bookID, totalStock, soldStock) VALUES 
+
+(3, 70, 25),  -- Đã bán 25 quyển
+(4, 100, 30), -- Đã bán 30 quyển
+(5, 60, 10),  -- Đã bán 10 quyển
+(6, 50, 5),   -- Đã bán 5 quyển
+(7, 120, 50), -- Đã bán 50 quyển
+(8, 60, 20),  -- Đã bán 20 quyển
+(9, 50, 10);  -- Đã bán 10 quyển
+INSERT INTO Inventory (bookID, totalStock, soldStock) VALUES 
+(10, 70, 20),   -- Hamlet: đã bán 20 quyển
+(12, 60, 15),   -- One Hundred Years of Solitude: đã bán 15 quyển
+(13, 40, 10),   -- War and Peace: đã bán 10 quyển
+(14, 90, 25),   -- Norwegian Wood: đã bán 25 quyển
+(15, 100, 40),  -- Harry Potter: đã bán 40 quyển
+(16, 75, 20),   -- The Hobbit: đã bán 20 quyển
+(17, 50, 15),   -- Pride and Prejudice: đã bán 15 quyển
+(18, 60, 25),   -- The Great Gatsby: đã bán 25 quyển
+(19, 40, 10),   -- A Tale of Two Cities: đã bán 10 quyển
+(20, 80, 30),   -- The Adventures of Huckleberry Finn: đã bán 30 quyển
+(21, 70, 20),   -- Anna Karenina: đã bán 20 quyển
+(22, 90, 30),   -- The Catcher in the Rye: đã bán 30 quyển
+(23, 100, 40),  -- The Old Man and the Sea: đã bán 40 quyển
+(24, 50, 15),   -- Moby Dick: đã bán 15 quyển
+(25, 70, 25),   -- Frankenstein: đã bán 25 quyển
+(26, 60, 20),   -- Middlemarch: đã bán 20 quyển
+(27, 90, 35),   -- The Metamorphosis: đã bán 35 quyển
+(28, 80, 20),   -- White Fang: đã bán 20 quyển
+(30, 60, 15),   -- Wuthering Heights: đã bán 15 quyển
+(31, 100, 50),  -- Mrs. Dalloway: đã bán 50 quyển
+(32, 70, 30),   -- Những đứa con của làng: đã bán 30 quyển
+(33, 60, 20),   -- Làng: đã bán 20 quyển
+(34, 50, 15),   -- Cuộc đời của ông Nam: đã bán 15 quyển
+(35, 40, 10),   -- Hoàng Lê Nhất Thống Chí: đã bán 10 quyển
+(36, 60, 25),   -- Đất rừng phương Nam: đã bán 25 quyển
+(37, 70, 20),   -- Người mẹ cầm súng: đã bán 20 quyển
+(38, 150, 50),  -- Naruto: đã bán 50 quyển
+(39, 180, 60),  -- One Piece: đã bán 60 quyển
+(40, 160, 70),  -- Detective Conan: đã bán 70 quyển
+(41, 90, 40),   -- The Adventures of Tintin: đã bán 40 quyển
+(42, 110, 30),  -- Asterix: đã bán 30 quyển
+(43, 150, 60),  -- The Jungle Book: đã bán 60 quyển
+(44, 70, 20),   -- Journey to the West: đã bán 20 quyển
+(45, 120, 50),  -- Percy Jackson: đã bán 50 quyển
+(47, 100, 30),  -- Treasure Island: đã bán 30 quyển
+(50, 60, 25);   -- Những Người Bạn Của Tôi: đã bán 25 quyển
+
+INSERT INTO Inventory (bookID, totalStock, soldStock)
+VALUES
+(51, 50, 10),
+(52, 70, 12),
+(53, 80, 15),
+(54, 90, 20),
+(55, 60, 8),
+(56, 85, 18),
+(57, 50, 5),
+(58, 75, 13),
+(59, 90, 25),
+(60, 80, 17),
+(61, 65, 10),
+(62, 70, 14),
+(63, 60, 7),
+(64, 75, 19),
+(65, 90, 22),
+(66, 70, 12),
+(67, 80, 15),
+(68, 95, 20),
+(69, 80, 18),
+(70, 70, 11),
+(71, 75, 14);
+INSERT INTO Inventory (bookID, totalStock, soldStock)
+VALUES
+(72, 85, 10),
+(73, 100, 15),
+(74, 150, 25),
+(75, 120, 18),
+(76, 110, 22),
+(77, 130, 30),
+(78, 95, 12),
+(79, 140, 20),
+(80, 150, 35),
+(81, 140, 28),
+(82, 110, 15),
+(83, 90, 8),
+(84, 120, 18),
+(85, 100, 14),
+(86, 90, 10),
+(87, 80, 5),
+(88, 110, 20),
+(89, 95, 13),
+(90, 130, 25),
+(91, 110, 12),
+(92, 100, 18);
+
+
+
+UPDATE Inventory
+SET soldStock = 3
+WHERE bookID = 1;
+
+
 
 
 -- Tạo bảng BookEntry
