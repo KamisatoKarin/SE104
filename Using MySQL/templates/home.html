@@ -1,266 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Fahasa.com</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
-		<!-- bootstrap -->
-		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
-		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		
-		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
-		
-		<!-- global styles -->
-		<link href="static/css/flexslider.css" rel="stylesheet"/>
-		<link href="static/css/main.css" rel="stylesheet"/>
-		<link href="static/css/dropdown.css" rel="stylesheet"/>
+    <head>
+        <meta charset="utf-8" />
+        <title>Fahasa.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="" />
+        <!--[if ie
+            ]><meta content="IE=8" http-equiv="X-UA-Compatible"
+        /><![endif]-->
+        <!-- bootstrap -->
+        <link
+            href="../static/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/bootstrap/css/bootstrap-responsive.min.css"
+            rel="stylesheet"
+        />
 
-		<!-- scripts -->
-		<script src="static/js/jquery-1.7.2.min.js"></script>
-		<script src="static/bootstrap/js/bootstrap.min.js"></script>				
-		<script src="static/js/superfish.js"></script>	
-		<script src="static/js/jquery.scrolltotop.js"></script>
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-		<!--[if lt IE 9]>			
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="js/respond.min.js"></script>
-		<![endif]-->
-	</head>
-    <body>		
-		<div id="top-bar" class="container">
-			<div class="row">
-				<div class="span3">
-					<a href="/" class="logo pull-left">
-						<img src="static/images/Fahasalogo.png" class="site_logo" alt="Fahasa Logo">
-					</a>
-				</div>
-				<div class="span5">
-					<div class="search-bar">
-						<form class="search-form" action="/search" method="GET">
-							<input type="text" placeholder="Tìm kiếm sản phẩm mong muốn...">
-							<button type="submit"><i class="fas fa-search"></i></button>
-						</form>
-					</div>
-				</div>
-				<div class="span4">
-					<div class="top-menu">
-						<div class="account">
-							<div class="dropdown">
-								<button class="dropbtn">
-									<i class="fas fa-user"></i>
-									<span>Tài Khoản</span>
-								</button>
-								<div class="dropdown-content">
-									<a href="./register">Đăng Kí</a>
-									<a href="./login">Đăng Nhập</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="wrapper" class="container">
-			<br/>
-			<section class="homepage-slider" id="home-slider">
-				<div class="flexslider">
-					<ul class="slides">
-						<li>
-							<img src="static/images/banners/banner1.webp" alt="" class="carousel-image"/>
-						</li>
-						<li>
-							<img src="static/images/banners/banner2.webp" alt="" class="carousel-image"/>
-						</li>
-						<li>
-							<img src="static/images/banners/banner3.webp" alt="" class="carousel-image"/>
-						</li>
-						<li>
-							<img src="static/images/banners/banner4.webp" alt="" class="carousel-image"/>
-						</li>
-					</ul>
-				</div>			
-			</section>
+        <link href="../static/css/bootstrappage.css" rel="stylesheet" />
 
-			<!-- Thêm phần banner phụ -->
-			<section class="sub-banners">
-				<div class="row">
-					<div class="span4">
-						<div class="banner-item">
-							<a href="#">
-								<img src="static/images/banners/sub1.webp" alt="Khuyến mãi 1">
-							</a>
-						</div>
-					</div>
-					<div class="span4">
-						<div class="banner-item">
-							<a href="#">
-								<img src="static/images/banners/sub2.webp" alt="Khuyến mãi 2">
-							</a>
-						</div>
-					</div>
-					<div class="span4">
-						<div class="banner-item">
-							<a href="#">
-								<img src="static/images/banners/sub3.webp" alt="Khuyến mãi 3">
-							</a>
-						</div>
-					</div>
-				</div>
-			</section>
+        <!-- global styles -->
+        <link href="../static/css/flexslider.css" rel="stylesheet" />
+        <link href="../static/css/main.css" rel="stylesheet" />
+        <link href="../static/css/dropdown.css" rel="stylesheet" />
 
-		<!-- GENRE-->
-			<section class="main-content">
-				<div class="row">
-					<div class="span12">													
-						<div class="row">
-							<div class="span12">
-								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>Thể Loại</strong></span></span></span>
-									<span class="pull-right">
-										<a class="left button" href="#genreCarousel" data-slide="prev"></a><a class="right button" href="#genreCarousel" data-slide="next"></a>
-									</span>
-								</h4>
-								<div id="genreCarousel" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<div class="active item">
-											<ul class="thumbnails">	
-												{% for genre in genreData %}											
-												<li class="span2">
-													<div class="product-box">
-														<span class="sale_tag"></span>
-														<p><a href="./register"><img src="static/images/books/genre.png" alt="" /></a></p>
-														<p class="price">{{genre[0]}}</p>
-													</div>
-												</li>
-												{% endfor %}
-											</ul>
-										</div>
+        <!-- scripts -->
+        <script src="../static/js/jquery-1.7.2.min.js"></script>
+        <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../static/js/superfish.js"></script>
+        <script src="../static/js/jquery.scrolltotop.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+        />
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div id="top-bar" class="container">
+            <div class="row">
+                <div class="span3">
+                    <a href="/" class="logo pull-left">
+                        <img
+                            src="../static/images/Fahasalogo.png"
+                            class="site_logo"
+                            alt="Fahasa Logo"
+                        />
+                    </a>
+                </div>
+                <div class="span5">
+                    <div class="search-bar">
+                        <form class="search-form" action="/search" method="GET">
+                            <input
+                                type="text"
+                                placeholder="Tìm kiếm sản phẩm mong muốn..."
+                            />
+                            <button type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="span4">
+                    <div class="top-menu">
+                        <div class="account">
+                            <div class="dropdown">
+                                <button class="dropbtn">
+                                    <i class="fas fa-user"></i>
+                                    <span>Tài Khoản</span>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="./register">Đăng Kí</a>
+                                    <a href="./login">Đăng Nhập</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="wrapper" class="container">
+            <br />
+            <section class="homepage-slider" id="home-slider">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li>
+                            <img
+                                src="../static/images/banners/banner1.webp"
+                                alt=""
+                                class="carousel-image"
+                            />
+                        </li>
+                        <li>
+                            <img
+                                src="../static/images/banners/banner2.webp"
+                                alt=""
+                                class="carousel-image"
+                            />
+                        </li>
+                        <li>
+                            <img
+                                src="../static/images/banners/banner3.webp"
+                                alt=""
+                                class="carousel-image"
+                            />
+                        </li>
+                        <li>
+                            <img
+                                src="../static/images/banners/banner4.webp"
+                                alt=""
+                                class="carousel-image"
+                            />
+                        </li>
+                    </ul>
+                </div>
+            </section>
 
-									</div>							
-								</div>
-							</div>						
-						</div>
-						<br/>
+            <!-- Thêm phần banner phụ -->
+            <section class="sub-banners">
+                <div class="row">
+                    <div class="span4">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img
+                                    src="../static/images/banners/sub1.webp"
+                                    alt="Khuyến mãi 1"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img
+                                    src="../static/images/banners/sub2.webp"
+                                    alt="Khuyến mãi 2"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="span4">
+                        <div class="banner-item">
+                            <a href="#">
+                                <img
+                                    src="../static/images/banners/sub3.webp"
+                                    alt="Khuyến mãi 3"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-						<!-- Display books Genre wise -->
-						{% for genre in genreData %}
-						<div class="row">
-							<div class="span12">
-								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>{{genre[0]}}</strong> Books</span></span></span>
-									<span class="pull-right">
-										<a class="left button" href="#bookCarousel-{{genre[0]}}" data-slide="prev"></a><a class="right button" href="#bookCarousel-{{genre[0]}}" data-slide="next"></a>
-									</span>
-								</h4>
-								<div id="bookCarousel-{{genre[0]}}" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<div class="active item">
-											<ul class="thumbnails">	
-												{% for book in booksData %}
-													{% if book[4] == genre[0] %}
-														<li class="span2">
-															<div class="product-box">
-																<span class="sale_tag"></span>
-																<p><a href="./register"><img src="static/images/books/book.png" alt="" /></a></p>
-																<a href="/register" classs="title">{{book[3]}} ({{book[0]}})</a><br/>
-																<a href="/register" class="title">- {{book[7]}} {{book[8]}}</a><br/>
-																<a href="/register" class="category">{{book[4]}}</a>
-																<p class="price">
-																	{% if book[10] is not none %}
-																		{{ "{:,.0f}".format(book[10]) }} VNĐ
-																	{% else %}
-																		Không xác định
-																	{% endif %}
-																</p>
-															</div>
-														</li>	
-													{% endif %}									
-												{% endfor %}
-											</ul>
-										</div>
-									</div>							
-								</div>
-							</div>						
-						</div>
-						{% endfor %}
+            <!-- GENRE-->
+            <section class="main-content">
+                <div class="row">
+                    <div class="span12">
+                        <div class="row">
+                            <div class="span12">
+                                <h4 class="title">
+                                    <span class="pull-left"
+                                        ><span class="text"
+                                            ><span class="line"
+                                                ><strong>Thể Loại</strong></span
+                                            ></span
+                                        ></span
+                                    >
+                                    <span class="pull-right">
+                                        <a
+                                            class="left button"
+                                            href="#genreCarousel"
+                                            data-slide="prev"
+                                        ></a
+                                        ><a
+                                            class="right button"
+                                            href="#genreCarousel"
+                                            data-slide="next"
+                                        ></a>
+                                    </span>
+                                </h4>
+                                <div
+                                    id="genreCarousel"
+                                    class="myCarousel carousel slide"
+                                >
+                                    <div class="carousel-inner">
+                                        <div class="active item">
+                                            <ul class="thumbnails">
+                                                {% for genre in genreData %}
+                                                <li class="span2">
+                                                    <div class="product-box">
+                                                        <span
+                                                            class="sale_tag"
+                                                        ></span>
+                                                        <p>
+                                                            <a href="./register"
+                                                                ><img
+                                                                    src="../static/images/books/genre.png"
+                                                                    alt=""
+                                                            /></a>
+                                                        </p>
+                                                        <p class="price">
+                                                            {{genre[0]}}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
 
-
-						
-						
-					</div>				
-				</div>
-			</section>
-			<section id="footer-bar">
-				<div class="row">
-					<div class="span12">
-						<h3 class="contact"><span><strong>LIÊN HỆ VỚI CHÚNG TÔI</strong></span></h3>
-						<form action="{{url_for('contactUsRoute')}}" class="form-stacked" method="POST">
-							<input type="hidden" name="next" value="/">
-							<div class="contact-container">
-								<div class="contact-left">
-									<div class="control-group">
-										<label class="control-label">Họ</label>
-										<div class="controls">
-											<input type="text" placeholder="Nhập họ của bạn" class="input-xlarge" name="fname">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label">Tên</label>
-										<div class="controls">
-											<input type="text" placeholder="Nhập tên của bạn" class="input-xlarge" name="lname">
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label">Email</label>
-										<div class="controls">
-											<input type="email" placeholder="Nhập email của bạn" class="input-xlarge" name="emailID">
-										</div>
-									</div>
-								</div>
-								<div class="contact-right">
-									<div class="control-group">
-										<label class="control-label">Tin nhắn</label>
-										<div class="controls">
-											<textarea name="subject" placeholder="Viết tin nhắn của bạn..." name="message"></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="control-group submit-group">
-								<button type="submit" class="btn-inverse" name="submit">Gửi tin nhắn</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</section>
-			<section id="copyright">
-			</section>
-
-		</div>
-		<script src="static/js/common.js"></script>
-		<script src="static/js/jquery.flexslider-min.js"></script>
-		<script type="text/javascript">
-			$(function() {
-				$(document).ready(function() {
-					$('.flexslider').flexslider({
-						animation: "fade",
-						slideshowSpeed: 4000,
-						animationSpeed: 600,
-						controlNav: false,
-						directionNav: true,
-						controlsContainer: ".flex-container"
-					});
-				});
-			});
-		</script>
-		<style>
-			.contact{
-				color:#eb4800
-			}
-		</style>
+                        <!-- Display books Genre wise -->
+                        {% for genre in genreData %}
+                        <div class="row">
+                            <div class="span12">
+                                <h4 class="title">
+                                    <span class="pull-left"
+                                        ><span class="text"
+                                            ><span class="line"
+                                                ><strong>{{genre[0]}}</strong>
+                                                Books</span
+                                            ></span
+                                        ></span
+                                    >
+                                    <span class="pull-right">
+                                        <a
+                                            class="left button"
+                                            href="#bookCarousel-{{genre[0]}}"
+                                            data-slide="prev"
+                                        ></a
+                                        ><a
+                                            class="right button"
+                                            href="#bookCarousel-{{genre[0]}}"
+                                            data-slide="next"
+                                        ></a>
+                                    </span>
+                                </h4>
+                                <div
+                                    id="bookCarousel-{{genre[0]}}"
+                                    class="myCarousel carousel slide"
+                                >
+                                    <div class="carousel-inner">
+                                        <div class="active item">
+                                            <ul class="thumbnails">
+                                                {% for book in booksData %} {%
+                                                if book[4] == genre[0] %}
+                                                <li class="span2">
+                                                    <div class="product-box">
+                                                        <span
+                                                            class="sale_tag"
+                                                        ></span>
+                                                        <p>
+                                                            <a href="./register"
+                                                                ><img
+                                                                    src="../static/images/books/book.png"
+                                                                    alt=""
+                                                            /></a>
+                                                        </p>
+                                                        <a
+                                                            href="/register"
+                                                            classs="title"
+                                                            >{{book[3]}}
+                                                            ({{book[0]}})</a
+                                                        ><br />
+                                                        <a
+                                                            href="/register"
+                                                            class="title"
+                                                            >- {{book[7]}}
+                                                            {{book[8]}}</a
+                                                        ><br />
+                                                        <a
+                                                            href="/register"
+                                                            class="category"
+                                                            >{{book[4]}}</a
+                                                        >
+                                                        <p class="price">
+                                                            {% if book[10] is
+                                                            not none %} {{
+                                                            "{:,.0f}".format(book[10])
+                                                            }} VNĐ {% else %}
+                                                            Không xác định {%
+                                                            endif %}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                {% endif %} {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <section id="footer-bar">
+                <div class="row">
+                    <div class="span12">
+                        <h3 class="contact">
+                            <span><strong>LIÊN HỆ VỚI CHÚNG TÔI</strong></span>
+                        </h3>
+                        <form
+                            action="{{url_for('contactUsRoute')}}"
+                            class="form-stacked"
+                            method="POST"
+                        >
+                            <input type="hidden" name="next" value="/" />
+                            <div class="contact-container">
+                                <div class="contact-left">
+                                    <div class="control-group">
+                                        <label class="control-label">Họ</label>
+                                        <div class="controls">
+                                            <input
+                                                type="text"
+                                                placeholder="Nhập họ của bạn"
+                                                class="input-xlarge"
+                                                name="fname"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Tên</label>
+                                        <div class="controls">
+                                            <input
+                                                type="text"
+                                                placeholder="Nhập tên của bạn"
+                                                class="input-xlarge"
+                                                name="lname"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"
+                                            >Email</label
+                                        >
+                                        <div class="controls">
+                                            <input
+                                                type="email"
+                                                placeholder="Nhập email của bạn"
+                                                class="input-xlarge"
+                                                name="emailID"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-right">
+                                    <div class="control-group">
+                                        <label class="control-label"
+                                            >Tin nhắn</label
+                                        >
+                                        <div class="controls">
+                                            <textarea
+                                                name="subject"
+                                                placeholder="Viết tin nhắn của bạn..."
+                                                name="message"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group submit-group">
+                                <button
+                                    type="submit"
+                                    class="btn-inverse"
+                                    name="submit"
+                                >
+                                    Gửi tin nhắn
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section id="copyright"></section>
+        </div>
+        <script src="../static/js/common.js"></script>
+        <script src="../static/js/jquery.flexslider-min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $(document).ready(function () {
+                    $(".flexslider").flexslider({
+                        animation: "fade",
+                        slideshowSpeed: 4000,
+                        animationSpeed: 600,
+                        controlNav: false,
+                        directionNav: true,
+                        controlsContainer: ".flex-container",
+                    });
+                });
+            });
+        </script>
+        <style>
+            .contact {
+                color: #eb4800;
+            }
+        </style>
     </body>
 </html>
