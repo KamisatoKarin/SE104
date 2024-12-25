@@ -33,6 +33,7 @@ venv\Scripts\activate
 ##3. Cài các requirements
 ```bash
 pip install -r requirements.txt
+or pip install flask flask-mysqldb python-dotenv
 ```
 
 ##4.(SQL)Thiết lập cơ sở dữ liệu:
