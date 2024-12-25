@@ -123,7 +123,7 @@ def bookDetail(mysql, subject):
     cur = mysql.connection.cursor()
     cur.execute(
         """
-        SELECT b.bookID, b.title, b.genre, b.Purchase_Price, b.Selling_Price, b.publicationYear, b.Author, p.country 
+        SELECT b.bookID, b.title, b.genre, b.Purchase_Price, b.Selling_Price, b.publicationYear, b.Author, p.country,b.price 
         FROM Books b 
         JOIN Publishers p ON b.publisherID = p.publisherID 
         WHERE b.bookID = %s
