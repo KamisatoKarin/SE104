@@ -149,6 +149,7 @@
                         <span class="pull-left"><span class="text"><span class="line"><strong>Chỉnh Sửa Phiếu Thu</strong></span></span></span>
                     </h4>
                     <form method="POST" action="{{ url_for('editPaymentReceiptRoute', receipt_id=receipt.ID_Receipt) }}">
+                        <input type="hidden" name="ID_Customer" value="{{ receipt.ID_Customer }}">
                         <div class="form-group">
                             <label>Họ Tên Khách Hàng</label>
                             <input type="text" name="customer_name" class="form-control" value="{{ receipt.customer_name }}" required>

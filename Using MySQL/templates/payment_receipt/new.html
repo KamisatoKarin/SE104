@@ -149,6 +149,7 @@
                         <span class="pull-left"><span class="text"><span class="line"><strong>Tạo Phiếu Thu Mới</strong></span></span></span>
                     </h4>
                     <form method="POST" action="{{ url_for('newPaymentReceiptRoute') }}">
+                        <input type="hidden" name="ID_Customer" value="{{ customer_id }}">
                         <div class="form-group">
                             <label>Họ Tên Khách Hàng</label>
                             <input type="text" name="customer_name" class="form-control" required>

@@ -420,12 +420,13 @@ def newPaymentReceiptRoute():
         receipt_date = request.form.get("receipt_date")
         amount_collected = request.form.get("amount_collected")
         note = request.form.get("note")
+        customer_id = request.form.get("ID_Customer")
         
         cur = mysql.connection.cursor()
         cur.execute("""
-            INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """, (customer_name, address, phone, email, receipt_date, amount_collected, note))
+            INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id))
         mysql.connection.commit()
         cur.close()
         
@@ -453,19 +454,20 @@ def editPaymentReceiptRoute(receipt_id):
         receipt_date = request.form.get("receipt_date")
         amount_collected = request.form.get("amount_collected")
         note = request.form.get("note")
+        customer_id = request.form.get("ID_Customer")
         
         cur = mysql.connection.cursor()
         cur.execute("""
             UPDATE PaymentReceipt
-            SET customer_name = %s, address = %s, phone = %s, email = %s, Receipt_Date = %s, Amount_Collected = %s, note = %s
+            SET customer_name = %s, address = %s, phone = %s, email = %s, Receipt_Date = %s, Amount_Collected = %s, note = %s, ID_Customer = %s
             WHERE ID_Receipt = %s
-        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, receipt_id))
+        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id, receipt_id))
         mysql.connection.commit()
         cur.close()
         
         return redirect(url_for("paymentReceiptsRoute"))
     
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cur.execute("SELECT * FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
     receipt = cur.fetchone()
     cur.close()
