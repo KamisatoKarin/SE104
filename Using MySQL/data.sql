@@ -1,5 +1,3 @@
-
-
 CREATE DATABASE onlinebookstore;
 USE onlinebookstore;
 SHOW TABLES;
@@ -421,10 +419,16 @@ CREATE TABLE InvoiceDetail (
 
 -- Tạo bảng PaymentReceipt
 CREATE TABLE PaymentReceipt (
-    ID_Receipt INT PRIMARY KEY,
+    ID_Receipt INT PRIMARY KEY AUTO_INCREMENT,
     Receipt_Date DATE,
     ID_Customer VARCHAR(30),
     Amount_Collected DECIMAL(10, 2),
+    customer_name VARCHAR(100),
+    address VARCHAR(255),
+    phone VARCHAR(15),
+    email VARCHAR(100),
+    note TEXT,
+    status VARCHAR(20) DEFAULT 'chưa thu',
     FOREIGN KEY (ID_Customer) REFERENCES Customers(customerID)
 );
 
@@ -606,6 +610,7 @@ BEGIN
     END IF;
 END//
 DELIMITER ;
+
 
 SELECT * FROM Admins;
 SELECT * FROM Customers;
