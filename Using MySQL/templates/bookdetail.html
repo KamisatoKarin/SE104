@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Fahasa.com</title>
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -14,6 +14,49 @@
 		<!-- global styles -->
 		<link href="static/css/flexslider.css" rel="stylesheet"/>
 		<link href="static/css/main.css" rel="stylesheet"/>
+		
+		<!-- Montserrat Font -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+		<style>			
+			p.reset a {
+				color: #998B5F !important;
+				font-weight: bold !important;
+			}
+			label.control-label {
+				font-weight: bold !important;
+			}
+									
+			* {
+				font-family: 'Montserrat', sans-serif !important;
+			}
+			.title .text, .title .text strong {
+				color: #998B5F;
+			}
+			.user-menu li a {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #0E2535;
+				padding: 10px 20px;
+				border-radius: 8px;
+				display: inline-block;
+				text-align: center;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				background-color: transparent;
+			}
+		
+			.user-menu li a:hover {
+				background-color: #998B5F;
+				color: white;
+				box-shadow: 0 0 0 1px #998B5F;  /* Khung viền bằng box-shadow */
+			}
+			h4 .price {
+				display: inline !important;
+				margin-left: 5px;
+			}
+		</style>
 
 		<!-- scripts -->
 		<script src="static/js/jquery-1.7.2.min.js"></script>
@@ -29,12 +72,12 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<a href="./customerindex" class="logo pull-left"><img src="static/images/fahasalogo.png" class="site_logo" alt=""></a>
+					<a href="./customerindex" class="logo pull-left"><img src="static/images/Liber_logo.png" class="site_logo" alt="" style="height: 70px; width: auto;"></a>
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
-						<ul class="user-menu">	
-							<li><a href="./customerindex">Quay lại</a></li>	
+						<ul class="user-menu">
+							<li><a href="./customerindex">Quay lại</a></li>
 						</ul>
 					</div>
 				</div>
@@ -47,15 +90,15 @@
 						<h4 class="title"><span class="text"><strong>Thông tin </strong>Sách</span></h4>
 						
 						<div class="span5">
-                            <address>
-								<h5><strong>Tên:</strong> <span>{{ bookData[1] }}</span><br></h5>
+                            <address style="line-height: 2;">
+								<h5 style="font-size: 14px;"><strong>Tên sách:</strong> <span style="font-size: 14px;">{{ bookData[1] }}</span><br></h5>
                                 <strong>Mã sách:</strong> <span>{{ bookData[0] }}</span><br>
                                 <strong>Thể loại:</strong> <span>{{ bookData[2] }}</span><br>
                                 <strong>Tác giả:</strong> <span>{{ bookData[5] }} {{ bookData[6] }}</span><br>
 								<strong>Năm: </strong> <span>{{ bookData[4] }}</span><br>
 								<strong>Khu vực: </strong> <span>{{ bookData[7] }}</span><br>								
                             </address>									
-                            <h4><strong>Giá <p class="price">{{"{:,.0f}".format(bookData[3])}} VNĐ</p>
+                            <h4><strong>Giá: <p class="price" style="color: #998B5F;">{{"{:,.0f}".format(bookData[3])}} VNĐ</p>
 							</br>
                         </div>
 
@@ -64,7 +107,7 @@
 								<div class="control-group">
 									<label class="control-label">Số lượng</label>
 									<div class="controls">
-										<input type="number" placeholder="Nhập số lượng sách" id="password" class="input-xlarge" name="quantity" min="1" max="5" required>
+										<input type="number" placeholder="Nhập số lượng sách" id="password" class="input-xlarge" name="quantity" min="1" max="5" required style="font-size: 11px;">
 									</div>
 								</div>
 								<div class="control-group">

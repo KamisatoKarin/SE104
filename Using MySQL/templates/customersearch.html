@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Fahsasa.com</title>
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -26,6 +26,36 @@
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
 		<style>
+			ul.thumbnails {
+				margin-left: 20px !important;
+				margin-right: 20px !important;
+			}
+			form.form-stacked {
+				margin-left: 30px !important;
+				margin-right: 30px !important;
+			}
+			
+			body, h1, h2, h3, h4, h5, h6, p, a, span, label, input, button, select, textarea {
+				font-family: 'Montserrat', sans-serif;
+			}
+			::placeholder {
+    		font-size: 12px;
+			}
+
+			..main-content {
+				margin: 0 auto; /* Căn giữa theo chiều ngang */
+				max-width: 800px; /* Giới hạn chiều rộng */
+				padding: 20px;
+				border: 1px solid #ddd;
+				border-radius: 6px;
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+				background-color: #fff;
+			}
+			#top-bar .logo {
+				margin-left: 40px;
+				margin-right: auto;
+			}
+			
 			#top-bar {
 				border-radius: 4px;
 				display: flex;
@@ -60,7 +90,7 @@
 				text-transform: uppercase;
 				color: #0E2535;
 				text-decoration: none;
-				padding: 5px 15px;
+				padding: 5px 5px;
 			}
 			#top-bar nav ul li a:hover {
 				background-color: #998B5F; /* Màu nền khi hover */
@@ -73,23 +103,18 @@
 				font-size: 12px;
 				text-transform: uppercase;
 				color: #0E2535;
+				padding: 5px 5px;
+				margin: 5px;
 			}
 			
-			.main-content {
-				background-color: #fff;  /* Nền trắng */
-				padding: 20px;  /* Tăng khoảng cách bên trong */
-				border: 1px solid #ddd;  /* Viền xám nhạt */
-				border-radius: 6px;  /* Bo tròn góc */
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Đổ bóng nhẹ */
-				margin-top: 5px;  /* Khoảng cách phía trên */
-				margin-bottom: 5px; /* Khoảng cách phía dưới */
-			}
+			
 			h4.title .text {
 				margin-left: 40px; /* Cách lề trái cho tiêu đề */
 			}
-			h4.title .text .line strong {
-				color: #998B5F; /* Màu chữ tiêu đề */
-			}
+			h4.title .text .line strong,
+    		h4.title .text .line {
+        		color: #998B5F; /* Đổi màu chữ "Tìm kiếm" */
+    		}
 			.btn-inverse { 
 				color: #fff;
 				background-color: #998B5F;
@@ -100,8 +125,14 @@
 				cursor: pointer;
 				transition: background-color 0.3s ease;
 			}
-			.btn-inverse:hover {
-				background-color: #7a6a46;  /* Màu khi hover */
+			.main-content {
+				max-width: 1180px;
+				padding: 5px;
+				border: 1px solid #ddd;
+				border-radius: 10px;
+				box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+				background-color: #fff;
+				margin-bottom:5px;
 			}
 			
 		</style>
@@ -118,7 +149,7 @@
 					<li><a href="./customerindex">Trang chủ</a></li>
 					<li><a href="./customersearch">Tìm sách</a></li>
 					<li><a href="./myorders">Đơn hàng</a></li>
-					<li><a href="./myaccount">Tài khoản của tôi</a></li>
+					<li><a href="./myaccount">Tài khoản</a></li>
 				</ul>
 			</nav>
 			<!-- Đăng xuất -->
