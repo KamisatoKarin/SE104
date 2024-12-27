@@ -3,7 +3,13 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors,re,datetime,os
 from os import getenv
 from dotenv import load_dotenv
+from docx import Document
+from io import BytesIO
+import datetime
+from flask import Flask, request, send_file
 
+from io import BytesIO
+    
 
 from utils.home import *
 from utils.loginregister import *
@@ -495,7 +501,136 @@ def changePaymentReceiptStatusRoute(receipt_id):
     mysql.connection.commit()
     cur.close()
     
-    return redirect(url_for("paymentReceiptsRoute"))
+
+
+
+
+
+
+
+# Giả sử bạn có một danh sách sách (có thể thay bằng cơ sở dữ liệu thực tế)
+# books = [
+#     (1, 'Sách A', 100000, 'Thể loại A'),
+#     (2, 'Sách B', 120000, 'Thể loại B'),
+#     (3, 'Sách C', 90000, 'Thể loại C'),
+#     (4, 'Sách D', 150000, 'Thể loại D'),
+# ]
+
+# customers = [
+#     (1, 'Khách hàng A'),
+#     (2, 'Khách hàng B'),
+#     (3, 'Khách hàng C'),
+# ]
+
+# # Route chính để hiển thị trang lập hóa đơn
+# @app.route('/create_invoice')
+# def invoice():
+#     today_date = datetime.date.today()
+#     return render_template('create_invoice.html', books=books, customers=customers, today_date=today_date)
+
+# # Route để lấy thông tin sách theo ID (sử dụng AJAX)
+# @app.route('/get_book_info/<int:book_id>', methods=['GET'])
+# def get_book_info(book_id):
+#     # Tìm sách theo book_id
+#     book = next((b for b in books if b[0] == book_id), None)
+#     if book:
+#         # Trả về dữ liệu sách dưới dạng JSON
+#         return jsonify({
+#             'genre': book[3],           # Thể loại
+#             'Selling_Price': book[2],   # Đơn giá
+#         })
+#     else:
+#         return jsonify({'error': 'Book not found'}), 404
+
+
+
+# Route chính để hiển thị trang lập hóa đơn
+@app.route('/create_invoice')
+def invoice():
+    today_date = datetime.date.today()
+    
+    # Lấy danh sách sách từ cơ sở dữ liệu
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT bookID, title, Selling_Price, genre FROM Books")
+    books = cur.fetchall()
+
+    # Lấy danh sách khách hàng
+    cur.execute("SELECT customerID, firstName FROM Customers")
+    customers = cur.fetchall()
+
+    return render_template('create_invoice.html', books=books, customers=customers, today_date=today_date)
+
+# Route để lấy thông tin sách theo ID (sử dụng AJAX)
+@app.route('/get_book_info/<int:book_id>', methods=['GET'])
+def get_book_info(book_id):
+    # Lấy thông tin sách từ cơ sở dữ liệu
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT genre, Selling_Price FROM Books WHERE bookID = %s", (book_id,))
+    book = cur.fetchone()
+
+    if book:
+        # Trả về dữ liệu sách dưới dạng JSON
+        return jsonify({
+            'genre': book[0],           # Thể loại
+            'Selling_Price': book[1],   # Đơn giá
+        })
+    else:
+        return jsonify({'error': 'Book not found'}), 404
+
+
+
+
+@app.route('/export_invoice', methods=['POST'])
+def export_invoice():
+    # Lấy dữ liệu từ form
+    customer_name = request.form.get('customerName')
+    date = request.form.get('date')
+    books = request.form.getlist('bookID[]')
+    categories = request.form.getlist('category[]')
+    quantities = request.form.getlist('quantity[]')
+    prices = request.form.getlist('price[]')
+    total = request.form.get('total')
+    paid = request.form.get('paid')
+    remaining = request.form.get('remaining')
+
+    # Tạo file Word
+    document = Document()
+    document.add_heading('Hóa Đơn Bán Sách', level=1)
+
+    document.add_paragraph(f'Họ Tên Khách Hàng: {customer_name}')
+    document.add_paragraph(f'Ngày Lập Hóa Đơn: {date}')
+
+    # Thêm bảng chi tiết hóa đơn
+    table = document.add_table(rows=1, cols=5)
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'STT'
+    hdr_cells[1].text = 'Sách'
+    hdr_cells[2].text = 'Thể loại'
+    hdr_cells[3].text = 'Số lượng'
+    hdr_cells[4].text = 'Đơn giá'
+
+    for i, (book, category, quantity, price) in enumerate(zip(books, categories, quantities, prices), start=1):
+        row_cells = table.add_row().cells
+        row_cells[0].text = str(i)
+        row_cells[1].text = book
+        row_cells[2].text = category
+        row_cells[3].text = quantity
+        row_cells[4].text = price
+
+    document.add_paragraph(f'Tổng tiền: {total}')
+    document.add_paragraph(f'Số tiền trả: {paid}')
+    document.add_paragraph(f'Còn lại: {remaining}')
+
+    # Lưu vào memory buffer
+    buffer = BytesIO()
+    document.save(buffer)
+    buffer.seek(0)
+
+    # Trả file về client
+    return send_file(buffer, as_attachment=True, download_name="invoice.docx", mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
