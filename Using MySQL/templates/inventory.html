@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-		<title>Fahasa.com</title>
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -24,7 +24,50 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
-        <style>
+        <style>  
+            .main-content h4.title::after {
+                content: "";
+                display: block;
+                width: 100%;
+                border-bottom: 1px dashed #ccc;
+                position: relative;
+                top: -5px;  /* Điều chỉnh line gần sát chữ */
+                z-index: -1;  /* Đưa line xuống dưới */
+            }
+
+            .main-content table {
+                border-collapse: separate; /* Đảm bảo các góc được bo tròn */
+                border-spacing: 0; /* Tránh khoảng cách giữa các ô */
+                border-radius: 8px; /* Bo tròn viền của bảng */
+                overflow: hidden; /* Đảm bảo phần nội dung bên trong cũng bo góc */
+            }            
+            
+            .main-content table {
+                width: 95%;
+                margin: 0 auto;
+            }
+            .main-content h4.title span.text {
+                margin-left: 20px;
+            }
+            
+            .main-content h4.title span.line strong {
+                color: #998B5F;
+                padding: 10px;
+            }            
+            
+            .main-content h4.title {
+                margin-bottom: 0px;  /* Điều chỉnh khoảng cách giữa tiêu đề và bảng */
+                padding-bottom: 5px;   /* Đảm bảo không có padding thừa */
+                line-height: 1.2;    /* Giảm độ cao dòng để tiêu đề gần bảng hơn */
+            }            
+            
+            .main-content {
+                background-color: white;
+                border-radius: 8px;
+                padding: 5px;
+                margin-bottom:5px;
+                padding-top: 20px;
+            } 
         table {
         font-family: arial, sans-serif;
         border-collapse: collapse;
@@ -40,84 +83,105 @@
         tr:nth-child(even) {
         background-color: #dddddd;
         }
-        </style>
+        #top-bar .account ul li a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #0E2535;
+        }
+        body, h1, h2, h3, h4, h5, h6, p, a, td, th, span, div, li, button, input {
+            font-family: 'Montserrat', sans-serif;
+        }
+                
+        #top-bar {
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 5px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+
+        #top-bar .logo img {
+            max-height: 70px;
+            width: auto;
+        }
+
+        #top-bar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        #top-bar nav ul li a:hover {
+            background-color: #998B5F;
+            color: white;
+        }
+    </style>
 </head>
-<body>		
+<body>      
     <div id="top-bar" class="container">
-        <div class="row">
-            <div class="span4">
-                <a href="./adminindex" class="logo pull-left"><img src="static/images/fahasalogo.png" class="site_logo" alt=""></a>
-            </div>
-            <div class="span8">
-                <div class="account pull-right">
-                    <ul class="user-menu">				
-                        <li><a href="./logout">Đăng xuất</a></li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Logo -->
+        <a href="/adminindex" class="logo" style="max-width: 200px; height: auto;">
+            <img src="static/images/Liber_logo.png" class="site_logo" alt="">
+        </a>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <ul>
+                <li><a href="./adminindex">Trang chủ</a></li>
+                <li><a href="./search">Tìm kiếm</a></li>
+                <li><a href="./books" method="POST">Sản phẩm</a></li>
+                <li><a href="./inventory">Tồn kho</a></li>    
+                <li><a href="./users">Người dùng</a></li>
+                <li><a href="./myorders">Đơn hàng</a></li>
+                <li><a href="./myaccount">Tài khoản</a></li>
+            </ul>
+        </nav>
+
+        <div class="account">
+            <ul class="user-menu">
+                <li><a href="./logout">ĐĂNG XUẤT</a></li>
+            </ul>
         </div>
     </div>
-    <div id="wrapper" class="container">
-        <section class="navbar main-menu">
-
-            <div class="navbar-inner main-menu">	
-                
-                <nav id="menu" class="pull-right">
-                    <ul>
-                        <li><a href="./adminindex">Trang chủ</a></li>
-                        <li><a href="./books" method="POST">Sách</a>					
-                            <ul>
-                                <li><a href="./books">Thêm sản phẩm</a></li>									
-                                <li><a href="./books">Cập nhật sản phẩm</a></li>
-                                <li><a href="./books">Xóa sản phẩm</a></li>			
-                            </ul>
-                        </li>
-                        <li><a href="#">Tồn kho</a></li>	
-                        <li><a href="./users">Người dùng</a>					
-                            <ul>
-                                <li><a href="./users">Admins</a></li>									
-                                <li><a href="./users">Khách hàng</a></li>					
-                            </ul>
-                        </li>
-                        <li><a href="./myorders">Đơn hàng</a></li>
-                        <li><a href="./myaccount">Tài khoản</a></li>		
-                    </ul>
-                </nav>
-            </div>
         </section>
 
 
-        <section class="main-content">
+        <section class="main-content container">
             <div class="row">
                 <div class="span12">
 
                     <!-- Inventory - Show stock details of each book -->
-                    <div class="row">
-                        <div class="span12">
+                    <div class="container">
+                        <div id="inventory-wrapper">
                             <h4 class="title">
                                 <span class="pull-left"><span class="text"><span class="line"><strong>Tồn kho</strong></span></span></span>
                             </h4>
+                            <br>
+                            <table>
+                                <tr>
+                                    <th>Mã sách</th>
+                                    <th>Tên sách</th>
+                                    <th>Tồn kho</th>
+                                    <th>Đã bán</th>
+                                </tr>
+                                {% for book in bookData %}
+                                <tr>
+                                    <td>{{ book[0] }}</td>
+                                    <td>{{ book[1] }}</td>
+                                    <td>{{ book[2] }}</td>
+                                    <td>{{ book[3] }}</td>
+                                </tr>
+                                {% endfor %}                    
+                            </table>
                             </br>
-                                <table>
-                                    <tr>
-                                      <th>Mã sách</th>
-                                      <th>Tên sách</th>
-                                      <th>Tồn kho</th>
-                                      <th>Đã bán</th>
-                                    </tr>
-                                    {% for book in bookData %}
-                                        <tr>
-                                        <td>{{ book[0] }}</td>
-                                        <td>{{ book[1] }}</td>
-                                        <td>{{ book[2] }}</td>
-                                        <td>{{ book[3] }}</td>
-                                        </tr> 
-                                    {% endfor %}
-                                  </table>
-                                  </br>
                         </div>						
-                    </div>
-
+                    </div>                   
 
                 </div>				
             </div>

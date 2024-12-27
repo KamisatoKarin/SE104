@@ -9,8 +9,8 @@
 		<!-- bootstrap -->
 		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
 		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		
 		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 		
 		<!-- global styles -->
 		<link href="static/css/flexslider.css" rel="stylesheet"/>
@@ -25,38 +25,113 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
+		<style>
+			#top-bar {
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 5px 5px;
+				border-bottom: 1px solid #ccc;
+				margin-bottom: 5px;
+				background-color: #fff; /* Nền trắng */
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+			}
+			#top-bar .logo img {
+				max-height: 70px;
+				width: auto;
+			}
+			#top-bar nav ul {
+				border-radius: 4px;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: flex;
+				gap: 20px;
+			}
+			#top-bar nav ul li {
+				border-radius: 4px;
+				position: relative;
+			}
+			#top-bar nav ul li a {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #0E2535;
+				text-decoration: none;
+				padding: 5px 15px;
+			}
+			#top-bar nav ul li a:hover {
+				background-color: #998B5F; /* Màu nền khi hover */
+				color: white;
+				border-radius: 5px;
+			}
+			.account ul li a {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #0E2535;
+			}
+			
+			.main-content {
+				background-color: #fff;  /* Nền trắng */
+				padding: 20px;  /* Tăng khoảng cách bên trong */
+				border: 1px solid #ddd;  /* Viền xám nhạt */
+				border-radius: 6px;  /* Bo tròn góc */
+				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Đổ bóng nhẹ */
+				margin-top: 5px;  /* Khoảng cách phía trên */
+				margin-bottom: 5px; /* Khoảng cách phía dưới */
+			}
+			h4.title .text {
+				margin-left: 40px; /* Cách lề trái cho tiêu đề */
+			}
+			h4.title .text .line strong {
+				color: #998B5F; /* Màu chữ tiêu đề */
+			}
+			.btn-inverse { 
+				color: #fff;
+				background-color: #998B5F;
+				border: none;
+				padding: 8px 30px;
+				font-size: 14px;
+				border-radius: 10px;
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+			}
+			.btn-inverse:hover {
+				background-color: #7a6a46;  /* Màu khi hover */
+			}
+			
+		</style>
 	</head>
-    <body>		
+    <body> 
 		<div id="top-bar" class="container">
-			<div class="row">
-				<div class="span4">
-					<a href="./customerindex" class="logo pull-left"><img src="static/images/fahasalogo.png" class="site_logo" alt=""></a>
-				</div>
-				<div class="span8">
-					<div class="account pull-right">
-						<ul class="user-menu">				
-							<li><a href="./logout">Đăng xuất</a></li>
-						</ul>
-					</div>
-				</div>
+			<!-- Logo -->
+			<a href="./customerindex" class="logo">
+				<img src="static/images/Liber_logo.png" class="site_logo" alt="">
+			</a>
+			<!-- Menu -->
+			<nav id="menu">
+				<ul>
+					<li><a href="./customerindex">Trang chủ</a></li>
+					<li><a href="./customersearch">Tìm sách</a></li>
+					<li><a href="./myorders">Đơn hàng</a></li>
+					<li><a href="./myaccount">Tài khoản của tôi</a></li>
+				</ul>
+			</nav>
+			<!-- Đăng xuất -->
+			<div class="account">
+				<ul class="user-menu">
+					<li><a href="./logout">Đăng xuất</a></li>
+				</ul>
 			</div>
 		</div>
-		<div id="wrapper" class="container">
-			<section class="navbar main-menu">
-				<div class="navbar-inner main-menu">	
-					<nav id="menu" class="pull-right">
-						<ul>
-							<li><a href="./customerindex">Trang chủ</a></li>
-							<li><a href="./customersearch">Tìm sách</a></li>
-							<li><a href="./myorders">Đơn hàng</a></li>
-							<li><a href="./myaccount">Tài khoản của tôi</a></li>		
-						</ul>
-					</nav>
-				</div>
 			</section>
 
 
-			<section class="main-content">
+			<section class="main-content container">
 				<div class="row">
 					<div class="span12">
 
