@@ -25,7 +25,21 @@
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
         <style>  
-			* {
+			.header_text p {
+			margin-left: 80px;
+			text-align: left;
+		}
+		.data-box {
+            display: inline-block;
+            padding: 4px 20px;
+			width: 900px; 
+            margin: 5px 0;
+            border: 1px solid  #BBBBBB;
+            border-radius: 10px;
+            background-color: #ffffff;
+			font-size: 13px;
+        }		
+		* {
 				font-family: 'Montserrat', sans-serif !important;
 			}
             .main-content h4.title::after {
@@ -82,75 +96,102 @@
             margin-bottom: 5px;
 			height: 70px;     /* Giữ đủ khoảng trống cho logo */
         }
-		* {
+        * {
 			font-family: 'Montserrat', sans-serif !important;
 		}
-        #top-bar .logo {
-			margin-left: 40px;
-			margin-right: auto;
-		}
-		#top-bar .logo img {
-			max-height: 70px;  /* Giữ nguyên kích thước logo */
-			width: auto;
-		}
-		
-		#top-bar nav ul {
-			list-style: none;
-			padding: 10px 10px;
-			margin: 10px;
-			display: flex;
-			justify-content: space-evenly; /* Dàn đều khoảng cách giữa các mục */
-			align-items: center; /* Căn giữa theo chiều dọc */
-			width: 100%; /* Đảm bảo menu kéo dài hết chiều ngang */
-		}			
-		
-		#top-bar nav ul li a {
-			text-decoration: none;
-			color: #0E2535;
-			font-weight: bold;
-			font-family: 'Montserrat', sans-serif;
-			font-size: 12px;  /* Đặt cỡ chữ 12px */
-			line-height: 35px;  /* Căn giữa theo chiều dọc */
-			padding: 0 10px;  /* Tạo khoảng cách bên trong */
-			transition: background-color 0.3s ease, color 0.3s ease;
-		}
-		
-		#top-bar nav ul li a:hover {
-			background-color: #998B5F;
-			color: white;
-			border-radius: 8px;
-		}			
-		
-		.account ul li a {
-			font-family: 'Montserrat', sans-serif;
-			font-weight: 600;
-			font-size: 12px;
-			text-transform: uppercase;
-			color: #0E2535;
-			font-weight: bold;
-			padding: 10px 10px;
-			line-height: 70px; /* Hoặc chỉnh lại cho bằng với các mục khác */
-		}
-		.header_text p {
-			margin-left: 80px;
-			text-align: left;
-		}
-		.data-box {
-            display: inline-block;
-            padding: 4px 20px;
-			width: 900px; 
-            margin: 5px 0;
-            border: 1px solid  #BBBBBB;
-            border-radius: 10px;
-            background-color: #ffffff;
-			font-size: 13px;
-        }		
+        
+        #top-bar nav ul li:hover > a,
+        #top-bar nav ul li a:focus,
+        #top-bar nav ul li a:active {
+                background-color: #998B5F;
+                    color: white;
+                }
+
+        #top-bar nav ul li ul li a:hover {
+        background-color: #998B5F;
+            color: white;
+        }
+
+        #top-bar {
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 5px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+
+        #top-bar .logo img {
+            max-height: 70px;
+            width: auto;
+        }
+
+        #top-bar nav ul {
+            border-radius: 4px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #top-bar nav ul li {
+            border-radius: 4px;
+            position: relative;
+        }
+        #top-bar nav ul li a:hover {
+            border-radius: 5px;
+        }
+        
+        #top-bar nav ul li ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        #top-bar nav ul li a:hover {
+            background-color: #998B5F;
+            color: white;
+        }
+        #top-bar nav ul li ul li a:hover {
+            background-color: #998B5F;
+            color: white;
+        }
+        .btn-custom {
+            background-color: #998B5F !important;
+            border: 1px solid #7F7048 !important;
+            color: white !important;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .btn-custom:hover {
+            background-color: #7F7048 !important;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .bold:hover {
+            color: #998B5F;
+        }                
+        
     </style>
 </head>
 <body>      
     <div id="top-bar" class="container">
         <!-- Logo -->
-        <a href="" class="logo" style="max-width: 200px; height: auto;">
+        <a href="/adminindex" class="logo" style="max-width: 200px; height: auto;">
             <img src="static/images/Liber_logo.png" class="site_logo" alt="">
         </a>
 
@@ -190,14 +231,15 @@
                 <li><a href="./myaccount">Tài khoản</a></li>
             </ul>
         </nav>
+        
 
         <div class="account">
             <ul class="user-menu">
-                <li><a href="./logout">ĐĂNG XUẤT</a></li>
+                <li><a href="./login" class="bold">ĐĂNG NHẬP</a></li>
             </ul>
         </div>
     </div>
-			</section>
+        </section>
 
 
 			<section class="main-content container">

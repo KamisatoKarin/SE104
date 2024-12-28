@@ -148,23 +148,30 @@
                     <h4 class="title">
                         <span class="pull-left"><span class="text"><span class="line"><strong>Tạo Phiếu Thu Mới</strong></span></span></span>
                     </h4>
-                    <form method="POST" action="{{ url_for('newPaymentReceiptRoute') }}">
-                        <input type="hidden" name="ID_Customer" value="{{ customer_id }}">
+                    {% if error_message %}
+                        <div class="alert alert-danger">{{ error_message }}</div>
+                    {% endif %}
+                    <form id="payment-form" method="POST" action="{{ url_for('newPaymentReceiptRoute') }}">
+                        <!-- Remove ID Khách Hàng field -->
+                        <!-- <div class="form-group">
+                            <label>ID Khách Hàng</label>
+                            <input type="text" id="customer_id" name="ID_Customer" class="form-control" required>
+                        </div> -->
                         <div class="form-group">
                             <label>Họ Tên Khách Hàng</label>
-                            <input type="text" name="customer_name" class="form-control" required>
+                            <input type="text" id="customer_name" name="customer_name" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Địa Chỉ</label>
-                            <input type="text" name="address" class="form-control" required>
+                            <input type="text" id="address" name="address" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Điện Thoại</label>
-                            <input type="text" name="phone" class="form-control" required>
+                            <input type="text" id="phone" name="phone" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" required>
+                            <input type="email" id="email" name="email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Ngày Thu Tiền</label>
@@ -198,6 +205,37 @@
                     controlNav: false,
                     directionNav: true,
                     controlsContainer: ".flex-container"
+                });
+
+                $('#customer_name').on('change', function() {
+                    var customerName = $(this).val();
+                    if (customerName) {
+                        $.ajax({
+                            url: '/get_customer_info_by_name/' + customerName,
+                            method: 'GET',
+                            success: function(data) {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else {
+                                    $('#address').val(data.address);
+                                    $('#phone').val(data.phone);
+                                    $('#email').val(data.email);
+                                }
+                            },
+                            error: function() {
+                                alert('Failed to fetch customer details.');
+                            }
+                        });
+                    }
+                });
+
+                $('#payment-form').on('submit', function(e) {
+                    var amountCollected = parseFloat($('input[name="amount_collected"]').val());
+                    var customerDebt = parseFloat('{{ customer_debt }}');
+                    if (amountCollected > customerDebt) {
+                        e.preventDefault();
+                        alert('Số tiền thu vượt quá số tiền khách hàng đang nợ.');
+                    }
                 });
             });
         });

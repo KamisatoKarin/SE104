@@ -273,7 +273,7 @@ def deleteBookRoute():
         lname = str(request.form.get("lname"))
         country = str(request.form.get("country"))
 
-        response = deleteBook(mysql,bookID)
+        response = deleteBook(mysql,bookID,fname,lname,country)
         if response == 1: # book deleted successfully
             booksData = allBooks(mysql)
             genreData = allGenre(mysql)
@@ -606,6 +606,8 @@ def paymentReceiptsRoute():
 
 @app.route("/payment_receipt/new", methods=["GET", "POST"])
 def newPaymentReceiptRoute():
+    error_message = None
+    customer_debt = 0
     if request.method == "POST":
         customer_name = request.form.get("customer_name")
         address = request.form.get("address")
@@ -614,20 +616,38 @@ def newPaymentReceiptRoute():
         receipt_date = request.form.get("receipt_date")
         amount_collected = request.form.get("amount_collected")
         note = request.form.get("note")
-        customer_id = request.form.get("ID_Customer")
         
-        cur = mysql.connection.cursor()
-        cur.execute("""
-            INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id))
-        mysql.connection.commit()
-        cur.close()
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor
         
-        return redirect(url_for("paymentReceiptsRoute"))
+        # Fetch customer_id based on customer_name
+        cur.execute("SELECT customerID, Debt FROM Customers WHERE CONCAT(firstName, ' ', lastName) = %s", (customer_name,))
+        customer = cur.fetchone()
+        
+        if not customer:
+            cur.close()
+            error_message = "Customer does not exist"
+        else:
+            customer_id = customer['customerID']
+            customer_debt = customer['Debt']
+            
+            if float(amount_collected) > customer_debt:
+                error_message = f"Số tiền thu không được vượt quá số tiền khách hàng đang nợ ({customer_debt})"
+            else:
+                try:
+                    cur.execute("""
+                        INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id))
+                    mysql.connection.commit()
+                    return redirect(url_for("paymentReceiptsRoute"))
+                except MySQLdb.IntegrityError as e:
+                    mysql.connection.rollback()
+                    error_message = str(e)
+                finally:
+                    cur.close()
     
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    return render_template("payment_receipt/new.html", current_date=current_date)
+    return render_template("payment_receipt/new.html", current_date=current_date, error_message=error_message, customer_debt=customer_debt)
 
 @app.route("/payment_receipt/<int:receipt_id>", methods=["GET"])
 def paymentReceiptDetailRoute(receipt_id):
@@ -639,7 +659,7 @@ def paymentReceiptDetailRoute(receipt_id):
     return render_template("payment_receipt/detail.html", receipt=receipt)
 
 @app.route("/payment_receipt/edit/<int:receipt_id>", methods=["GET", "POST"])
-def editPaymentReceiptRoute(receipt_id):
+def editPaymentReceiptRoute():
     if request.method == "POST":
         customer_name = request.form.get("customer_name")
         address = request.form.get("address")
@@ -689,6 +709,7 @@ def changePaymentReceiptStatusRoute(receipt_id):
     mysql.connection.commit()
     cur.close()
     
+    return redirect(url_for("paymentReceiptsRoute"))
 
 
 
@@ -820,6 +841,29 @@ def export_invoice():
     return send_file(buffer, as_attachment=True, download_name="invoice.docx", mimetype='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
 
 
+@app.route('/get_customer_info/<int:customer_id>', methods=['GET'])
+def get_customer_info(customer_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT CONCAT(firstName, ' ', lastName) AS customer_name, address, phone, email FROM Customers WHERE customerID = %s", (customer_id,))
+    customer = cur.fetchone()
+    cur.close()
+    
+    if customer:
+        return jsonify(customer)
+    else:
+        return jsonify({'error': 'Customer not found'}), 404
+
+@app.route('/get_customer_info_by_name/<customer_name>', methods=['GET'])
+def get_customer_info_by_name(customer_name):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT address, phone, emailID AS email FROM Customers WHERE CONCAT(firstName, ' ', lastName) = %s", (customer_name,))
+    customer = cur.fetchone()
+    cur.close()
+    
+    if customer:
+        return jsonify(customer)
+    else:
+        return jsonify({'error': 'Customer not found'}), 404
 
 
 if __name__ == "__main__":
