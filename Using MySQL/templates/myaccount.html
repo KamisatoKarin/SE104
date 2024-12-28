@@ -146,6 +146,88 @@
             background-color: #ffffff;
 			font-size: 13px;
         }
+<<<<<<< Updated upstream
+=======
+
+        #top-bar {
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 5px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+
+        #top-bar .logo img {
+            max-height: 70px;
+            width: auto;
+        }
+
+        #top-bar nav ul {
+            border-radius: 4px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #top-bar nav ul li {
+            border-radius: 4px;
+            position: relative;
+        }
+        #top-bar nav ul li a:hover {
+            border-radius: 5px;
+        }
+        
+        #top-bar nav ul li ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            z-index: 1000;
+            width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        #top-bar nav ul li a:hover {
+            background-color: #998B5F;
+            color: white;
+        }
+        #top-bar nav ul li ul li a:hover {
+            background-color: #998B5F;
+            color: white;
+        }
+        .btn-custom {
+            background-color: #998B5F !important;
+            border: 1px solid #7F7048 !important;
+            color: white !important;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .btn-custom:hover {
+            background-color: #7F7048 !important;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .bold:hover {
+            color: #998B5F;
+        }                
+        #top-bar nav ul li:hover > a {
+            background-color: #998B5F;
+            color: white;
+            border-radius: 8px; 
+        }
+>>>>>>> Stashed changes
     </style>
 </head>
 <body>      
@@ -167,7 +249,11 @@
 
         <div class="account">
             <ul class="user-menu">
+<<<<<<< Updated upstream
                 <li><a href="./logout">ĐĂNG XUẤT</a></li>
+=======
+                <li><a href="./login" class="bold">ĐĂNG XUẤT</a></li>
+>>>>>>> Stashed changes
             </ul>
         </div>
     </div>
