@@ -30,6 +30,10 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # all the session data is encrypted in
 
 mysql = MySQL(app)
 
+def is_admin():
+    # Kiểm tra xem người dùng đã đăng nhập và loại tài khoản là admin
+    return session.get("accountType") == "admin"
+
 # home page route
 @app.route("/")
 def homeRoute():
@@ -125,6 +129,9 @@ def searchRoute():
         return render_template("search.html")
     
     return render_template("search.html")
+
+
+
 
 # search books in admin portal
 @app.route("/customersearch",methods=["POST","GET"])
@@ -400,6 +407,64 @@ def cancelOrderRoute(orderID):
     response = cancelOrder(mysql, orderID)
     return render_template("cancelconfirmation.html", response=response)
 
+@app.route("/debt-report")
+def debt_report():
+    if not is_admin():
+        return "Access Denied: Admins Only", 403  # Trả về lỗi 403 nếu không phải admin
+
+    if request.method == "POST":
+        # Nhận tháng và năm từ form
+        month = int(request.form.get("month"))
+        year = int(request.form.get("year"))
+        # Chuyển hướng đến debt-overview với các tham số
+        return redirect(url_for("debt_overview", month=month, year=year))
+
+    return render_template("debt-report.html")
+
+
+@app.route("/debt-overview")
+def debt_overview():
+    if not is_admin():
+        return "Access Denied: Admins Only", 403
+
+    # Lấy tháng và năm từ query parameters
+    month = int(request.args.get("month"))
+    year = int(request.args.get("year"))
+
+    # Kết nối cơ sở dữ liệu
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Sử dụng DictCursor
+
+    # Truy vấn báo cáo công nợ
+    query = """
+    SELECT 
+        dr.Month,
+        dr.ID_Customer,
+        CONCAT(c.firstName, ' ', c.lastName) AS customer_name,
+        dr.Opening_Debt,
+        dr.Transactions,
+        dr.Closing_Debt
+    FROM 
+        DebtReport dr
+    INNER JOIN 
+        Customers c ON dr.ID_Customer = c.customerID
+    WHERE 
+        MONTH(dr.Month) = %s AND YEAR(dr.Month) = %s
+    """
+    cur.execute(query, (month, year))
+    debt_data = cur.fetchall()
+
+    # Đóng kết nối cơ sở dữ liệu
+    cur.close()
+
+    # Trả về trang hiển thị dữ liệu công nợ
+    return render_template(
+        "debt-overview.html",
+        debt_data=debt_data,
+        month=month,
+        year=year
+    )
+
+
 @app.route("/payment_receipts", methods=["GET"])
 def paymentReceiptsRoute():
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
@@ -499,3 +564,4 @@ def changePaymentReceiptStatusRoute(receipt_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
