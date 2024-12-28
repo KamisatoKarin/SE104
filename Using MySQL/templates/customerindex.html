@@ -2,26 +2,26 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Fahasa.com</title>
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
 		<!-- bootstrap -->
-		<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
-		<link href="../static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		
-		<link href="../static/css/bootstrappage.css" rel="stylesheet"/>
+		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
 		
 		<!-- global styles -->
-		<link href="../static/css/flexslider.css" rel="stylesheet"/>
-		<link href="../static/css/main.css" rel="stylesheet"/>
-		<link href="../static/css/dropdown.css" rel="stylesheet"/>
+		<link href="static/css/flexslider.css" rel="stylesheet"/>
+		<link href="static/css/main.css" rel="stylesheet"/>
+		<link href="static/css/dropdown.css" rel="stylesheet"/>
 
 		<!-- scripts -->
-		<script src="../static/js/jquery-1.7.2.min.js"></script>
-		<script src="../static/bootstrap/js/bootstrap.min.js"></script>				
-		<script src="../static/js/superfish.js"></script>	
-		<script src="../static/js/jquery.scrolltotop.js"></script>
+		<script src="static/js/jquery-1.7.2.min.js"></script>
+		<script src="static/bootstrap/js/bootstrap.min.js"></script>				
+		<script src="static/js/superfish.js"></script>	
+		<script src="static/js/jquery.scrolltotop.js"></script>
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -29,63 +29,146 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
+		<style>
+			.button:hover, 
+.carousel-control:hover {
+    background-color: #998B5F !important;  /* Màu khi hover */
+    color: white !important;  /* Chữ hoặc icon màu trắng */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+			button[type="submit"] {
+				background-color: #998B5F !important;
+				color: white !important;
+				border: none !important;
+				padding: 15px 30px !important;
+				border-radius: 30px !important;
+				font-size: 16px !important;
+				cursor: pointer !important;
+				transition: background-color 0.3s ease !important;
+			}
+			
+			.product-box:hover, .banner-item:hover {
+				background-color: #998B5F !important;
+				transition: background-color 0.3s ease;
+				transform: scale(1) !important;
+			}
+			* {
+				font-family: 'Montserrat', sans-serif !important;
+			}
+			.title span.line {
+				border-bottom: 2px solid #0E2535 !important;
+			}
+			.title span.text, .title strong, .contact strong {
+				color: #998B5F !important;
+				font-size: 18px !important;
+			}
+			#footer-bar {
+				background-color: #ffffff !important;
+				padding: 30px;
+				margin-bottom: 10px;
+			}			
+			#top-bar {
+				border-radius: 4px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 0 15px;  /* Giảm padding chỉ còn ngang, không giảm dọc */
+				height: 70px;     /* Giữ đủ khoảng trống cho logo */
+				border-bottom: 1px solid #ccc;
+				margin-bottom: 5px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			}
+			#top-bar .logo {
+				margin-left: 40px;
+				margin-right: auto;
+			}
+			#top-bar .logo img {
+				max-height: 70px;  /* Giữ nguyên kích thước logo */
+				width: auto;
+			}
+			
+			#top-bar nav ul {
+				list-style: none;
+				padding: 10px 10px;
+				margin: 10px;
+				display: flex;
+				justify-content: space-evenly; /* Dàn đều khoảng cách giữa các mục */
+				align-items: center; /* Căn giữa theo chiều dọc */
+				width: 100%; /* Đảm bảo menu kéo dài hết chiều ngang */
+			}			
+			
+			#top-bar nav ul li a {
+				text-decoration: none;
+				color: #0E2535;
+				font-weight: bold;
+				font-family: 'Montserrat', sans-serif;
+				font-size: 12px;  /* Đặt cỡ chữ 12px */
+				line-height: 35px;  /* Căn giữa theo chiều dọc */
+				padding: 0 10px;  /* Tạo khoảng cách bên trong */
+				transition: background-color 0.3s ease, color 0.3s ease;
+			}
+			
+			#top-bar nav ul li a:hover {
+				background-color: #998B5F;
+				color: white;
+				border-radius: 8px;
+			}			
+			
+			.account ul li a {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #0E2535;
+				font-weight: bold;
+				padding: 10px 10px;
+				margin: 10px;
+				line-height: 70px; /* Hoặc chỉnh lại cho bằng với các mục khác */
+			}
+			
+		</style>
 	</head>
     <body>		
 		<div id="top-bar" class="container">
-			<div class="row">
-				<div class="span3">
-					<a href="/" class="logo pull-left">
-						<img src="../static/images/Fahasalogo.png" class="site_logo" alt="Fahasa Logo">
-					</a>
-				</div>
-				<div class="span5">
-					<div class="search-bar">
-						<form class="search-form" action="/search" method="GET">
-							<input type="text" placeholder="Tìm kiếm sản phẩm mong muốn...">
-							<button type="submit"><i class="fas fa-search"></i></button>
-						</form>
-					</div>
-				</div>
-				<div class="span4"></div>
-					<div class="admin-menu">
-						<a href="./logout" class="custom-btn btn-outline header-btn">
-							<i class="fas fa-sign-out-alt"></i>
-							<span>Đăng xuất</span>
-						</a>
-					</div>
-				</div>
+			<!-- Logo -->
+			<a href="/" class="logo" style="max-width: 200px; height: auto;">
+				<img src="static/images/Liber_logo.png" class="site_logo" alt="Logo">
+			</a>
+		
+			<!-- Menu -->
+			<nav id="menu">
+				<ul>
+					<li><a href="./customerindex">Trang chủ</a></li>
+					<li><a href="./customersearch">Tìm kiếm</a></li>
+					<li><a href="./myorders">Đơn hàng</a></li>
+					<li><a href="./myaccount">Tài khoản</a></li>
+				</ul>
+			</nav>
+		
+			<!-- Đăng xuất -->
+			<div class="account">
+				<ul class="user-menu">
+					<li><a href="./logout">ĐĂNG XUẤT</a></li>
+				</ul>
 			</div>
-		</div>
+		</div>		
 		<div id="wrapper" class="container">
-
-			<section class="navbar main-menu">
-				<div class="navbar-inner main-menu">	
-					<nav id="menu" class="pull-right">
-						<ul>
-							<li><a href="./customerindex">Trang chủ</a></li>
-							<li><a href="./myorders">Đơn hàng của tôi</a></li>
-							<li><a href="./myaccount">Tài khoản của tôi</a></li>		
-						</ul>
-					</nav>
-				</div>
-			</section>	
-
-
-			</br>
 			<section  class="homepage-slider" id="home-slider">
 				<div class="flexslider">
 					<ul class="slides">
 						<li>
-							<img src="../static/images/banners/banner1.webp" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner1.webp" alt="" class="carousel-image"/>
 						</li>
 						<li>
-							<img src="../static/images/banners/banner2.webp" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner2.webp" alt="" class="carousel-image"/>
 						</li>
 						<li>
-							<img src="../static/images/banners/banner3.webp" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner3.webp" alt="" class="carousel-image"/>
 						</li>
 						<li>
-							<img src="../static/images/banners/banner4.webp" alt="" class="carousel-image"/>
+							<img src="static/images/banners/banner4.webp" alt="" class="carousel-image"/>
 						</li>
 					</ul>
 				</div>			
@@ -95,21 +178,21 @@
 					<div class="span4">
 						<div class="banner-item">
 							<a href="#">
-								<img src="../static/images/banners/sub1.webp" alt="Khuyến mãi 1">
+								<img src="static/images/banners/sub1.webp" alt="Khuyến mãi 1">
 							</a>
 						</div>
 					</div>
 					<div class="span4">
 						<div class="banner-item">
 							<a href="#">
-								<img src="../static/images/banners/sub2.webp" alt="Khuyến mãi 2">
+								<img src="static/images/banners/sub2.webp" alt="Khuyến mãi 2">
 							</a>
 						</div>
 					</div>
 					<div class="span4">
 						<div class="banner-item">
 							<a href="#">
-								<img src="../static/images/banners/sub3.webp" alt="Khuyến mãi 3">
+								<img src="static/images/banners/sub3.webp" alt="Khuyến mãi 3">
 							</a>
 						</div>
 					</div>
@@ -137,7 +220,7 @@
 												<li class="span2">
 													<div class="product-box">
 														<span class="sale_tag"></span>
-														<p><a href="#"><img src="../static/images/books/genre.png" alt="" /></a></p>
+														<p><a href="#"><img src="static/images/books/genre.png" alt="" /></a></p>
 														<p class="price">{{genre[0]}}</p>
 													</div>
 												</li>
@@ -169,11 +252,11 @@
 														<li class="span2">
 															<div class="product-box">
 																<span class="sale_tag"></span>
-																<p><a href="./bookdetail{{book[0]}}"><img src="../static/images/books/book.png" alt="" /></a></p>
+																<p><a href="./bookdetail{{book[0]}}"><img src="static/images/books/book.png" alt="" /></a></p>
 																<a href="/bookdetail{{book[0]}}" class="title">{{book[3]}} ({{book[0]}})</a><br/>
-																<a href="/bookdetail{{book[0]}}" class="title">- {{book[7]}}</a><br/>
+																<a href="/bookdetail{{book[0]}}" class="title">- {{book[7]}} {{book[8]}}</a><br/>
 																<a href="/bookdetail{{book[0]}}" class="category">{{book[4]}}</a>
-																<p class="price">{{"{:,.0f}".format(book[10])}} VNĐ</p>
+																<p class="price">{{"{:,.0f}".format(book[6])}} VNĐ</p>
 															</div>
 														</li>	
 													{% endif %}									
@@ -205,11 +288,11 @@
 													<li class="span2">
 														<div class="product-box">
 															<span class="sale_tag"></span>
-															<p><a href="/bookdetail{{book[0]}}"><img src="../static/images/books/book.png" alt="" /></a></p>
+															<p><a href="/bookdetail{{book[0]}}"><img src="static/images/books/book.png" alt="" /></a></p>
 															<a href="/bookdetail{{book[0]}}" class="title">{{book[3]}} ({{book[0]}})</a><br/>
-															<a href="/bookdetail{{book[0]}}" class="title">- {{book[7]}}</a><br/>
+															<a href="/bookdetail{{book[0]}}" class="title">- {{book[7]}} {{book[8]}}</a><br/>
 															<a href="/bookdetail{{book[0]}}" class="category">{{book[4]}}</a>
-															<p class="price">{{"{:,.0f}".format(book[10])}} VNĐ</p>
+															<p class="price">{{"{:,.0f}".format(book[6])}} VNĐ</p>
 														</div>
 													</li>
 
@@ -274,8 +357,8 @@
 		</div>
 
 
-		<script src="../static/js/common.js"></script>
-		<script src="../static/js/jquery.flexslider-min.js"></script>
+		<script src="static/js/common.js"></script>
+		<script src="static/js/jquery.flexslider-min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$(document).ready(function() {

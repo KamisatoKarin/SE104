@@ -2,25 +2,25 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Book.com</title>
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
 		<!-- bootstrap -->
-		<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
-		<link href="../static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link href="../static/css/bootstrappage.css" rel="stylesheet"/>
+		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 		
 		<!-- global styles -->
-		<link href="../static/css/flexslider.css" rel="stylesheet"/>
-		<link href="../static/css/main.css" rel="stylesheet"/>
+		<link href="static/css/flexslider.css" rel="stylesheet"/>
+		<link href="static/css/main.css" rel="stylesheet"/>
 
 		<!-- scripts -->
-		<script src="../static/js/jquery-1.7.2.min.js"></script>
-		<script src="../static/bootstrap/js/bootstrap.min.js"></script>				
-		<script src="../static/js/superfish.js"></script>	
-		<script src="../static/js/jquery.scrolltotop.js"></script>
+		<script src="static/js/jquery-1.7.2.min.js"></script>
+		<script src="static/bootstrap/js/bootstrap.min.js"></script>				
+		<script src="static/js/superfish.js"></script>	
+		<script src="static/js/jquery.scrolltotop.js"></script>
 		<!--[if lt IE 9]>            
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
@@ -36,6 +36,7 @@
 
 			.content {
 				margin-left: 90px;
+				font-size: 14px;
 			}
 
 			::placeholder {
@@ -133,7 +134,7 @@
 		<div id="top-bar" class="container">
 			<!-- Logo -->
 			<a href="/adminindex" class="logo" style="max-width: 200px; height: auto;">
-				<img src="../static/images/Liber_logo.png" class="site_logo" alt="">
+				<img src="static/images/Liber_logo.png" class="site_logo" alt="">
 			</a>
 
 			<!-- Menu -->
@@ -157,13 +158,6 @@
 							<li><a href="./users">Khách hàng</a></li>					
 						</ul>
 					</li>
-					<li>
-						<a href="./payment_receipts">Phiếu thu</a>
-						<ul>
-							<li><a href="./payment_receipts">Danh sách phiếu thu</a></li>
-							<li><a href="./payment_receipt/new">Tạo phiếu thu mới</a></li>
-						</ul>
-					</li>
 					<li><a href="./myorders">Đơn hàng</a></li>
 					<li><a href="./myaccount">Tài khoản</a></li>
 				</ul>
@@ -172,8 +166,8 @@
 			<!-- Đăng nhập -->
 			<div class="account">
 				<ul class="user-menu">
-					<li><a href="./logout">ĐĂNG NHẬP</a></li>
-				</ul>
+					<li><a href="./logout">ĐĂNG XUẤT</a></li>
+			</ul>
 			</div>
 		</div>
 
@@ -182,114 +176,82 @@
 				<div class="row">
 					<div class="span12">
 
-						<!-- Add Books -->
-						<div class="row">
-							<div class="span12">
-								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong>Thêm </strong>sách</span></span></span>
-								</h4>
-								<div id="myCarousel-2" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<div class="content">
-											<form action="{{url_for('addBookRoute')}}" class="form-stacked" method="POST">
-												<input type="hidden" name="next" value="/">
-												<fieldset>
-													<div class="control-group">
-														<label class="control-label">Mã sách</label>
-														<div class="controls">
-															<input type="number" placeholder="Nhập mã sách" class="input-xlarge" name="bookID" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Tên sách</label>
-														<div class="controls">
-															<input type="text" placeholder="Nhập tên sách" class="input-xlarge" name="title" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Thể loại</label>
-														<div class="controls">
-															<input type="text" placeholder="Nhập thể loại" class="input-xlarge" name="genre" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Giá mua vào</label>
-														<div class="controls">
-															<input type="number" step="0.01" placeholder="Nhập giá mua vào" class="input-xlarge" id="purchase_price" name="purchase_price" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Số lượng nhập</label>
-														<div class="controls">
-															<input type="number" placeholder="Nhập số lượng nhập" class="input-xlarge" id="stock" name="stock" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Tổng giá nhập</label>
-														<div class="controls">
-															<input type="text" id="total_cost" class="input-xlarge" readonly>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Giá bán ra</label>
-														<div class="controls">
-															<input type="number" step="0.01" placeholder="Nhập giá bán ra" class="input-xlarge" name="selling_price" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Tên tác giả</label>
-														<div class="controls">
-															<input type="text" placeholder="Nhập tên tác giả" class="input-xlarge" name="fname" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Họ tác giả</label>
-														<div class="controls">
-															<input type="text" placeholder="Nhập họ tác giả" class="input-xlarge" name="lname" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Năm xuất bản</label>
-														<div class="controls">
-															<input type="number" placeholder="Nhập năm xuất bản" class="input-xlarge" name="year" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label">Quốc gia xuất bản</label>
-														<div class="controls">
-															<input type="text" placeholder="Nhập quốc gia xuất bản" class="input-xlarge" name="country" required>
-														</div>
-													</div>
-													<div class="control-group">
-														<input tabindex="3" class="btn btn-inverse large" type="submit" value="Thêm sách">
-													</div>
-												</fieldset>
-											</form>
-										</div>
-									</div>
-								</div>
+<!-- Add Books -->
+<div class="row">
+	<div class="span12">
+		<h4 class="title">
+			<span class="pull-left"><span class="text"><span class="line"><strong>Thêm </strong>sách</span></span></span>
+		</h4>
+		<div id="myCarousel-2" class="myCarousel carousel slide">
+			<div class="carousel-inner">
+				<div class="content">
+				<form action="{{url_for('addBookRoute')}}" class="form-stacked" method="POST">
+					<input type="hidden" name="next" value="/">
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label">Mã sách</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
 							</div>
 						</div>
-
-						<script>
-							document.addEventListener('DOMContentLoaded', () => {
-								const purchasePriceInput = document.getElementById('purchase_price');
-								const stockInput = document.getElementById('stock');
-								const totalCostInput = document.getElementById('total_cost');
-
-								function calculateTotalCost() {
-									const purchasePrice = parseFloat(purchasePriceInput.value) || 0;
-									const stock = parseInt(stockInput.value) || 0;
-									const totalCost = Math.round(purchasePrice * stock); // Làm tròn để chỉ hiển thị số nguyên
-									totalCostInput.value = totalCost; // Hiển thị giá trị đã tính
-								}
-
-								// Lắng nghe sự kiện thay đổi trên các trường
-								purchasePriceInput.addEventListener('input', calculateTotalCost);
-								stockInput.addEventListener('input', calculateTotalCost);
-							});
-						</script>
-
+						<div class="control-group">
+							<label class="control-label">Tên sách</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập tên sách" id="username" class="input-xlarge" name="title" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Thể loại</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập thể loại" id="username" class="input-xlarge" name="genre" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Giá</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Tên tác giả</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập tên tác giả" id="username" class="input-xlarge" name="fname" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Họ tác giả</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập họ tác giả" id="username" class="input-xlarge" name="lname" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Năm xuất bản</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập năm xuất bản" id="username" class="input-xlarge" name="year" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Quốc gia xuất bản</label>
+							<div class="controls">
+								<input type="text" placeholder="Nhập quốc gia xuất bản" id="username" class="input-xlarge" name="country" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Tồn kho</label>
+							<div class="controls">
+								<input type="number" placeholder="Nhập tồn kho" id="username" class="input-xlarge" name="stock" required>
+							</div>
+						</div>
+						<div class="control-group">
+							<input tabindex="3" class="btn btn-inverse large" type="submit" value="Thêm sách">
+						</div>
+											</fieldset>
+										</form>	
+									</div>		
+									</div>							
+								</div>
+							</div>						
+						</div>
 
 
 						<!-- Update Book -->
@@ -335,7 +297,7 @@
 													</div>
 												</div>
 												<div class="control-group">
-													<label class="control-label">Giá mới</label>
+													<label class="control-label">Giá mớimới</label>
 													<div class="controls">
 														<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price2" required>
 													</div>
@@ -422,8 +384,8 @@
 		</script>
 		{% endif %}
 
-		<script src="../static/js/common.js"></script>
-		<script src="../static/js/jquery.flexslider-min.js"></script>
+		<script src="static/js/common.js"></script>
+		<script src="static/js/jquery.flexslider-min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$(document).ready(function() {

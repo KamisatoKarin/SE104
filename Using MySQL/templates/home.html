@@ -164,7 +164,11 @@
 
 			<!-- Tìm kiếm và tài khoản -->
 			<div class="right-section">
-
+				<nav id="menu">
+					<ul>
+						<li><a href="./search">Tìm kiếm</a></li>
+					</ul>
+				</nav>
 
 				<div class="account">
 					<ul class="user-menu">
@@ -204,102 +208,66 @@
 				</div>			
 			</section>
 
-            <!-- Thêm phần banner phụ -->
-            <section class="sub-banners">
-                <div class="row">
-                    <div class="span4">
-                        <div class="banner-item">
-                            <a href="#">
-                                <img
-                                    src="../static/images/banners/sub1.webp"
-                                    alt="Khuyến mãi 1"
-                                />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="span4">
-                        <div class="banner-item">
-                            <a href="#">
-                                <img
-                                    src="../static/images/banners/sub2.webp"
-                                    alt="Khuyến mãi 2"
-                                />
-                            </a>
-                        </div>
-                    </div>
-                    <div class="span4">
-                        <div class="banner-item">
-                            <a href="#">
-                                <img
-                                    src="../static/images/banners/sub3.webp"
-                                    alt="Khuyến mãi 3"
-                                />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+			<!-- Thêm phần banner phụ -->
+			<section class="sub-banners">
+				<div class="row">
+					<div class="span4">
+						<div class="banner-item">
+							<a href="#">
+								<img src="static/images/banners/sub1.webp" alt="Khuyến mãi 1">
+							</a>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="banner-item">
+							<a href="#">
+								<img src="static/images/banners/sub2.webp" alt="Khuyến mãi 2">
+							</a>
+						</div>
+					</div>
+					<div class="span4">
+						<div class="banner-item">
+							<a href="#">
+								<img src="static/images/banners/sub3.webp" alt="Khuyến mãi 3">
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
 
-            <!-- GENRE-->
-            <section class="main-content">
-                <div class="row">
-                    <div class="span12">
-                        <div class="row">
-                            <div class="span12">
-                                <h4 class="title">
-                                    <span class="pull-left"
-                                        ><span class="text"
-                                            ><span class="line"
-                                                ><strong>Thể Loại</strong></span
-                                            ></span
-                                        ></span
-                                    >
-                                    <span class="pull-right">
-                                        <a
-                                            class="left button"
-                                            href="#genreCarousel"
-                                            data-slide="prev"
-                                        ></a
-                                        ><a
-                                            class="right button"
-                                            href="#genreCarousel"
-                                            data-slide="next"
-                                        ></a>
-                                    </span>
-                                </h4>
-                                <div
-                                    id="genreCarousel"
-                                    class="myCarousel carousel slide"
-                                >
-                                    <div class="carousel-inner">
-                                        <div class="active item">
-                                            <ul class="thumbnails">
-                                                {% for genre in genreData %}
-                                                <li class="span2">
-                                                    <div class="product-box">
-                                                        <span
-                                                            class="sale_tag"
-                                                        ></span>
-                                                        <p>
-                                                            <a href="./register"
-                                                                ><img
-                                                                    src="../static/images/books/genre.png"
-                                                                    alt=""
-                                                            /></a>
-                                                        </p>
-                                                        <p class="price">
-                                                            {{genre[0]}}
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br />
+		<!-- GENRE-->
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
+						<div class="row">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>Thể Loại</strong></span></span></span>
+									<span class="pull-right">
+										<a class="left button" href="#genreCarousel" data-slide="prev"></a><a class="right button" href="#genreCarousel" data-slide="next"></a>
+									</span>
+								</h4>
+								<div id="genreCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">	
+												{% for genre in genreData %}											
+												<li class="span2">
+													<div class="product-box">
+														<span class="sale_tag"></span>
+														<p><a href="./register"><img src="static/images/books/genre.png" alt="" /></a></p>
+														<p class="price">{{genre[0]}}</p>
+													</div>
+												</li>
+												{% endfor %}
+											</ul>
+										</div>
+
+									</div>							
+								</div>
+							</div>						
+						</div>
+						<br/>
 
 						<!-- Display books Genre wise -->
 						{% for genre in genreData %}
@@ -321,16 +289,10 @@
 															<div class="product-box">
 																<span class="sale_tag"></span>
 																<p><a href="./register"><img src="static/images/books/book.png" alt="" /></a></p>
-																<a href="/register" classs="title">{{book[3]}} ({{book[0]}})</a><br/>
+																<a href="/register" class="title">{{book[3]}} ({{book[0]}})</a><br/>
 																<a href="/register" class="title">- {{book[7]}} {{book[8]}}</a><br/>
 																<a href="/register" class="category">{{book[4]}}</a>
-																<p class="price">
-																	{% if book[10] is not none %}
-																		{{ "{:,.0f}".format(book[10]) }} VNĐ
-																	{% else %}
-																		Không xác định
-																	{% endif %}
-																</p>
+																<p class="price">{{"{:,.0f}".format(book[6])}} VNĐ</p>
 															</div>
 														</li>	
 													{% endif %}									

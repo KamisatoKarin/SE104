@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Fahasa.com</title>
+<html>
+<head>
+    <meta charset="utf-8">
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
 		<!-- bootstrap -->
 		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
-		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-		
+		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">		
 		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
 		
 		<!-- global styles -->
@@ -26,70 +24,183 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
-	</head>
-    <body>		
-		<div id="top-bar" class="container">
-			<div class="row">
-				<div class="span4">
-					<a href="/" class="logo pull-left"><img src="static/images/fahasalogo.png" class="site_logo" alt=""></a>
-				</div>
-				<div class="span8">
-					<div class="account pull-right">
-						<ul class="user-menu">				
-							<li><a href="./logout">Đăng xuất</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="wrapper" class="container">
-			<section class="navbar main-menu">
-				<div class="navbar-inner main-menu">
-					{% if accountType == "admin" %}
-						<nav id="menu" class="pull-right">
-							<ul>
-								<li><a href="./adminindex">Trang chủ</a></li>
-								<li><a href="./books" method="POST">Sản phẩm</a>					
-									<ul>
-										<li><a href="./books">Thêm sản phẩm</a></li>									
-										<li><a href="./books">Cập nhật sản phẩm</a></li>
-										<li><a href="./books">Xóa sản phẩm</a></li>			
-									</ul>
-								</li>
-								<li><a href="./inventory">Tồn kho</a></li>	
-								<li><a href="./users">Người dùng</a>					
-									<ul>
-										<li><a href="./users">Admins</a></li>									
-										<li><a href="./users">Khách hàng</a></li>					
-									</ul>
-								</li>
-								<li>
-									<a href="./payment_receipts">Phiếu thu</a>
-									<ul>
-										<li><a href="./payment_receipts">Danh sách phiếu thu</a></li>
-										<li><a href="./payment_receipt/new">Tạo phiếu thu mới</a></li>
-									</ul>
-								</li>
-								<li><a href="./myorders">Đơn hàng</a></li>
-								<li><a href="./myaccount">Tài khoản</a></li>		
-							</ul>
-						</nav>
-					{% endif %}
+        <style>  
+			* {
+				font-family: 'Montserrat', sans-serif !important;
+			}
+            .main-content h4.title::after {
+                content: "";
+                display: block;
+                width: 100%;
+                border-bottom: 1px dashed #ccc;
+                position: relative;
+                top: -5px;  /* Điều chỉnh line gần sát chữ */
+                z-index: -1;  /* Đưa line xuống dưới */
+            }
 
-					{% if accountType == "customer" %}
-						<nav id="menu" class="pull-right">
-							<ul>
-								<li><a href="./customerindex">Trang chủ</a></li>
-								<li><a href="./myorders">Đơn hàng</a></li>
-								<li><a href="./myaccount">Tài khoản của tôi</a></li>		
-							</ul>
-						</nav>
-					{% endif %}
-				</div>
+            .main-content table {
+                border-collapse: separate; /* Đảm bảo các góc được bo tròn */
+                border-spacing: 0; /* Tránh khoảng cách giữa các ô */
+                border-radius: 8px; /* Bo tròn viền của bảng */
+                overflow: hidden; /* Đảm bảo phần nội dung bên trong cũng bo góc */
+            }            
+            
+            .main-content table {
+                width: 95%;
+                margin: 0 auto;
+            }
+            .main-content h4.title span.text {
+                margin-left: 20px;
+            }
+            
+            .main-content h4.title span.line strong {
+                color: #998B5F;
+                padding: 10px;
+            }            
+            
+            .main-content h4.title {
+                margin-bottom: 0px;  /* Điều chỉnh khoảng cách giữa tiêu đề và bảng */
+                padding-bottom: 5px;   /* Đảm bảo không có padding thừa */
+                line-height: 1.2;    /* Giảm độ cao dòng để tiêu đề gần bảng hơn */
+            }            
+            
+            .main-content {
+                background-color: white;
+                border-radius: 8px;
+                padding: 5px;
+                margin-bottom:5px;
+                padding-top: 20px;
+            } 
+                      
+        #top-bar {
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 5px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 5px;
+			height: 70px;     /* Giữ đủ khoảng trống cho logo */
+        }
+		* {
+			font-family: 'Montserrat', sans-serif !important;
+		}
+        #top-bar .logo {
+			margin-left: 40px;
+			margin-right: auto;
+		}
+		#top-bar .logo img {
+			max-height: 70px;  /* Giữ nguyên kích thước logo */
+			width: auto;
+		}
+		
+		#top-bar nav ul {
+			list-style: none;
+			padding: 10px 10px;
+			margin: 10px;
+			display: flex;
+			justify-content: space-evenly; /* Dàn đều khoảng cách giữa các mục */
+			align-items: center; /* Căn giữa theo chiều dọc */
+			width: 100%; /* Đảm bảo menu kéo dài hết chiều ngang */
+		}			
+		
+		#top-bar nav ul li a {
+			text-decoration: none;
+			color: #0E2535;
+			font-weight: bold;
+			font-family: 'Montserrat', sans-serif;
+			font-size: 12px;  /* Đặt cỡ chữ 12px */
+			line-height: 35px;  /* Căn giữa theo chiều dọc */
+			padding: 0 10px;  /* Tạo khoảng cách bên trong */
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+		
+		#top-bar nav ul li a:hover {
+			background-color: #998B5F;
+			color: white;
+			border-radius: 8px;
+		}			
+		
+		.account ul li a {
+			font-family: 'Montserrat', sans-serif;
+			font-weight: 600;
+			font-size: 12px;
+			text-transform: uppercase;
+			color: #0E2535;
+			font-weight: bold;
+			padding: 10px 10px;
+			line-height: 70px; /* Hoặc chỉnh lại cho bằng với các mục khác */
+		}
+		.header_text p {
+			margin-left: 80px;
+			text-align: left;
+		}
+		.data-box {
+            display: inline-block;
+            padding: 4px 20px;
+			width: 900px; 
+            margin: 5px 0;
+            border: 1px solid  #BBBBBB;
+            border-radius: 10px;
+            background-color: #ffffff;
+			font-size: 13px;
+        }
+    </style>
+</head>
+<body>      
+    <div id="top-bar" class="container">
+        <!-- Logo -->
+        <a href="" class="logo" style="max-width: 200px; height: auto;">
+            <img src="static/images/Liber_logo.png" class="site_logo" alt="">
+        </a>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <ul>
+                {% if accountType == "admin" %}
+                    <li><a href="./adminindex">Trang chủ</a></li>
+                    <li><a href="./books">Sản phẩm</a>
+                        <ul>
+                            <li><a href="./books/add">Thêm sản phẩm</a></li>                                    
+                            <li><a href="./books/update">Cập nhật sản phẩm</a></li>
+                            <li><a href="./books/delete">Xóa sản phẩm</a></li>            
+                        </ul>
+                    </li>
+                    <li><a href="./inventory">Tồn kho</a></li>
+                    <li><a href="./users">Người dùng</a>
+                        <ul>
+                            <li><a href="./users/admins">Admins</a></li>                                    
+                            <li><a href="./users/customers">Khách hàng</a></li>                    
+                        </ul>
+                    </li>
+                    <li><a href="./payment_receipts">Phiếu thu</a>
+                        <ul>
+                            <li><a href="./payment_receipts/list">Danh sách phiếu thu</a></li>
+                            <li><a href="./payment_receipt/new">Tạo phiếu thu mới</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./myorders">Đơn hàng</a></li>
+                    <li><a href="./reports">Báo cáo</a></li>
+                    <li><a href="./settings">Cài đặt</a></li>
+                {% elif accountType == "customer" %}
+                    <li><a href="./customerindex">Trang chủ</a></li>
+                    <li><a href="./products">Sản phẩm</a></li>
+                    <li><a href="./myorders">Đơn hàng</a></li>
+                {% endif %}
+                <li><a href="./myaccount">Tài khoản</a></li>
+            </ul>
+        </nav>
+
+        <div class="account">
+            <ul class="user-menu">
+                <li><a href="./logout">ĐĂNG XUẤT</a></li>
+            </ul>
+        </div>
+    </div>
 			</section>
 
 
-			<section class="main-content">
+			<section class="main-content container">
 				<div class="row">
 					<div class="span12">
 
@@ -102,22 +213,45 @@
 
                                 <section class="header_text">
                                     
-                                    <p><a href="#"><img src="static/images/usericon.jpg" alt="" width="70" height="70" /></a></p>
-
-                                    <p> TÊN:- {{ Data[1]}} {{ Data[2]}} <br/>
-                                    USERNAME:- {{ Data[0] }} <br/>
-                                    LOẠI TK:- {{ accountType }} <br/>
-                                    ĐỊA CHỈ EMAIL:- {{ Data[3] }} <br/>
-                                    SĐT:- {{ Data[5] }} <br/>
-                                    </p>
-
-                                    {% if accountType == "customer" %}
-                                        <p>QUỐC GIA:- {{ Data[6]}} <br/>
-                                        TỈNH/THÀNH PHỐ:- {{ Data[7] }} <br/>
-                                        MÃ BƯU ĐIỆN:- {{ Data[8]}} <br/>
-                                        ĐỊA CHỈ:- {{ Data[9] }} <br/>
-                                        </p>
-                                    {% endif %}
+                                    									<p> 
+										<strong style="font-size:14px;">Họ và tên:</strong> <br/>
+										<span class="data-box">{{ Data[1]}} {{ Data[2]}}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Username:</strong> <br/>
+										<span class="data-box">{{ Data[0] }}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Loại tài khoản:</strong> <br/>
+										<span class="data-box">{{ accountType }}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Địa chỉ Email:</strong> <br/>
+										<span class="data-box">{{ Data[3] }}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Số điện thoại:</strong> <br/>
+										<span class="data-box">{{ Data[5] }}</span> 
+									</p>
+									
+									{% if accountType == "customer" %}
+									<p>
+										<strong style="font-size:14px;">Quốc Gia:</strong> <br/>
+										<span class="data-box">{{ Data[6]}}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Tỉnh/Thành phố:</strong> <br/>
+										<span class="data-box">{{ Data[7] }}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Mã bưu điện:</strong> <br/>
+										<span class="data-box">{{ Data[8]}}</span> 
+									</p>
+									<p>
+										<strong style="font-size:14px;">Địa chỉ:</strong> <br/>
+										<span class="data-box">{{ Data[9] }}</span> 
+									</p>
+									{% endif %}								
    
                                 </section>
                             </div>						
