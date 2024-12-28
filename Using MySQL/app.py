@@ -413,6 +413,103 @@ def cancelOrderRoute(orderID):
     response = cancelOrder(mysql, orderID)
     return render_template("cancelconfirmation.html", response=response)
 
+@app.route("/inventory-report", methods=["GET", "POST"])
+def inventory_report():
+    if not is_admin():
+        return "Access Denied: Admins Only", 403
+
+    if request.method == "POST":
+        # B1: Nhận thông tin tháng và năm
+        month = int(request.form.get("month"))
+        year = int(request.form.get("year"))
+
+        # B2: Kết nối cơ sở dữ liệu
+        cur = mysql.connection.cursor()
+
+        # B3: Lấy dữ liệu từ bảng Inventory và Books
+        query = """
+        SELECT
+            b.bookID,
+            b.title,
+            i.totalStock AS Opening_Stock,
+            (i.totalStock - i.soldStock) AS Transactions,
+            i.soldStock AS Closing_Stock
+        FROM
+            Books b
+        INNER JOIN
+            Inventory i ON b.bookID = i.bookID;
+        """
+        cur.execute(query)
+        inventory_data = cur.fetchall()
+
+        # B4: Lưu báo cáo tồn kho vào InventoryReport
+        for row in inventory_data:
+            bookID, title, opening_stock, transactions, closing_stock = row
+            insert_query = """
+            INSERT INTO InventoryReport (Month, bookID, Opening_Stock, Transactions, Closing_Stock)
+            VALUES (%s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+                Opening_Stock = VALUES(Opening_Stock),
+                Transactions = VALUES(Transactions),
+                Closing_Stock = VALUES(Closing_Stock);
+            """
+            cur.execute(insert_query, (f"{year}-{month}-01", bookID, opening_stock, transactions, closing_stock))
+
+        # B5: Đóng kết nối
+        mysql.connection.commit()
+        cur.close()
+
+        # B6: Chuyển hướng tới trang hiển thị báo cáo
+        return redirect(url_for("inventory_overview", month=month, year=year))
+
+    # Trả về giao diện nhập thông tin báo cáo
+    return render_template("inventory-report.html")
+
+@app.route("/inventory-overview", methods=["GET"])
+def inventory_overview():
+    if not is_admin():
+        return "Access Denied: Admins Only", 403
+
+    # Nhận thông tin tháng và năm
+    month = request.args.get("month", type=int)
+    year = request.args.get("year", type=int)
+
+    if not month or not year:
+        return "Invalid request: Please provide both month and year.", 400
+
+    # Kết nối cơ sở dữ liệu
+    cur = mysql.connection.cursor()
+
+    # Truy vấn dữ liệu từ InventoryReport
+    query = """
+    SELECT
+        ir.Month,
+        ir.bookID,
+        b.title,
+        ir.Opening_Stock,
+        ir.Transactions,
+        ir.Closing_Stock
+    FROM
+        InventoryReport ir
+    INNER JOIN
+        Books b ON ir.bookID = b.bookID
+    WHERE
+        MONTH(ir.Month) = %s AND YEAR(ir.Month) = %s
+    """
+    cur.execute(query, (month, year))
+    inventory_data = cur.fetchall()
+
+    # Đóng kết nối cơ sở dữ liệu
+    cur.close()
+
+    # Trả về giao diện hiển thị dữ liệu
+    return render_template(
+        "inventory-overview.html",
+        inventory_data=inventory_data,
+        month=month,
+        year=year
+    )
+
 @app.route("/debt-report", methods=["GET", "POST"])
 def debt_report():
     if not is_admin():
@@ -469,6 +566,7 @@ def debt_overview():
         month=month,
         year=year
     )
+
 
 
 @app.route("/payment_receipts", methods=["GET"])
