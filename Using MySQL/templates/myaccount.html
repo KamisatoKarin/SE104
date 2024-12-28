@@ -129,7 +129,6 @@
 			color: #0E2535;
 			font-weight: bold;
 			padding: 10px 10px;
-			margin: 10px;
 			line-height: 70px; /* Hoặc chỉnh lại cho bằng với các mục khác */
 		}
 		.header_text p {
@@ -145,23 +144,50 @@
             border-radius: 10px;
             background-color: #ffffff;
 			font-size: 13px;
-        }
+        }		
     </style>
 </head>
 <body>      
     <div id="top-bar" class="container">
         <!-- Logo -->
-        <a href="/adminindex" class="logo" style="max-width: 200px; height: auto;">
+        <a href="" class="logo" style="max-width: 200px; height: auto;">
             <img src="static/images/Liber_logo.png" class="site_logo" alt="">
         </a>
 
         <!-- Menu -->
         <nav id="menu">
             <ul>
-                <li><a href="./customerindex">Trang chủ</a></li>
-					<li><a href="./search">Tìm kiếm</a></li>
-					<li><a href="./myorders">Đơn hàng</a></li>
-					<li><a href="./myaccount">Tài khoản</a></li>
+                {% if accountType == "admin" %}
+                    <li><a href="./adminindex">Trang chủ</a></li>
+                    <li><a href="./books">Sản phẩm</a>
+                        <ul>
+                            <li><a href="./books/add">Thêm sản phẩm</a></li>                                    
+                            <li><a href="./books/update">Cập nhật sản phẩm</a></li>
+                            <li><a href="./books/delete">Xóa sản phẩm</a></li>            
+                        </ul>
+                    </li>
+                    <li><a href="./inventory">Tồn kho</a></li>
+                    <li><a href="./users">Người dùng</a>
+                        <ul>
+                            <li><a href="./users/admins">Admins</a></li>                                    
+                            <li><a href="./users/customers">Khách hàng</a></li>                    
+                        </ul>
+                    </li>
+                    <li><a href="./payment_receipts">Phiếu thu</a>
+                        <ul>
+                            <li><a href="./payment_receipts/list">Danh sách phiếu thu</a></li>
+                            <li><a href="./payment_receipt/new">Tạo phiếu thu mới</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./myorders">Đơn hàng</a></li>
+                    <li><a href="./reports">Báo cáo</a></li>
+                    <li><a href="./settings">Cài đặt</a></li>
+                {% elif accountType == "customer" %}
+                    <li><a href="./customerindex">Trang chủ</a></li>
+                    <li><a href="./products">Sản phẩm</a></li>
+                    <li><a href="./myorders">Đơn hàng</a></li>
+                {% endif %}
+                <li><a href="./myaccount">Tài khoản</a></li>
             </ul>
         </nav>
 
