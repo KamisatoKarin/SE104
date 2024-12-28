@@ -560,47 +560,84 @@ def inventory_report():
     return render_template("inventory-report.html", inventory_data=inventory_data, month=month, year=year)
 
 
+from flask import render_template, request, redirect, url_for
+from flask_mysqldb import MySQL
+
 @app.route("/debt-report", methods=["GET", "POST"])
 def debt_report():
     if not is_admin():
-        return "Access Denied: Admins Only", 403  # Trả về lỗi 403 nếu không phải admin
+        return "Access Denied: Admins Only", 403
 
-    # Dữ liệu công nợ để hiển thị ngay khi nhập tháng và năm
     debt_data = []
     month = None
     year = None
+    error_message = None
 
     if request.method == "POST":
-        # Nhận tháng và năm từ form
-        month = int(request.form.get("month"))
-        year = int(request.form.get("year"))
+        try:
+            # Lấy giá trị tháng và năm từ form
+            month = request.form.get("month")
+            year = request.form.get("year")
 
-        # Kết nối cơ sở dữ liệu
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Sử dụng DictCursor
+            if not month or not year:
+                error_message = "Please provide both month and year."
+                raise ValueError("Month and year are required.")
 
-        # Truy vấn báo cáo công nợ
-        query = """
-        SELECT 
-            dr.Month,
-            dr.ID_Customer,
-            CONCAT(c.firstName, ' ', c.lastName) AS customer_name,
-            dr.Opening_Debt,
-            dr.Transactions,
-            dr.Closing_Debt
-        FROM 
-            DebtReport dr
-        INNER JOIN 
-            Customers c ON dr.ID_Customer = c.customerID
-        WHERE 
-            MONTH(dr.Month) = %s AND YEAR(dr.Month) = %s
-        """
-        cur.execute(query, (month, year))
-        debt_data = cur.fetchall()
+            month = int(month)
+            year = int(year)
 
-        # Đóng kết nối cơ sở dữ liệu
-        cur.close()
+            if month < 1 or month > 12:
+                error_message = "Month must be between 1 and 12."
+                raise ValueError("Invalid month value.")
 
-    return render_template("debt-report.html", debt_data=debt_data, month=month, year=year)
+            if year < 1900 or year > 2100:
+                error_message = "Year must be a valid 4-digit year."
+                raise ValueError("Invalid year value.")
+
+            # Kết nối cơ sở dữ liệu và truy vấn
+            cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            query = """
+            SELECT 
+                dr.Month,
+                dr.ID_Customer,
+                CONCAT(c.firstName, ' ', c.lastName) AS customer_name,
+                dr.Opening_Debt,
+                dr.Transactions,
+                dr.Closing_Debt
+            FROM 
+                DebtReport dr
+            INNER JOIN 
+                Customers c ON dr.ID_Customer = c.customerID
+            WHERE 
+                MONTH(dr.Month) = %s AND YEAR(dr.Month) = %s
+            ORDER BY 
+                dr.ID_Customer ASC
+            """
+            cur.execute(query, (month, year))
+            debt_data = cur.fetchall()
+            cur.close()
+        except ValueError as ve:
+            print(f"Input Error: {ve}")
+        except Exception as e:
+            error_message = "An error occurred while fetching the debt report."
+            print(f"Database Error: {e}")
+
+    return render_template(
+        "debt-report.html",
+        debt_data=debt_data,
+        month=month,
+        year=year,
+        error_message=error_message
+    )
+
+
+
+    return render_template("debt-report.html", 
+                           debt_data=debt_data, 
+                           month=month, 
+                           year=year, 
+                           error_message=error_message)
+
 
 @app.route("/payment_receipts", methods=["GET"])
 def paymentReceiptsRoute():
