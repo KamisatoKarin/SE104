@@ -407,7 +407,7 @@ def cancelOrderRoute(orderID):
     response = cancelOrder(mysql, orderID)
     return render_template("cancelconfirmation.html", response=response)
 
-@app.route("/debt-report")
+@app.route("/debt-report", methods=["GET", "POST"])
 def debt_report():
     if not is_admin():
         return "Access Denied: Admins Only", 403  # Trả về lỗi 403 nếu không phải admin
