@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Fahasa.com</title>
+		<title>Liber.com</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
 		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
@@ -14,6 +14,41 @@
 		<!-- global styles -->
 		<link href="static/css/flexslider.css" rel="stylesheet"/>
 		<link href="static/css/main.css" rel="stylesheet"/>
+		
+		<!-- Montserrat Font -->
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+		<style>
+			.order-success {
+				font-size: 13px;
+				font-family: 'Montserrat', sans-serif;
+			}
+			body, h1, h2, h3, h4, h5, h6, p, a {
+				font-family: 'Montserrat', sans-serif;
+			}
+			.title .text, .title .text strong {
+				color: #998B5F;
+			}
+			.user-menu li a {
+				font-family: 'Montserrat', sans-serif;
+				font-weight: 600;
+				font-size: 12px;
+				text-transform: uppercase;
+				color: #0E2535;
+				padding: 10px 20px;
+				border-radius: 8px;
+				display: inline-block;
+				text-align: center;
+				text-decoration: none;
+				transition: all 0.3s ease;
+				background-color: transparent;
+			}
+		
+			.user-menu li a:hover {
+				background-color: #998B5F;
+				color: white;
+				box-shadow: 0 0 0 1px #998B5F;  /* Khung viền bằng box-shadow */
+			}
+		</style>
 
 		<!-- scripts -->
 		<script src="static/js/jquery-1.7.2.min.js"></script>
@@ -29,12 +64,12 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<a href="./customerindex" class="logo pull-left"><img src="static/images/fahasalogo.png" class="site_logo" alt=""></a>
+					<a href="./customerindex" class="logo pull-left"><img src="static/images/Liber_logo.png" class="site_logo" alt="" style="height: 70px; width: auto;"></a>
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
-						<ul class="user-menu">	
-							<li><a href="./customerindex">Quay lại</a></li>					
+						<ul class="user-menu">
+							<li><a href="./customerindex">Quay lại</a></li>
 						</ul>
 					</div>
 				</div>
@@ -50,13 +85,13 @@
 									<div class="span12">	
 									<h4 class="title"><span class="text"><strong>Xác nhận</strong> đơn hàng</span></h4>
 									{% if response == "1" %}
-										<p>
+									<p class="order-success">
 											Đơn hàng của bạn đã đặt <strong>thành công</strong>
 										</p>
 									{% endif %}
 			
 									{% if response == "0" %}
-										<p>
+									<p class="order-success">
 											Đơn hàng <strong> không thành công</strong>! Thử lại
 										</p>
 									{% endif %}
