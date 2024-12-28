@@ -555,7 +555,7 @@ def invoice():
     books = cur.fetchall()
 
     # Lấy danh sách khách hàng
-    cur.execute("SELECT customerID, firstName FROM Customers")
+    cur.execute("SELECT customerID, firstName lastName FROM Customers")
     customers = cur.fetchall()
 
     return render_template('create_invoice.html', books=books, customers=customers, today_date=today_date)
@@ -584,6 +584,7 @@ def get_book_info(book_id):
 def export_invoice():
     # Lấy dữ liệu từ form
     customer_name = request.form.get('customerName')
+    phone_number = request.form.get('phoneNumber')  # Lấy số điện thoại
     date = request.form.get('date')
     books = request.form.getlist('bookID[]')
     categories = request.form.getlist('category[]')
@@ -598,6 +599,7 @@ def export_invoice():
     document.add_heading('Hóa Đơn Bán Sách', level=1)
 
     document.add_paragraph(f'Họ Tên Khách Hàng: {customer_name}')
+    document.add_paragraph(f'Số Điện Thoại: {phone_number}')  # Hiển thị số điện thoại
     document.add_paragraph(f'Ngày Lập Hóa Đơn: {date}')
 
     # Thêm bảng chi tiết hóa đơn

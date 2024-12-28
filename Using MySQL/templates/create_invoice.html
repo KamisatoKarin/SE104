@@ -196,15 +196,34 @@
         </script>
     </head>
     <body>
+
+        
         <div class="invoice-form">
             <h2>Lập Hóa Đơn Bán Sách</h2>
             <form action="/create_invoice" method="POST" id="invoice-form">
-                <label for="customer">Họ Tên Khách Hàng:</label>
-                <select id="customer" name="customerName">
+                <!-- <label for="customer">Họ Tên Khách Hàng:</label> -->
+                <!-- <select id="customer" name="customerName">
                     {% for customer in customers %}
-                    <option value="{{ customer[0] }}">{{ customer[1] }}</option>
+                    <option value="{{ customer[0] }}">
+                        {{ customer[1] }} {{ customer[2] }}
+                    </option>
                     {% endfor %}
-                </select>
+                </select> -->
+                <label for="customerName">Họ và tên:</label>
+                <input type="text" id="customerName" name="customerName" placeholder="Nhập Họ Tên Khách Hàng" required>
+                <br><br>
+                <label for="phoneNumber">Số điện thoại:</label>
+                <input 
+                style="   
+                width: 100%;
+                padding: 10px;
+                margin: 8px 0;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;" type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" placeholder="Nhập số điện thoại" required>
+             
+
+                
     
                 <label for="date">Ngày lập hóa đơn:</label>
                 <input

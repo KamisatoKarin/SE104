@@ -1,3 +1,4 @@
+-- drop database onlinebookstore
 CREATE DATABASE onlinebookstore;
 USE onlinebookstore;
 SHOW TABLES;
@@ -106,6 +107,18 @@ ALTER TABLE Books ADD FOREIGN KEY (publisherID) REFERENCES Publishers(publisherI
 INSERT INTO Admins(adminID,firstName,lastName,emailID,password,phone) VALUES('admin1','Sam','Jones','sam@gmail.com','abc123','1234567892');
 INSERT INTO Admins(adminID,firstName,lastName,emailID,password,phone) VALUES('admin2','Anu','Sharma','anu@gmail.com','abc1','3454567892');
 INSERT INTO Admins(adminID,firstName,lastName,emailID,password,phone) VALUES('euphoria','Huỳnh','Đạt','22520211@gm.uit.edu.vn','26092004','3454567892');
+
+INSERT INTO Customers (
+    customerID, firstName, lastName, emailID, password, phone, country, state, pincode, address, Debt
+)
+VALUES
+    ('KH001', 'Nguyễn', 'Văn A', 'nguyenvana@example.com', 'pass123', '0901234567', 'Việt Nam', 'Hà Nội', 100000, '123 Phố Lý Thái Tổ', 100.00),
+    ('KH002', 'Trần', 'Thị B', 'tranthib@example.com', '123456', '0912345678', 'Việt Nam', 'Hồ Chí Minh', 700000, '45 Nguyễn Huệ', 200.00),
+    ('KH003', 'Lê', 'Minh C', 'leminhc@example.com', 'leminhc123', '0923456789', 'Việt Nam', 'Đà Nẵng', 500000, '12 Trần Phú', 150.50),
+    ('KH004', 'Phạm', 'Văn D', 'phamvand@example.com', '123phamvan', '0934567890', 'Việt Nam', 'Cần Thơ', 900000, '78 Hùng Vương', 0.00),
+    ('KH005', 'Hoàng', 'Thị E', 'hoangthie@example.com', 'password', '0945678901', 'Việt Nam', 'Huế', 530000, '34 Bà Triệu', 50.75),
+    ('KH006', 'Đặng', 'Ngọc F', 'dangngocf@example.com', 'ngocf123', '0956789012', 'Việt Nam', 'Hải Phòng', 180000, '56 Lạch Tray', 75.00);
+
 
 -- Thêm dữ liệu vào bảng Publishers
 INSERT INTO Publishers (publisherID, country)
