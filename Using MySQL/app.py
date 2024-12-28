@@ -140,27 +140,25 @@ def searchRoute():
 
 
 # search books in admin portal
-@app.route("/customersearch",methods=["POST","GET"])
+@app.route('/customersearch', methods=["POST","GET"])
 def customersearchRoute():
-    if request.method == "POST":
-        search = str(request.form.get("search"))
-        query = str(request.form.get("query"))
+    query = request.form.get('query', '')
+    search_type = request.form.get('Tìm kiếm', '')
 
-        if search == "title": # search by title
-            booksData = searchTitle(mysql,query)
-            return render_template("customersearch.html",booksData=booksData,search=search)
-        
-        if search == "genre": # search by genre
-            booksData = searchGenre(mysql,query)
-            return render_template("customersearch.html",booksData=booksData,search=search)
-        
-        if search == "author": # search by author
-            booksData = searchAuthor(mysql,query)
-            return render_template("customersearch.html",booksData=booksData,search=search)
+    if search_type == "title":
+        booksData = searchTitle(mysql, query)  # Tìm kiếm theo tên sách
+    elif search_type == "genre":
+        booksData = searchGenre(mysql, query)  # Tìm kiếm theo thể loại
+    elif search_type == "author":
+        booksData = searchAuthor(mysql, query)  # Tìm kiếm theo tác giả
+    else:
+        booksData = []
 
-        return render_template("customersearch.html")
-    
-    return render_template("customersearch.html")
+    return render_template(
+        'customersearch.html',
+        booksData=booksData,
+        search=search_type
+    )
 
 # Add/Delete/Update Book Route for Admin
 @app.route("/books",methods=["POST","GET"])
@@ -239,19 +237,30 @@ def addBookRoute():
     return redirect(url_for("booksRoute"))
 
 
+#get book selling price
+@app.route('/get_book_price', methods=['GET'])
+def get_book_price():
+    book_id = request.args.get('bookID')
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT Selling_Price FROM Books WHERE bookID = %s", (book_id,))
+    result = cur.fetchone()
+    cur.close()
+
+    if result:
+        return jsonify({"success": True, "price": result[0]})
+    else:
+        return jsonify({"success": False, "message": "Book not found"})
+
+
 
 # Update Book Route
 @app.route("/updateBook",methods=["POST","GET"])
 def updateBookRoute():
     if request.method == "POST":
         bookID = str(request.form.get("bookID"))
-        price1 = str(request.form.get("price1"))
         price2 = str(request.form.get("price2"))
-        fname = str(request.form.get("fname"))
-        lname = str(request.form.get("lname"))
-        country = str(request.form.get("country"))
 
-        response = updateBook(mysql,bookID,price1,price2,fname,lname,country)
+        response = updateBook(mysql,bookID,price2)
         if response == 1: # book updated successfully
             booksData = allBooks(mysql)
             genreData = allGenre(mysql)

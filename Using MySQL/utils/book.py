@@ -44,28 +44,31 @@ def addBook(mysql, bookID, title, genre, fname, lname, year, category, purchase_
     return result
 
 # update book function
-def updateBook(mysql, bookID, purchase_price, selling_price, fname, lname, country):
+def updateBook(mysql, bookID, new_selling_price):
     cur = mysql.connection.cursor()
 
     try:
-        cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
-        authorID = cur.fetchone()
-        cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
-        publisherID = cur.fetchone()
+        # Update the selling price for the book with the given bookID
         cur.execute(
-            "UPDATE Books SET Purchase_Price = %s, Selling_Price = %s WHERE bookID = %s AND authorID = %s AND publisherID = %s",
-            (purchase_price, selling_price, bookID, authorID[0], publisherID[0])
+            "UPDATE Books SET Selling_Price = %s WHERE bookID = %s",
+            (new_selling_price, bookID)
         )
-        result = 1  # book updated successfully
+        
+        # Check if the update was successful
+        if cur.rowcount > 0:
+            result = 1  # Book updated successfully
+        else:
+            result = 0  # No book found with the given ID
 
     except Exception as e:
         print("Error updating book:", e)
-        result = 0  # book failed to update
+        result = 0  # Book failed to update
 
     mysql.connection.commit()
     cur.close()
 
     return result
+
 
 # delete book function
 def deleteBook(mysql, bookID):

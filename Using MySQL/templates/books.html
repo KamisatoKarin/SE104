@@ -308,13 +308,13 @@
 												<div class="control-group">
 													<label class="control-label">Mã sách</label>
 													<div class="controls">
-														<input type="number" placeholder="Nhập mã sách" id="username" class="input-xlarge" name="bookID" required>
+														<input type="number" placeholder="Nhập mã sách" id="bookID" class="input-xlarge" name="bookID" required>
 													</div>
 												</div>
 												<div class="control-group">
 													<label class="control-label">Giá cũ</label>
 													<div class="controls">
-														<input type="number" placeholder="Nhập giá" id="username" class="input-xlarge" name="price1" required>
+														<input type="text" id="old_price" class="input-xlarge" readonly placeholder="Giá cũ sẽ hiển thị ở đây">
 													</div>
 												</div>
 												<div class="control-group">
@@ -385,7 +385,35 @@
 			alert("Failed");
 		</script>
 		{% endif %}
-
+		<!--Lấy giá cũ của sách-->
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const bookIDInput = document.getElementById('bookID');
+				const oldPriceInput = document.getElementById('old_price');
+		
+				bookIDInput.addEventListener('input', () => {
+					const bookID = bookIDInput.value;
+		
+					if (bookID) {
+						fetch(`/get_book_price?bookID=${bookID}`)
+							.then(response => response.json())
+							.then(data => {
+								if (data.success) {
+									oldPriceInput.value = data.price;
+								} else {
+									oldPriceInput.value = "Không tìm thấy sách";
+								}
+							})
+							.catch(error => {
+								console.error('Error fetching book price:', error);
+								oldPriceInput.value = "Lỗi khi lấy giá";
+							});
+					} else {
+						oldPriceInput.value = "";
+					}
+				});
+			});
+		</script>
 		<script src="../static/js/common.js"></script>
 		<script src="../static/js/jquery.flexslider-min.js"></script>
 		<script type="text/javascript">
