@@ -407,6 +407,7 @@ def cancelOrderRoute(orderID):
     response = cancelOrder(mysql, orderID)
     return render_template("cancelconfirmation.html", response=response)
 
+@app.route("/debt-report")
 def debt_report():
     if not is_admin():
         return "Access Denied: Admins Only", 403  # Trả về lỗi 403 nếu không phải admin
@@ -463,6 +464,103 @@ def debt_overview():
         year=year
     )
 
+
+@app.route("/payment_receipts", methods=["GET"])
+def paymentReceiptsRoute():
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
+    query = "SELECT * FROM PaymentReceipt"
+    cur.execute(query)
+    receipts = cur.fetchall()
+    cur.close()
+    
+    return render_template("payment_receipt/list.html", receipts=receipts)
+
+@app.route("/payment_receipt/new", methods=["GET", "POST"])
+def newPaymentReceiptRoute():
+    if request.method == "POST":
+        customer_name = request.form.get("customer_name")
+        address = request.form.get("address")
+        phone = request.form.get("phone")
+        email = request.form.get("email")
+        receipt_date = request.form.get("receipt_date")
+        amount_collected = request.form.get("amount_collected")
+        note = request.form.get("note")
+        customer_id = request.form.get("ID_Customer")
+        
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id))
+        mysql.connection.commit()
+        cur.close()
+        
+        return redirect(url_for("paymentReceiptsRoute"))
+    
+    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    return render_template("payment_receipt/new.html", current_date=current_date)
+
+@app.route("/payment_receipt/<int:receipt_id>", methods=["GET"])
+def paymentReceiptDetailRoute(receipt_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
+    cur.execute("SELECT * FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
+    receipt = cur.fetchone()
+    cur.close()
+    
+    return render_template("payment_receipt/detail.html", receipt=receipt)
+
+@app.route("/payment_receipt/edit/<int:receipt_id>", methods=["GET", "POST"])
+def editPaymentReceiptRoute(receipt_id):
+    if request.method == "POST":
+        customer_name = request.form.get("customer_name")
+        address = request.form.get("address")
+        phone = request.form.get("phone")
+        email = request.form.get("email")
+        receipt_date = request.form.get("receipt_date")
+        amount_collected = request.form.get("amount_collected")
+        note = request.form.get("note")
+        customer_id = request.form.get("ID_Customer")
+        
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            UPDATE PaymentReceipt
+            SET customer_name = %s, address = %s, phone = %s, email = %s, Receipt_Date = %s, Amount_Collected = %s, note = %s, ID_Customer = %s
+            WHERE ID_Receipt = %s
+        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id, receipt_id))
+        mysql.connection.commit()
+        cur.close()
+        
+        return redirect(url_for("paymentReceiptsRoute"))
+    
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cur.execute("SELECT * FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
+    receipt = cur.fetchone()
+    cur.close()
+    
+    return render_template("payment_receipt/edit.html", receipt=receipt)
+
+@app.route("/payment_receipt/delete/<int:receipt_id>", methods=["POST"])
+def deletePaymentReceiptRoute(receipt_id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
+    mysql.connection.commit()
+    cur.close()
+    
+    return redirect(url_for("paymentReceiptsRoute"))
+
+@app.route("/payment_receipt/change_status/<int:receipt_id>", methods=["POST"])
+def changePaymentReceiptStatusRoute(receipt_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
+    cur.execute("SELECT status FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
+    current_status = cur.fetchone()["status"]
+    
+    new_status = "Đã thu" if current_status == "Chờ xử lý" else "Chờ xử lý"
+    
+    cur.execute("UPDATE PaymentReceipt SET status = %s WHERE ID_Receipt = %s", (new_status, receipt_id))
+    mysql.connection.commit()
+    cur.close()
+    
+    return redirect(url_for("paymentReceiptsRoute"))
 
 if __name__ == "__main__":
     app.run(debug=True)

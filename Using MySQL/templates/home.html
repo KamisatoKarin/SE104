@@ -220,191 +220,121 @@
                         </div>
                         <br />
 
-                        <!-- Display books Genre wise -->
-                        {% for genre in genreData %}
-                        <div class="row">
-                            <div class="span12">
-                                <h4 class="title">
-                                    <span class="pull-left"
-                                        ><span class="text"
-                                            ><span class="line"
-                                                ><strong>{{genre[0]}}</strong>
-                                                Books</span
-                                            ></span
-                                        ></span
-                                    >
-                                    <span class="pull-right">
-                                        <a
-                                            class="left button"
-                                            href="#bookCarousel-{{genre[0]}}"
-                                            data-slide="prev"
-                                        ></a
-                                        ><a
-                                            class="right button"
-                                            href="#bookCarousel-{{genre[0]}}"
-                                            data-slide="next"
-                                        ></a>
-                                    </span>
-                                </h4>
-                                <div
-                                    id="bookCarousel-{{genre[0]}}"
-                                    class="myCarousel carousel slide"
-                                >
-                                    <div class="carousel-inner">
-                                        <div class="active item">
-                                            <ul class="thumbnails">
-                                                {% for book in booksData %} {%
-                                                if book[4] == genre[0] %}
-                                                <li class="span2">
-                                                    <div class="product-box">
-                                                        <span
-                                                            class="sale_tag"
-                                                        ></span>
-                                                        <p>
-                                                            <a href="./register"
-                                                                ><img
-                                                                    src="../static/images/books/book.png"
-                                                                    alt=""
-                                                            /></a>
-                                                        </p>
-                                                        <a
-                                                            href="/register"
-                                                            classs="title"
-                                                            >{{book[3]}}
-                                                            ({{book[0]}})</a
-                                                        ><br />
-                                                        <a
-                                                            href="/register"
-                                                            class="title"
-                                                            >- {{book[7]}}
-                                                            {{book[8]}}</a
-                                                        ><br />
-                                                        <a
-                                                            href="/register"
-                                                            class="category"
-                                                            >{{book[4]}}</a
-                                                        >
-                                                        <p class="price">
-                                                            {% if book[10] is
-                                                            not none %} {{
-                                                            "{:,.0f}".format(book[10])
-                                                            }} VNĐ {% else %}
-                                                            Không xác định {%
-                                                            endif %}
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                                {% endif %} {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
-            <section id="footer-bar">
-                <div class="row">
-                    <div class="span12">
-                        <h3 class="contact">
-                            <span><strong>LIÊN HỆ VỚI CHÚNG TÔI</strong></span>
-                        </h3>
-                        <form
-                            action="{{url_for('contactUsRoute')}}"
-                            class="form-stacked"
-                            method="POST"
-                        >
-                            <input type="hidden" name="next" value="/" />
-                            <div class="contact-container">
-                                <div class="contact-left">
-                                    <div class="control-group">
-                                        <label class="control-label">Họ</label>
-                                        <div class="controls">
-                                            <input
-                                                type="text"
-                                                placeholder="Nhập họ của bạn"
-                                                class="input-xlarge"
-                                                name="fname"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label">Tên</label>
-                                        <div class="controls">
-                                            <input
-                                                type="text"
-                                                placeholder="Nhập tên của bạn"
-                                                class="input-xlarge"
-                                                name="lname"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <label class="control-label"
-                                            >Email</label
-                                        >
-                                        <div class="controls">
-                                            <input
-                                                type="email"
-                                                placeholder="Nhập email của bạn"
-                                                class="input-xlarge"
-                                                name="emailID"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="contact-right">
-                                    <div class="control-group">
-                                        <label class="control-label"
-                                            >Tin nhắn</label
-                                        >
-                                        <div class="controls">
-                                            <textarea
-                                                name="subject"
-                                                placeholder="Viết tin nhắn của bạn..."
-                                                name="message"
-                                            ></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="control-group submit-group">
-                                <button
-                                    type="submit"
-                                    class="btn-inverse"
-                                    name="submit"
-                                >
-                                    Gửi tin nhắn
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-            <section id="copyright"></section>
-        </div>
-        <script src="../static/js/common.js"></script>
-        <script src="../static/js/jquery.flexslider-min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $(document).ready(function () {
-                    $(".flexslider").flexslider({
-                        animation: "fade",
-                        slideshowSpeed: 4000,
-                        animationSpeed: 600,
-                        controlNav: false,
-                        directionNav: true,
-                        controlsContainer: ".flex-container",
-                    });
-                });
-            });
-        </script>
-        <style>
-            .contact {
-                color: #eb4800;
-            }
-        </style>
+						<!-- Display books Genre wise -->
+						{% for genre in genreData %}
+						<div class="row">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>{{genre[0]}}</strong> Books</span></span></span>
+									<span class="pull-right">
+										<a class="left button" href="#bookCarousel-{{genre[0]}}" data-slide="prev"></a><a class="right button" href="#bookCarousel-{{genre[0]}}" data-slide="next"></a>
+									</span>
+								</h4>
+								<div id="bookCarousel-{{genre[0]}}" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">	
+												{% for book in booksData %}
+													{% if book[4] == genre[0] %}
+														<li class="span2">
+															<div class="product-box">
+																<span class="sale_tag"></span>
+																<p><a href="./register"><img src="static/images/books/book.png" alt="" /></a></p>
+																<a href="/register" classs="title">{{book[3]}} ({{book[0]}})</a><br/>
+																<a href="/register" class="title">- {{book[7]}} {{book[8]}}</a><br/>
+																<a href="/register" class="category">{{book[4]}}</a>
+																<p class="price">
+																	{% if book[10] is not none %}
+																		{{ "{:,.0f}".format(book[10]) }} VNĐ
+																	{% else %}
+																		Không xác định
+																	{% endif %}
+																</p>
+															</div>
+														</li>	
+													{% endif %}									
+												{% endfor %}
+											</ul>
+										</div>
+									</div>							
+								</div>
+							</div>						
+						</div>
+						{% endfor %}
+
+
+						
+						
+					</div>				
+				</div>
+			</section>
+			<section id="footer-bar">
+				<div class="row">
+					<div class="span12">
+						<h3 class="contact"><span><strong>LIÊN HỆ VỚI CHÚNG TÔI</strong></span></h3>
+						<form action="{{url_for('contactUsRoute')}}" class="form-stacked" method="POST">
+							<input type="hidden" name="next" value="/">
+							<div class="contact-container">
+								<div class="contact-left">
+									<div class="control-group">
+										<label class="control-label">Họ</label>
+										<div class="controls">
+											<input type="text" placeholder="Nhập họ của bạn" class="input-xlarge" name="fname">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Tên</label>
+										<div class="controls">
+											<input type="text" placeholder="Nhập tên của bạn" class="input-xlarge" name="lname">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label">Email</label>
+										<div class="controls">
+											<input type="email" placeholder="Nhập email của bạn" class="input-xlarge" name="emailID">
+										</div>
+									</div>
+								</div>
+								<div class="contact-right">
+									<div class="control-group">
+										<label class="control-label">Tin nhắn</label>
+										<div class="controls">
+											<textarea name="subject" placeholder="Viết tin nhắn của bạn..." name="message"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="control-group submit-group">
+								<button type="submit" class="btn-inverse" name="submit">Gửi tin nhắn</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+			<section id="copyright">
+			</section>
+
+		</div>
+		<script src="static/js/common.js"></script>
+		<script src="static/js/jquery.flexslider-min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$(document).ready(function() {
+					$('.flexslider').flexslider({
+						animation: "fade",
+						slideshowSpeed: 4000,
+						animationSpeed: 600,
+						controlNav: false,
+						directionNav: true,
+						controlsContainer: ".flex-container"
+					});
+				});
+			});
+		</script>
+		<style>
+			.contact{
+				color:#eb4800
+			}
+		</style>
     </body>
 </html>
