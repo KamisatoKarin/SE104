@@ -1,183 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Liber.com</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
-		<!-- bootstrap -->
-		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
-		<link href="static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link href="static/css/bootstrappage.css" rel="stylesheet"/>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-		
-		<!-- global styles -->
-		<link href="static/css/flexslider.css" rel="stylesheet"/>
-		<link href="static/css/main.css" rel="stylesheet"/>
+    <head>
+        <meta charset="utf-8" />
+        <title>Fahsasa.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="" />
+        <!--[if ie
+            ]><meta content="IE=8" http-equiv="X-UA-Compatible"
+        /><![endif]-->
+        <!-- bootstrap -->
+        <link
+            href="../static/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
+        <link
+            href="../static/bootstrap/css/bootstrap-responsive.min.css"
+            rel="stylesheet"
+        />
 
-		<!-- scripts -->
-		<script src="static/js/jquery-1.7.2.min.js"></script>
-		<script src="static/bootstrap/js/bootstrap.min.js"></script>				
-		<script src="static/js/superfish.js"></script>	
-		<script src="static/js/jquery.scrolltotop.js"></script>
-		<!--[if lt IE 9]>			
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="js/respond.min.js"></script>
-		<![endif]-->
-		<style>
-			ul.thumbnails {
-				margin-left: 20px !important;
-				margin-right: 20px !important;
-			}
-			form.form-stacked {
-				margin-left: 30px !important;
-				margin-right: 30px !important;
-			}
-			
-			body, h1, h2, h3, h4, h5, h6, p, a, span, label, input, button, select, textarea {
-				font-family: 'Montserrat', sans-serif;
-			}
-			::placeholder {
-    		font-size: 12px;
-			}
+        <link href="../static/css/bootstrappage.css" rel="stylesheet" />
 
-			.main-content {
-				margin: 0 auto; /* Căn giữa theo chiều ngang */
-				max-width: 800px; /* Giới hạn chiều rộng */
-				padding: 20px;
-				border: 1px solid #ddd;
-				border-radius: 6px;
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-				background-color: #fff;
-			}
-			#top-bar .logo {
-				margin-left: 40px;
-				margin-right: auto;
-			}
-			
-			#top-bar {
-				border-radius: 4px;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: 5px 5px;
-				border-bottom: 1px solid #ccc;
-				margin-bottom: 5px;
-				background-color: #fff; /* Nền trắng */
-				box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-			}
-			#top-bar .logo img {
-				max-height: 70px;
-				width: auto;
-			}
-			#top-bar nav ul {
-				border-radius: 4px;
-				list-style: none;
-				padding: 0;
-				margin: 0;
-				display: flex;
-				gap: 20px;
-			}
-			#top-bar nav ul li {
-				border-radius: 4px;
-				position: relative;
-			}
-			#top-bar nav ul li a {
-				font-family: 'Montserrat', sans-serif;
-				font-weight: 600;
-				font-size: 12px;
-				text-transform: uppercase;
-				color: #0E2535;
-				text-decoration: none;
-				padding: 5px 5px;
-			}
-			#top-bar nav ul li a:hover {
-				background-color: #998B5F; /* Màu nền khi hover */
-				color: white;
-				border-radius: 5px;
-			}
-			.account ul li a {
-				font-family: 'Montserrat', sans-serif;
-				font-weight: 600;
-				font-size: 12px;
-				text-transform: uppercase;
-				color: #0E2535;
-				padding: 5px 5px;
-				margin: 5px;
-			}
-			
-			
-			h4.title .text {
-				margin-left: 40px; /* Cách lề trái cho tiêu đề */
-			}
-			h4.title .text .line strong,
-    		h4.title .text .line {
-        		color: #998B5F; /* Đổi màu chữ "Tìm kiếm" */
-    		}
-			.btn-inverse { 
-				color: #fff;
-				background-color: #998B5F;
-				border: none;
-				padding: 8px 30px;
-				font-size: 14px;
-				border-radius: 10px;
-				cursor: pointer;
-				transition: background-color 0.3s ease;
-			}
-			.main-content {
-				max-width: 1180px;
-				padding: 5px;
-				border: 1px solid #ddd;
-				border-radius: 10px;
-				box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-				background-color: #fff;
-				margin-bottom:5px;
-			}
-			
-		</style>
-	</head>
-    <body> 
-		<div id="top-bar" class="container">
-			<!-- Logo -->
-			<a href="./customerindex" class="logo">
-				<img src="static/images/Liber_logo.png" class="site_logo" alt="">
-			</a>
-			<!-- Menu -->
-			<nav id="menu">
-				<ul>
-					<li><a href="./customerindex">Trang chủ</a></li>
-					<li><a href="./customersearch">Tìm sách</a></li>
-					<li><a href="./myorders">Đơn hàng</a></li>
-					<li><a href="./myaccount">Tài khoản</a></li>
-				</ul>
-			</nav>
-			<!-- Đăng xuất -->
-			<div class="account">
-				<ul class="user-menu">
-					<li><a href="./logout">Đăng xuất</a></li>
-				</ul>
-			</div>
-		</div>
-			</section>
+        <!-- global styles -->
+        <link href="../static/css/flexslider.css" rel="stylesheet" />
+        <link href="../static/css/main.css" rel="stylesheet" />
 
+        <!-- scripts -->
+        <script src="../static/js/jquery-1.7.2.min.js"></script>
+        <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../static/js/superfish.js"></script>
+        <script src="../static/js/jquery.scrolltotop.js"></script>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div id="top-bar" class="container">
+            <div class="row">
+                <div class="span4">
+                    <a href="./customerindex" class="logo pull-left"
+                        ><img
+                            src="../static/images/fahasalogo.png"
+                            class="site_logo"
+                            alt=""
+                    /></a>
+                </div>
+                <div class="span8">
+                    <div class="account pull-right">
+                        <ul class="user-menu">
+                            <li><a href="./logout">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="wrapper" class="container">
+            <section class="navbar main-menu">
+                <div class="navbar-inner main-menu">
+                    <nav id="menu" class="pull-right">
+                        <ul>
+                            <li><a href="./customerindex">Trang chủ</a></li>
+                            <li><a href="./customersearch">Tìm sách</a></li>
+                            <li><a href="./myorders">Đơn hàng</a></li>
+                            <li><a href="./myaccount">Tài khoản của tôi</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </section>
 
-			<section class="main-content container">
-				<div class="row">
-					<div class="span12">
-
-						<!-- Search -->
-						<div class="row">
-							<div class="span12">
-								<h4 class="title">
-									<span class="pull-left"><span class="text"><span class="line"><strong></strong> Tìm kiếm</span></span></span>
-								</h4>
-								<div id="myCarousel-2" class="myCarousel carousel slide">
-									<div class="carousel-inner">
-										<form action="{{url_for('customersearchRoute')}}" class="form-stacked" method="POST">
-											<input type="hidden" name="next" value="/">
-											<fieldset>
-
+            <section class="main-content">
+                <div class="row">
+                    <div class="span12">
+                        <!-- Search -->
+                        <div class="row">
+                            <div class="span12">
+                                <h4 class="title">
+                                    <span class="pull-left"
+                                        ><span class="text"
+                                            ><span class="line"
+                                                ><strong></strong> Tìm
+                                                kiếm</span
+                                            ></span
+                                        ></span
+                                    >
+                                </h4>
+                                <div
+                                    id="myCarousel-2"
+                                    class="myCarousel carousel slide"
+                                >
+                                    <div class="carousel-inner">
+                                        <form
+                                            action="{{url_for('customersearchRoute')}}"
+                                            class="form-stacked"
+                                            method="POST"
+                                        >
+                                            <input
+                                                type="hidden"
+                                                name="next"
+                                                value="/"
+                                            />
+                                            <fieldset>
                                                 <div class="control-group">
                                                     <label class="control-label"
                                                         >Tìm kiếm theo</label
