@@ -515,57 +515,42 @@ def debt_report():
     if not is_admin():
         return "Access Denied: Admins Only", 403  # Trả về lỗi 403 nếu không phải admin
 
+    # Dữ liệu công nợ để hiển thị ngay khi nhập tháng và năm
+    debt_data = []
+    month = None
+    year = None
+
     if request.method == "POST":
         # Nhận tháng và năm từ form
         month = int(request.form.get("month"))
         year = int(request.form.get("year"))
-        # Chuyển hướng đến debt-overview với các tham số
-        return redirect(url_for("debt_overview", month=month, year=year))
 
-    return render_template("debt-report.html")
+        # Kết nối cơ sở dữ liệu
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Sử dụng DictCursor
 
+        # Truy vấn báo cáo công nợ
+        query = """
+        SELECT 
+            dr.Month,
+            dr.ID_Customer,
+            CONCAT(c.firstName, ' ', c.lastName) AS customer_name,
+            dr.Opening_Debt,
+            dr.Transactions,
+            dr.Closing_Debt
+        FROM 
+            DebtReport dr
+        INNER JOIN 
+            Customers c ON dr.ID_Customer = c.customerID
+        WHERE 
+            MONTH(dr.Month) = %s AND YEAR(dr.Month) = %s
+        """
+        cur.execute(query, (month, year))
+        debt_data = cur.fetchall()
 
-@app.route("/debt-overview")
-def debt_overview():
-    if not is_admin():
-        return "Access Denied: Admins Only", 403
+        # Đóng kết nối cơ sở dữ liệu
+        cur.close()
 
-    # Lấy tháng và năm từ query parameters
-    month = int(request.args.get("month"))
-    year = int(request.args.get("year"))
-
-    # Kết nối cơ sở dữ liệu
-    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Sử dụng DictCursor
-
-    # Truy vấn báo cáo công nợ
-    query = """
-    SELECT 
-        dr.Month,
-        dr.ID_Customer,
-        CONCAT(c.firstName, ' ', c.lastName) AS customer_name,
-        dr.Opening_Debt,
-        dr.Transactions,
-        dr.Closing_Debt
-    FROM 
-        DebtReport dr
-    INNER JOIN 
-        Customers c ON dr.ID_Customer = c.customerID
-    WHERE 
-        MONTH(dr.Month) = %s AND YEAR(dr.Month) = %s
-    """
-    cur.execute(query, (month, year))
-    debt_data = cur.fetchall()
-
-    # Đóng kết nối cơ sở dữ liệu
-    cur.close()
-
-    # Trả về trang hiển thị dữ liệu công nợ
-    return render_template(
-        "debt-overview.html",
-        debt_data=debt_data,
-        month=month,
-        year=year
-    )
+    return render_template("debt-report.html", debt_data=debt_data, month=month, year=year)
 
 
 
