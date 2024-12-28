@@ -200,34 +200,40 @@
         </form>
     </div>
 
-    {% if debt_data %}
-    <div class="form-container">
-        <h2>Báo cáo công nợ {{ month }}/{{ year }}</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Month</th>
-                    <th>Customer ID</th>
-                    <th>Customer Name</th>
-                    <th>Opening Debt</th>
-                    <th>Transactions</th>
-                    <th>Closing Debt</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in debt_data %}
-                <tr>
-                    <td>{{ row['Month'] }}</td>
-                    <td>{{ row['ID_Customer'] }}</td>
-                    <td>{{ row['customer_name'] }}</td>
-                    <td>{{ "{:,.0f}".format(row['Opening_Debt']) }} VNĐ</td>
-                    <td>{{ "{:,.0f}".format(row['Transactions']) }} VNĐ</td>
-                    <td>{{ "{:,.0f}".format(row['Closing_Debt']) }} VNĐ</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% endif %}
+	{% if debt_data %}
+	<div class="form-container">
+		<h2>Báo cáo công nợ {{ month }}/{{ year }}</h2>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Month</th>
+					<th>Customer ID</th>
+					<th>Customer Name</th>
+					<th>Opening Debt</th>
+					<th>Transactions</th>
+					<th>Closing Debt</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for row in debt_data %}
+				<tr>
+					<td>{{ row['Month'] }}</td>
+					<td>{{ row['ID_Customer'] }}</td>
+					<td>{{ row['customer_name'] }}</td>
+					<td>{{ "{:,.0f}".format(row['Opening_Debt']) }} VNĐ</td>
+					<td>{{ "{:,.0f}".format(row['Transactions']) }} VNĐ</td>
+					<td>{{ "{:,.0f}".format(row['Closing_Debt']) }} VNĐ</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% else %}
+	<div class="form-container">
+		<h2>Báo cáo công nợ {{ month }}/{{ year }}</h2>
+		<p style="text-align: center; color: red;">Không có thông tin công nợ cho tháng và năm đã chọn.</p>
+	</div>
+	{% endif %}
+	
 </body>
 </html>
