@@ -239,19 +239,30 @@ def addBookRoute():
     return redirect(url_for("booksRoute"))
 
 
+#get book selling price
+@app.route('/get_book_price', methods=['GET'])
+def get_book_price():
+    book_id = request.args.get('bookID')
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT Selling_Price FROM Books WHERE bookID = %s", (book_id,))
+    result = cur.fetchone()
+    cur.close()
+
+    if result:
+        return jsonify({"success": True, "price": result[0]})
+    else:
+        return jsonify({"success": False, "message": "Book not found"})
+
+
 
 # Update Book Route
 @app.route("/updateBook",methods=["POST","GET"])
 def updateBookRoute():
     if request.method == "POST":
         bookID = str(request.form.get("bookID"))
-        price1 = str(request.form.get("price1"))
         price2 = str(request.form.get("price2"))
-        fname = str(request.form.get("fname"))
-        lname = str(request.form.get("lname"))
-        country = str(request.form.get("country"))
 
-        response = updateBook(mysql,bookID,price1,price2,fname,lname,country)
+        response = updateBook(mysql,bookID,price2)
         if response == 1: # book updated successfully
             booksData = allBooks(mysql)
             genreData = allGenre(mysql)
