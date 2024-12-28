@@ -273,7 +273,7 @@ def deleteBookRoute():
         lname = str(request.form.get("lname"))
         country = str(request.form.get("country"))
 
-        response = deleteBook(mysql,bookID,fname,lname,country)
+        response = deleteBook(mysql,bookID)
         if response == 1: # book deleted successfully
             booksData = allBooks(mysql)
             genreData = allGenre(mysql)

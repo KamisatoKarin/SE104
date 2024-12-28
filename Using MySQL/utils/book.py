@@ -68,34 +68,38 @@ def updateBook(mysql, bookID, purchase_price, selling_price, fname, lname, count
     return result
 
 # delete book function
-def deleteBook(mysql, bookID, fname, lname, country):
+def deleteBook(mysql, bookID):
+    """
+    Xóa một cuốn sách từ cơ sở dữ liệu và tất cả dữ liệu liên quan.
+    
+    Args:
+        mysql: Đối tượng kết nối MySQL.
+        bookID: ID của cuốn sách cần xóa.
+    
+    Returns:
+        result: 1 nếu thành công, 0 nếu thất bại.
+    """
     cur = mysql.connection.cursor()
+
     try:
-        cur.execute("SELECT authorID FROM Authors WHERE firstName = %s AND lastName = %s", (fname, lname))
-        authorID = cur.fetchone()
-        cur.execute("SELECT COUNT(authorID) FROM Books WHERE authorID = %s", (authorID,))
-        authorbooks = cur.fetchone()
-        cur.execute("SELECT publisherID FROM Publishers WHERE country = %s", (country,))
-        publisherID = cur.fetchone()
-        cur.execute("SELECT COUNT(publisherID) FROM Books WHERE publisherID = %s", (publisherID,))
-        publisherbooks = cur.fetchone()
-        # delete from Inventory first and then from Books because of foreign key constraint
+        # Xóa dữ liệu liên quan trong InventoryReport
+        cur.execute("DELETE FROM InventoryReport WHERE bookID = %s", (bookID,))
+        
+        # Xóa dữ liệu liên quan trong Inventory
         cur.execute("DELETE FROM Inventory WHERE bookID = %s", (bookID,))
+        
+        # Xóa sách trong bảng Books
         cur.execute("DELETE FROM Books WHERE bookID = %s", (bookID,))
-
-        # delete from authors table if books' author has not more than one book
-        if authorbooks[0] == 1:
-            cur.execute("DELETE FROM Authors WHERE authorID = %s", (authorID[0],))
-
-        # delete from publishers table if books' publishers have not more than one book published
-        if publisherbooks[0] == 1:
-            cur.execute("DELETE FROM Publishers WHERE publisherID = %s", (publisherID[0],))
-
-        result = 1  # book deleted successfully
+        
+        if cur.rowcount == 0:
+            # Nếu không có dòng nào bị ảnh hưởng, nghĩa là bookID không tồn tại
+            raise Exception("BookID not found")
+        
+        result = 1  # Thành công
 
     except Exception as e:
         print("Error deleting book:", e)
-        result = 0  # book failed to delete
+        result = 0  # Lỗi khi xóa
 
     mysql.connection.commit()
     cur.close()
