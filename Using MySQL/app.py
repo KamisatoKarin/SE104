@@ -5,6 +5,7 @@ from os import getenv
 from dotenv import load_dotenv
 from docx import Document
 from io import BytesIO
+from decimal import Decimal
 import datetime
 from flask import Flask, request, send_file
 
@@ -320,57 +321,19 @@ def buyBookRoute(bookID):
         quantity = str(request.form.get("quantity"))
         bookData = totalBookPrice(mysql,bookID,quantity)
         totalPrice = int(bookData[1]) * int(quantity)
-        return render_template("payment.html",bookData=bookData,quantity=quantity,totalPrice=totalPrice)
+        return render_template("payment.html", bookData=bookData, quantity=quantity, totalPrice=totalPrice, float=float)
         
     return "USE POST METHOD ONLY"
     
 # pay order route
-@app.route("/pay<isbn>/<quantity>/<total>", methods=["POST", "GET"])
-def payRoute(isbn, quantity, total):
-    if request.method == "POST":
+@app.route("/pay<isbn>/<quantity>/<total>",methods=["POST","GET"])
+def payRoute(isbn,quantity,total):
+    if request.method =="POST":
         pay = str(request.form.get("pay"))
-        user_id = session["userID"]
 
-        # Fetch customer details
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT customerID, firstName, lastName, address, phone, emailID AS email, Debt FROM Customers WHERE customerID = %s", (user_id,))
-        customer = cur.fetchone()
-
-        if not customer:
-            cur.close()
-            return "Customer not found", 404
-
-        customer_id = customer['customerID']
-        customer_name = f"{customer['firstName']} {customer['lastName']}"
-        address = customer['address']
-        phone = customer['phone']
-        email = customer['email']
-        customer_debt = customer['Debt']
-
-        # Calculate new debt
-        new_debt = customer_debt - Decimal(total)
-
-        try:
-            # Create payment receipt
-            cur.execute("""
-                INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-            """, (customer_name, address, phone, email, datetime.datetime.now().strftime("%Y-%m-%d"), total, "Payment for invoice", customer_id))
-
-            # Update customer's debt
-            cur.execute("UPDATE Customers SET Debt = %s WHERE customerID = %s", (new_debt, customer_id))
-
-            # Insert order details
-            response = orders(mysql, isbn, quantity, total, pay, user_id)
-
-            mysql.connection.commit()
-        except MySQLdb.IntegrityError as e:
-            mysql.connection.rollback()
-            return str(e), 500
-        finally:
-            cur.close()
-
-        return redirect(url_for('orderconfirmationRoute', response=response))
+        response = orders(mysql,isbn,quantity,total,pay,session["userID"])
+        return redirect(url_for('orderconfirmationRoute',response = response))
+        # return render_template("orderconfirmation.html",response=response)
 
     return "USE POST METHOD ONLY"
 
@@ -639,30 +602,18 @@ def debt_report():
 
     return render_template("debt-report.html", debt_data=debt_data, month=month, year=year)
 
-
-
 @app.route("/payment_receipts", methods=["GET"])
 def paymentReceiptsRoute():
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
-    query = """
-    SELECT pr.*, c.Debt AS remaining_debt, b.title AS invoice_name
-    FROM PaymentReceipt pr
-    LEFT JOIN Customers c ON pr.ID_Customer = c.customerID
-    LEFT JOIN InvoiceDetail id ON pr.ID_Receipt = id.ID_Invoice
-    LEFT JOIN Books b ON id.bookID = b.bookID
-    """
+    query = "SELECT * FROM PaymentReceipt"
     cur.execute(query)
     receipts = cur.fetchall()
     cur.close()
     
     return render_template("payment_receipt/list.html", receipts=receipts)
 
-from decimal import Decimal
-
 @app.route("/payment_receipt/new", methods=["GET", "POST"])
 def newPaymentReceiptRoute():
-    error_message = None
-    customer_debt = 0
     if request.method == "POST":
         customer_name = request.form.get("customer_name")
         address = request.form.get("address")
@@ -671,41 +622,20 @@ def newPaymentReceiptRoute():
         receipt_date = request.form.get("receipt_date")
         amount_collected = request.form.get("amount_collected")
         note = request.form.get("note")
+        customer_id = request.form.get("ID_Customer")
         
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id))
+        mysql.connection.commit()
+        cur.close()
         
-        # Fetch customer_id based on customer_name
-        cur.execute("SELECT customerID, Debt FROM Customers WHERE CONCAT(firstName, ' ', lastName) = %s", (customer_name,))
-        customer = cur.fetchone()
-        
-        if not customer:
-            cur.close()
-            error_message = "Customer does not exist"
-        else:
-            customer_id = customer['customerID']
-            customer_debt = customer['Debt']
-            
-            if Decimal(amount_collected) > customer_debt:
-                error_message = f"Số tiền thu không được vượt quá số tiền khách hàng đang nợ ({customer_debt})"
-            else:
-                try:
-                    cur.execute("""
-                        INSERT INTO PaymentReceipt (customer_name, address, phone, email, Receipt_Date, Amount_Collected, note, ID_Customer)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    """, (customer_name, address, phone, email, receipt_date, amount_collected, note, customer_id))
-                    # Update customer's debt
-                    new_debt = customer_debt - Decimal(amount_collected)
-                    cur.execute("UPDATE Customers SET Debt = %s WHERE customerID = %s", (new_debt, customer_id))
-                    mysql.connection.commit()
-                    return redirect(url_for("paymentReceiptsRoute"))
-                except MySQLdb.IntegrityError as e:
-                    mysql.connection.rollback()
-                    error_message = str(e)
-                finally:
-                    cur.close()
+        return redirect(url_for("paymentReceiptsRoute"))
     
     current_date = datetime.datetime.now().strftime("%Y-%m-%d")
-    return render_template("payment_receipt/new.html", current_date=current_date, error_message=error_message, customer_debt=customer_debt)
+    return render_template("payment_receipt/new.html", current_date=current_date)
 
 @app.route("/payment_receipt/<int:receipt_id>", methods=["GET"])
 def paymentReceiptDetailRoute(receipt_id):
@@ -717,7 +647,7 @@ def paymentReceiptDetailRoute(receipt_id):
     return render_template("payment_receipt/detail.html", receipt=receipt)
 
 @app.route("/payment_receipt/edit/<int:receipt_id>", methods=["GET", "POST"])
-def editPaymentReceiptRoute():
+def editPaymentReceiptRoute(receipt_id):
     if request.method == "POST":
         customer_name = request.form.get("customer_name")
         address = request.form.get("address")
@@ -758,33 +688,16 @@ def deletePaymentReceiptRoute(receipt_id):
 @app.route("/payment_receipt/change_status/<int:receipt_id>", methods=["POST"])
 def changePaymentReceiptStatusRoute(receipt_id):
     cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)  # Use DictCursor to fetch results as dictionaries
-    cur.execute("SELECT status, Amount_Collected, ID_Customer FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
-    receipt = cur.fetchone()
-    
-    current_status = receipt["status"]
-    amount_collected = receipt["Amount_Collected"]
-    customer_id = receipt["ID_Customer"]
+    cur.execute("SELECT status FROM PaymentReceipt WHERE ID_Receipt = %s", (receipt_id,))
+    current_status = cur.fetchone()["status"]
     
     new_status = "Đã thu" if current_status == "Chờ xử lý" else "Chờ xử lý"
     
     cur.execute("UPDATE PaymentReceipt SET status = %s WHERE ID_Receipt = %s", (new_status, receipt_id))
-    
-    if new_status == "Đã thu":
-        cur.execute("SELECT Debt FROM Customers WHERE customerID = %s", (customer_id,))
-        customer = cur.fetchone()
-        new_debt = customer["Debt"] - amount_collected
-        if new_debt < 0:
-            new_debt = 0
-        cur.execute("UPDATE Customers SET Debt = %s WHERE customerID = %s", (new_debt, customer_id))
-    
     mysql.connection.commit()
     cur.close()
     
     return redirect(url_for("paymentReceiptsRoute"))
-
-
-
-
 
 
 

@@ -94,12 +94,16 @@
                             <address style="line-height: 2;">
                                     <h5 style="font-size: 14px;"><strong>Tên sách:</strong> <span style="font-size: 14px;">{{ bookData[2] }}</span><br></h5>
                                     <strong>Mã sách: </strong> <span>{{ bookData[0] }}</span><br>
-                                    <strong>Giá: </strong> <span>{{ bookData[1] }}</span><br>
-                                    <strong>Tổng: </strong> <span>{{ quantity }}</span><br>    
+                                    <strong>Giá: </strong> <span>{{ bookData[1] }} VND</span><br>
+                                    <strong>Số lượng: </strong> <span>{{ quantity }}</span><br>    
                                 </address style="line-height: 2;">	
                                 <h4><strong>Tổng giá: <span style="color: #998B5F;">{{ totalPrice }} VND</span></strong></h4>							
                             <p style = "margin-top: 15px;"><strong>NOTE: </strong>Đối với mục đích giao dịch, hãy nhập thông tin thanh toán chính xác hoặc không chính xác cho phù hợp</p>
                         </div>
+
+						{% if error_message %}
+							<div class="alert alert-danger">{{ error_message }}</div>
+						{% endif %}
 
 						<form action="{{url_for('payRoute',isbn=bookData[0],quantity=quantity,total=totalPrice)}}" class="form-stacked" method="POST">
 							<fieldset>
