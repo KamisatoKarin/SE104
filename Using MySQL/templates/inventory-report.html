@@ -140,32 +140,42 @@
         </a>
 
         <!-- Menu -->
-        <nav id="menu">
+		<nav id="menu">
             <ul>
-                <li><a href="./adminindex">Trang chủ</a></li>
-                <li><a href="./search">Tìm kiếm</a></li>
-                <li>
-                    <a href="./books" method="POST">Sản phẩm</a>
+
+				<li><a href="./search">Tìm kiếm</a></li>
+                <li><a href="./books">Sách</a>
                     <ul>
-                        <li><a href="./books">Thêm sản phẩm</a></li>
+                        <li><a href="./books">Thêm sản phẩm</a></li>                                    
                         <li><a href="./books">Cập nhật sản phẩm</a></li>
-                        <li><a href="./books">Xóa sản phẩm</a></li>
-                    </ul>
-                </li>									
-                <li><a href="./inventory">Tồn kho</a></li>	
-                <li>
-                    <a href="./users">Người dùng</a>					
-                    <ul>
-                        <li><a href="./users">Admins</a></li>									
-                        <li><a href="./users">Khách hàng</a></li>					
+                        <li><a href="./books">Xóa sản phẩm</a></li>            
                     </ul>
                 </li>
-                <li>
-                    <a href="./myorders">Đơn hàng</a>
+                <li><a href="./inventory">Tồn kho</a>
                         <ul>
-                            <li><a href="./debt-report">Báo cáo công nợ</a></li>
+                            <li><a href="./inventory">Xem tồn kho</a></li>                                    
+                            <li><a href="./inventory-report">Báo cáo tồn kho</a></li>                    
                         </ul>
                 </li>
+                <li><a href="./payment_receipts">Phiếu thu</a>
+                        <ul>
+                            <li><a href="./payment_receipts">Danh sách phiếu thu</a></li>
+                            <li><a href="./payment_receiptss/new">Tạo phiếu thu mới</a></li>
+                        </ul>
+                </li>
+				<li><a href="./myorders">Đơn hàng</a>
+				        <ul> 
+						    <li><a href="./myorders">Danh sách đơn hàng</a></li>
+						    <li><a href="./create_invoice">Hóa đơn bán</a></li>
+					    </ul>
+				</li>
+                <li><a href="./users">Người dùng</a>
+                        <ul>
+                            <li><a href="./users">Admins</a></li>                                    
+                            <li><a href="./users">Khách hàng</a></li>                    
+                        </ul>
+                </li>
+                <li><a href="./debt-report">Báo cáo</a></li>    
                 <li><a href="./myaccount">Tài khoản</a></li>
             </ul>
         </nav>
@@ -179,17 +189,17 @@
     </div>
 
     <div class="form-container">
-        <h1>Inventory Report Query</h1>
+        <h1>Báo cáo tồn kho</h1>
         <form method="POST">
             <div class="form-group">
-                <label for="month">Month:</label>
+                <label for="month">Tháng:</label>
                 <input type="number" id="month" name="month" min="1" max="12" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="year">Year:</label>
+                <label for="year">Năm:</label>
                 <input type="number" id="year" name="year" min="2000" max="2100" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary" style="background-color: #0E2535; color: white; border: none;">Generate Report</button>
+            <button type="submit" class="btn btn-primary" style="background-color: #0E2535; color: white; border: none;">Tạo báo cáo </button>
         </form>
     </div>
 
