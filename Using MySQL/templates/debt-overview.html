@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debt Overview</h1>
+    <h2>Report for {{ month }}/{{ year }}</h2>
+
+    {% if debt_data %}
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Customer ID</th>
+                <th>Customer Name</th>
+                <th>Opening Debt</th>
+                <th>Transactions</th>
+                <th>Closing Debt</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in debt_data %}
+            <tr>
+                <td>{{ row['Month'] }}</td>
+                <td>{{ row['ID_Customer'] }}</td>
+                <td>{{ row['customer_name'] }}</td>
+                <td>{{ row['Opening_Debt'] }}</td>
+                <td>{{ row['Transactions'] }}</td>
+                <td>{{ row['Closing_Debt'] }}</td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    {% else %}
+    <p>No data found for the selected period.</p>
+    {% endif %}
+</body>
+</html>
