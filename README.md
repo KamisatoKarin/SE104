@@ -1,19 +1,58 @@
+<!-- Banner -->
+
+<p align="center">
+  <a href="https://www.uit.edu.vn/" title="Trường Đại học Công nghệ Thông tin" style="border: none;">
+    <img src="https://i.imgur.com/WmMnSRt.png" alt="Trường Đại học Công nghệ Thông tin | University of Information Technology" width="400">
+  </a>
+</p>
+
+<h1 align="center" style="color: #4032a8;"><b> SE104.P12 - NHẬP MÔN CÔNG NGHỆ PHẦN MỀM </b></h1>
+
+<hr>
+
+
+## 👉 GIỚI THIỆU MÔN HỌC
+<a name ='gioithieumonhoc'></a>
+
+- **Tên môn học**: NHẬP MÔN CÔNG NGHỆ PHẦN MỀM
+- **Mã môn học**: SE104SE104
+- **Lớp học**: SE104.P12
+- **Năm học**: 2024-2025
+
+## 🌍 GIẢNG VIÊN HƯỚNG DẪN
+<a name="giangvien"></a>
+
+- PGS.TS. **Đỗ Thị Thanh Tuyền** - *tuyendtt@uit.edu.vn*
+
+## 🧑‍💻 GIỚI THIỆU NHÓM
+<a name="banthan"></a>
+- **Sinh viên khoá**: K17
+- **Trường** : Đại học Công Nghệ Thông Tin
+
+## 👨‍👩‍👧‍👦 THÔNG TIN THÀNH VIÊN
+
+| MSSV       | Họ và Tên          |                                                                                  
+| ---------- | ------------------ 
+| `22521070` | Lưu Đoàn Ngọc Phát 
+| `22520211` | Huỳnh Danh Đạt     
+| `22521078` | Bùi Nhật Phi       
+| `2252xxxx` | Hứa Hồng Khanh      
+| `2252xxxx` | Nguyễn Anh Tú       
+<hr>
+
+## ✈️ ĐỒ ÁN MÔN HỌC
+<a name="doan"></a>
+- Đề tài quản lý nhà sách
+
 # Online BookStore Project
 
-Hệ thống quản lý và bán sách trực tuyến được xây dựng bằng Python Flask và MySQL/MongoDB.
+Hệ thống quản lý và bán sách trực tuyến được xây dựng bằng Python Flask và MySQL
 
-## 🚀 Tính năng chính
-
-- **Quản lý sách**: Thêm, sửa, xóa và tìm kiếm sách
-- **Quản lý người dùng**: Hệ thống phân quyền Admin/Customer
-- **Giỏ hàng**: Cho phép mua nhiều sách cùng lúc
-- **Tìm kiếm**: Theo tên, thể loại, tác giả
-- **Quản lý đơn hàng**: Theo dõi trạng thái đơn hàng
 
 ## 📋 Yêu cầu hệ thống
 
 - Python 3.7 trở lên
-- MySQL hoặc MongoDB (tùy phiên bản)
+- MySQL
 - pip (Python package manager)
 
 ## 🛠 Hướng dẫn cài đặt
@@ -22,7 +61,7 @@ Hệ thống quản lý và bán sách trực tuyến được xây dựng bằn
 
 ```bash
 git clone <https://github.com/KamisatoKarin/SE104.git>
-cd "Using MySQL" or cd "Using NoSQL - MongoDB"
+cd "Using MySQL" 
 ```
 ##2. Cài môi trường 
 ```bash
